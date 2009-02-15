@@ -24,3 +24,4 @@ Kedze v nazve je "open source", v DP sa vyuzili aj open source prvky od roznych 
  * prerobeny uvodny login
  * contacts nech su viditelni aj userom (ale bez moznosti pridavat)
  * vymazana install procedura (iba html s info, aby si vytvoril db a pod.) (este OTESTOVAT!)
+ * pridana sekcia Status (zatial v testovacom stadiu)
