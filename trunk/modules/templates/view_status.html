@@ -1,0 +1,126 @@
+<!-- BEGIN: main -->
+<head>
+	<title>{page_title}</title>
+	<meta http-equiv="Content-Language" content="English" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="David Herreman (www.free-css-templates.com)" />
+	<meta name="description" content="<?php echo $page_description; ?>" />
+	<meta name="keywords" content="<?php echo $page_keywords; ?>" />
+	<meta name="Revisit-After" content="7 Days" />
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<script language="javascript">
+<!--
+function GoTo(sel) {
+var url = sel.options[sel.selectedIndex].value;
+if (url != "#") {
+window.open(url, "_self");
+}
+}
+-->
+</script>
+
+<body>
+
+<div id="prec2">
+<div class="help">
+	<div style="background: #FFF url(images/logo-status-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
+        <p>This section allows you to select a status and message to display to everyone in the directory.<br>
+You can also view the status of other people.</p>
+        <h4>Show All Users</h4>
+      <blockquote>
+          To view the status of others, select Show All Users. You will then   be shown 3 options.
+        <ol>
+            <li><strong>Show All </strong> - View all users.</li>
+            <li><strong>Available </strong> - View only available users.</li>
+            <li><strong>Unavailable</strong> - View only unavailable users.</li>
+          </ol>
+        <p align="left">The number in the parenthesis is the number of users that fall under   that description. Ex. "Available   (14)" There are 14 users that have their status   set to Available.<br>
+        </p>
+      </blockquote>
+</div>
+
+<div id="main">
+     <form action="" method="post" id="form1"  style="padding-left:20px">
+	<div id="right_side">
+<h3>
+  <div style="background: url(images/logo-status-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Status Options</div></h3>
+	    <ul>
+		<li><a href="">Save my edited status</a></li>
+            <div style="padding-left:20px;padding-bottom:15px;">
+  <input type="submit" name="submit_add" value="  Save  ">
+            </div>
+		<li><a href=""> View users status</a></li>
+            <div style="padding-left:20px;"><select name="other_status" size="1" onChange="GoTo(this);">
+          <option {selected_all} value="?module=view_status&others_status=all">- Show All -</option>
+          <option style="color: #00CC00" {selected_1} value="?module=view_status&others_status=in">Available</option>
+          <option style="color: #9F9F9F;" {selected_0} value="?module=view_status&others_status=out">Unavailable</option>
+</select>
+<input type="submit" name="save" value="Save View">
+
+	</div>
+	    </ul>
+	</div>
+     </form>
+
+<!-- my status -->
+<div id="left_side">
+
+	<h3>
+	  <div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">My Status</div></h3>
+	    <table width="560" bgcolor="#F6F6F6" border="1px">
+
+		<tr>
+        <td width="144">My status{my_status}</td>
+        <td width="144">My away msg{my_away_msg}</td>
+		<td width="144">Since {datetime}</td>
+		</tr>
+</table>
+<p></p>
+	<table width="560">
+              <tr>
+        <td width="144">
+           <div style="padding-left:20px;"><select name="my_status" size="1">
+          <option style="color: #00CC00" {selected_in} value="in">Available</option>
+          <option style="color: #9F9F9F;" {selected_out} value="out">Unavailable</option>
+</select></div></td>
+        <td><strong>Status msg: </strong></td>
+        <td><input type="text" name="fname" size="40" maxlength="50" value="{my_status_msg}">
+        *</td>
+
+      </tr>
+           </table>
+</div>
+<!-- ///my status -->
+
+<div id="left_side">
+
+	<h3>
+	  <div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Status table</div></h3>
+
+	 <table width="560" bgcolor="#F6F6F6" >
+       <!-- BEGIN: column -->
+	  <tr bgcolor="#DFDFDF" >
+	    <td align="center" width="127"><a href="index.php?module=view_status&ob=ob_ln"><strong>Last, First Name</strong></a></td>
+	    <td align="center" width="55"><a href="index.php?module=view_status&ob=ob_status"><strong>Status</strong></a></td>
+	    <td align="center" width="184"><a href="index.php?module=view_status&ob=ob_away_msg&mbr_of={mbr_of}"><strong>Status msg</strong></a></td>
+	    <td align="center" width="94"><a href="index.php?module=view_status&ob=ob_access_lvl"><strong>Access Level</strong></a></td>
+        </tr>
+  <!-- END: column -->
+
+  <!-- BEGIN: row -->
+	  <tr>
+	    <td bgcolor="{bg}">{name}</td>
+	    <td bgcolor="{bg}">{status}</td>
+	    <td bgcolor="{bg}">{away_msg}</td>
+	    <td bgcolor="{bg}">{access_lvl}</td>
+  </tr>
+  <!-- END: row -->
+  </table></div>
+
+</div>
+</div>
+</div>
+</body>
+<!-- END: main -->

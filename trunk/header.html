@@ -1,0 +1,47 @@
+<!-- BEGIN: main -->
+<head>
+	<title>{page_title}</title>
+	<meta http-equiv="Content-Language" content="English" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="David Herreman (www.free-css-templates.com)" />
+	<meta name="description" content="<?php echo $page_description; ?>" />
+	<meta name="keywords" content="<?php echo $page_keywords; ?>" />
+	<meta name="Revisit-After" content="7 Days" />
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<body>
+
+<div class="content">
+	<div id="top">
+		<div id="icons">
+			<a href="/index.html" title="Home page"><img src="images/home.gif" alt="Home" /></a>
+			<a href="/contact/" title="Contact us"><img src="images/contact.gif" alt="Contact" /></a>
+
+		</div>
+        <div id="login">
+		<h2>Logged in as:  {current}</h2>
+	      <a href="index.php?module=my_account">My Account</a> |
+	      <a href="login.php?module=logout">Log out</a>
+	</div>
+
+	<h1>Unified Communications solution</h1>
+	<h2>Web portal includes some components from UC</h2>
+
+	<div id="submenu" align="center" class="smallgraytext">
+		<a href="index.php">Home</a>
+              | <a href="index.php?module=view_status"><?php echo $lng_status; ?>Status</a>
+              | <a href="index.php?module=view_im">IM</a>
+              | <a href="index.php?module=view_memos">Memos</a>
+              | <a href="index.php?module=view_contacts">Contacts</a>
+
+        <!-- BEGIN: admin_section -->
+              | <a href="index.php?module=view_phones">Phones Registration</a>
+              | <a href="index.php?module=view_xcap">XCAP Administration</a>
+              | <a href="index.php?module=view_users">Web Users Administration</a>
+        <!-- END: admin_section -->
+	</div>
+</div>
+</div>
+</body>
+<!-- END: main -->
