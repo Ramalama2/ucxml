@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Moj Diplomovy Projekt :) - *Unified Communications in Open Source*
+Moj Diplomovy Projekt :) - *Unified Communications solution with Open Source applications*
 
 zatial popis iba taky strucny...
 
