@@ -1,0 +1,142 @@
+<!-- BEGIN: main -->
+<head>
+	<title>{page_title}</title>
+	<meta http-equiv="Content-Language" content="English" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="David Herreman (www.free-css-templates.com)" />
+	<meta name="description" content="<?php echo $page_description; ?>" />
+	<meta name="keywords" content="<?php echo $page_keywords; ?>" />
+	<meta name="Revisit-After" content="7 Days" />
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<script LANGUAGE="JavaScript">
+<!--
+function clear_textbox()
+{
+	if (document.forms[0].password0.value == "{fake_password}" || document.forms[0].password0.value == "{fake_password}")
+	{
+		document.forms[0].password0.value = "";
+		document.forms[0].password1.value = "";
+	}
+}
+function validate_edit_user()
+  {
+	ok=1;
+	errors = "";
+	if(document.forms[0].username.value == "") 
+	{ 
+		errors += " - Username must be entered.\n";
+		ok=0;
+		document.forms[0].username.focus();
+	}
+	if(document.forms[0].password0.value == "" || document.forms[0].password1.value == "" || document.forms[0].password0.value == "{fake_password}") 
+	{ 
+		errors += " - Blank passwords not supported.\n";
+		ok=0;
+		document.forms[0].password0.focus();
+	}
+	if(document.forms[0].password0.value != document.forms[0].password1.value) 
+	{ 
+		errors += " - Passwords supplied do not match.\n";
+		ok=0;
+		document.forms[0].password0.focus();
+	}
+	if(ok == 0)
+	{
+		alert(errors);
+		return false;
+	}
+	else return true;
+  }
+ 
+// -->
+</script>
+<body>
+<div id="prec2">		
+<div class="help">
+	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
+        <p>Information collected when adding/editing web user information... </p>
+        <blockquote>
+          <ul>
+            <li><strong>Username</strong> - User's login name for this web interface</li>
+            <li><strong>Assign Password</strong> - Desired password for user login</li>
+            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
+            <li><strong>Email</strong> - User's email address</li>
+            <li><strong>Account Type</strong> - Assigns Account privileges for this web login.
+              <ul>
+                <li><em>Admin</em> - Account has access to all parts of web interface.</li>
+                <li><em>User </em>- Account has limited </li>
+              </ul>
+            </li>
+          </ul>
+        </blockquote>
+    </div>
+	
+	<div id="main">
+      <form name="form1" method="post" action="">
+	  <div id="right_side">
+	    <h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
+	    <ul>	
+		    <li><a href="#" title="Gallery">Save a created  user</a></li>
+              <div style="padding-left:20px;padding-bottom:15px;"><input type="hidden" name="id" value="{id}">
+              <input type="hidden" name="baseauth" value="{baseauth}">
+              <input type="hidden" name="action" value="edit">
+                <!-- BEGIN: notuser -->
+                <input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
+                <!-- END: notuser -->
+                <input type="submit" name="submit_save" onClick="return validate_edit_user()" value="  Save  ">
+		</div>
+
+            <li><a href="#" title="Articles">Cancel registration:</a></li>
+			<div style="padding-left:20px;"><input type="submit" name="submit_cancel" value=" Cancel ">
+                  <input type="hidden" name="id" value="{id}">
+              <input type="hidden" name="baseauth" value="{baseauth}">
+                  <input type="hidden" name="action" value="edit">
+</div>
+ 
+	    </ul>
+	  </div>
+		
+		<div id="left_side">
+			<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit User</div></h3>
+	    <table width="560" bgcolor="#F6F6F6" >
+			 <td width="118"><strong>Username:</strong></td>
+        <td width="420"><input type="text" name="username" size="30" maxlength="50" value="{username}">
+          * </td>
+          <tr>
+      <td width="200"></td>
+      <td> 
+        <!-- BEGIN: bad_username -->
+		Username taken, please choose another.
+        <!-- END: bad_username -->
+      </td>
+    </tr>
+      <tr>
+        <td><strong>Assign Password: </strong></td>
+        <td><input type="password" name="password0" onFocus="clear_textbox();" size="30" maxlength="50" value="{fake_password}">
+        *</td>
+      </tr>
+      <tr>
+        <td><strong>Repeat Password:</strong></td>
+        <td><input type="password" name="password1" onFocus="clear_textbox();" size="30" maxlength="50" value="{fake_password}">
+        *</td>
+      </tr>
+      <tr>
+        <td><strong>E-mail:</strong></td>
+        <td><input type="text" name="email" size="30" maxlength="50" value="{email}"></td>
+      </tr>
+      <tr>
+        <td><strong>Account Type:</strong></td>
+        <td><select name="account_type">
+          <option>{account_type}</option>
+          <option>{var_account_type}</option>
+        </select>
+        *</td>
+		  </tr></table></div>
+	  </form>
+	</div>
+</div>
+</div>
+</body>
+<!-- END: main -->

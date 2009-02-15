@@ -1,0 +1,113 @@
+<!-- BEGIN: main -->
+<head>
+	<title>{page_title}</title>
+	<meta http-equiv="Content-Language" content="English" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="author" content="David Herreman (www.free-css-templates.com)" />
+	<meta name="description" content="<?php echo $page_description; ?>" />
+	<meta name="keywords" content="<?php echo $page_keywords; ?>" />
+	<meta name="Revisit-After" content="7 Days" />
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>
+
+<script LANGUAGE="JavaScript">
+<!--
+
+function validate_search()
+  {
+	ok=1;
+	errors = "";
+    if(document.forms[0].member_of.value == "error") 
+   	{ 
+		errors += " You have selected a container, please select a category.\n";
+		ok=0;
+	}
+	if(ok == 0)
+	{
+		alert(errors);
+		return false;
+	}
+	else return true;
+  }
+// -->
+</script>
+
+<body>
+
+<div id="prec2">
+<div class="help">
+	<div style="background: #FFF url(images/logo-contacts-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
+        <p>Upon selecting the <strong>CONTACTS'</strong> link you will be presented with the text 'View Contacts in Contact Holder' along side a dropdown menu. This dropdown menu specifies what Contact Holder to show contacts from. Selecting a Contact Holder, then hitting search, will bring up only the contacts within that Contact Holder.</p>
+        <p>There will be 4 columns in the results of your search.</p>
+        <ul>
+          <li><strong>Last, First Name</strong> - The first and last name of the specific contact. This will be the information displayed on the phone to represent this contact.</li>
+          <li><strong>Title</strong> - The title will be displayed along side the Last, First name of the contact in the phone interface.</li>
+          <li><strong>Company</strong> - The company the contact belongs to. This information will be displayed along side the title, when viewing the contact using the phone interface.</li>
+          <li><strong>Edit/Delete</strong> - Clicking edit will direct you to the contact editing page. Clicking delete will delete this contact from the database.</li>
+        </ul>
+    </div>
+
+<div id="main">
+     <form action="" method="post" id="form1"  style="padding-left:20px">
+	<div id="right_side">
+<h3><div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Contacts Options</div></h3>
+	    <ul>
+		<li><a href="#" title="Gallery">Add new contact</a></li>
+            <div style="padding-left:20px;padding-bottom:15px;">
+                <input type="submit" name="submit_add" value="  Add  ">
+	</div>
+
+		<li><a href="">Import / Export contacts</a></li>
+            <div style="padding-left:20px;padding-bottom:15px;">
+                <input type="submit" name="submit_import" value="  Import  ">
+                <input type="submit" name="submit_export" value="  Export  ">
+	<a href="modules/export_contacts.php">export</a>
+	</div>
+
+
+		<li><a href=""> View Contacts in Contact Holder</a></li>
+            <div style="padding-left:20px;">
+              <select name="member_of" size="1">
+                <!-- BEGIN: member_of_dropdown -->
+                  <option  style="color:{color};" value="{category_id}" {selected}>{member_of}</option>
+                  <!-- END: member_of_dropdown -->
+              </select>
+              <input type="submit" onClick="return validate_search()" name="view" value="Search">
+	</div>
+	    </ul>
+	</div>
+     </form>
+
+<div id="left_side">
+
+	<h3><div style="background: url(images/logo-contacts-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Contacts table</div></h3>
+
+	 <table width="560" bgcolor="#F6F6F6" >
+       <!-- BEGIN: column -->
+	  <tr bgcolor="#DFDFDF" >
+	    <td align="center" width="135"><a href="index.php?module=view_contacts&ob=ob_ln&mbr_of={mbr_of}"><strong>Last, First Name</strong></a></td>
+	    <td align="center" width="136"><a href="index.php?module=view_contacts&ob=ob_title&mbr_of={mbr_of}"><strong>Title</strong></a></td>
+	    <td align="center" width="122"><a href="index.php?module=view_contacts&ob=ob_company&mbr_of={mbr_of}"><strong>Company</strong></a></td>
+	    <td align="center" width="74"><strong>Member Of</strong></td>
+	    <td width="69">&nbsp;&nbsp;</td>
+        </tr>
+  <!-- END: column -->
+
+  <!-- BEGIN: row -->
+	  <tr>
+	    <td bgcolor="{bg}"><a href="index.php?module=edit_contact&id={id}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{lname},{fname}</a></td>
+	    <td bgcolor="{bg}">{title}</td>
+	    <td bgcolor="{bg}">{company}</td>
+	    <td bgcolor="{bg}">{category}</td>
+		<td bgcolor="{bg}"><a href="index.php?module=edit_contact&id={id}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a>
+        | <a href="index.php?module=edit_contact&id={id}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
+  </tr>
+  <!-- END: row -->
+  </table></div>
+
+
+</div>
+</div>
+</div>
+</body>
+<!-- END: main -->

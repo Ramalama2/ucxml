@@ -1,0 +1,90 @@
+/*
+	CSS style
+
+	Zoli Toth, FEI TUKE
+
+	Unified Communications solution in open source - UCxml
+
+*/
+
+body { 
+padding: 0; margin: 0; 	font: .74em Arial, sans-serif; line-height: 1.5em; background: #fff url(images/top.jpg) repeat-x top; color: #454545; }
+	
+a { color: #DA3B3B; }
+a:hover { color: #DA3B3B; text-decoration: underline}
+p {	margin: 5px 0; }
+h1 {	font: bold 1.8em Arial, Sans-Serif; padding: 8px 0 4px 0; margin: 0; letter-spacing: -1px; }
+h2 { font: bold 1.6em Arial, Sans-Serif; letter-spacing: -1px; }
+h3 { padding: 4px 0; margin:  0; }
+ul { margin: 0; padding : 0; list-style: none; }
+img { border: 0; }
+hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0; margin: 10px 0; }
+
+.content { margin: 0px auto; width: 800px; }
+.help { margin: 0px auto; width: 800px; padding-top: 10px;}
+
+/* Top part */
+#top {padding-top: 20px; background: transparent; height: 101px; color: #0B0000;}
+
+#top h1 { font: bold 1.8em Arial, Sans-Serif; padding: 8px 0 4px 0; margin: 0; letter-spacing: 1px; color: #FFF }
+#top h2 { font: 1.0em Arial, Sans-Serif; letter-spacing: 0px; color: #868686; margin:0; padding: 0 }
+#top #login { float: right; margin-top:12px; padding-right: 10px; }
+
+#top #icons { float: right; margin-top:30px; padding:0 }
+#top #icons img { padding-right: 2px; border: 0 }
+#top #submenu{margin: 0 auto; padding-top: 32px; height:20px;}
+.smallgraytext {font: 1.0em Tahoma, sans-serif; font-size: 11px; font-weight:bold;}
+#submenu a {color: #222;}
+
+/* Second part */
+#prec { margin:0; padding: 0; background: #F6F6F6; border-bottom: 1px solid #DCDCDC; overflow: hidden; margin-bottom: 15px }
+#prec2 { margin:0; padding: 0; background: #fff; border-top: 1px solid #DCDCDC; overflow: hidden; margin-bottom: 15px }
+#wrap { margin: 0 auto;  height:auto; width: 800px; padding-top: 20px; color:#000; }
+
+	#wrap #pic { margin: 0 auto; background: #FF0000 url(images/mainimg.jpg) no-repeat; height: 220px; width: 540px; overflow: hidden;}
+	#wrap #pic #slogan { padding: 15px 30px 10px 30px;}
+	#wrap #pic #slogan a {text-decoration: none;}
+	
+#wrap #user { float: right; height: 260px; width: 510px; margin-right: 70px;overflow: hidden; border: dashed 1px #dadada; padding: 5px 10px 10px 10px; text-align:left;}
+#wrap #admin { float: right; height: 200px; width: 510px; overflow: hidden; border: dashed 1px #dadada; margin-right:70px; padding: 5px 10px 10px 10px; text-align:left; margin-bottom: 10px;}
+
+#wrap #menu_user { padding: 0; margin:0; margin-left:30px; margin-bottom: 250px; }
+#wrap #menu_admin { padding: 0; margin:0; margin-left:30px; }
+
+	#wrap a {padding-left: 25px; font:  1.2em Arial, Sans-Serif; text-decoration: none; background: #F6F6F6 url(images/lm-li.gif) no-repeat left;}
+	#wrap #user a, #admin a {padding-left: 0px; font:  1.1em Arial, Sans-Serif; text-decoration: none; background: #F6F6F6; }
+
+	#wrap td { padding-left: 5px; font:  1.0em Arial, Sans-Serif;}
+	#wrap ul { padding: 5px 0; }
+	#wrap li { line-height: 26px; background: #F6F6F6 url(images/li-line.gif) no-repeat bottom left; list-style: none; }
+
+		
+/* main area */
+#main { }
+
+#right_side { float: right; width: 210px; border: 1px solid #DCDCDC; background: #F6F6F6; padding: 5px 10px 5px 10px; margin-bottom: 10px }
+#right_side ul { padding: 3px 0 8px 0 } 
+#right_side li { line-height: 18px; background: #F6F6F6 url(images/cat-li.gif) no-repeat left; list-style: none; padding-left: 20px; }
+#right_side a { background: #F6F6F6; text-decoration:  none }
+#right_side h3 { color: #404040; font:  bold 1.2em Arial, Sans-Serif; }
+	
+#left_side { background: #F6F6F6; margin-bottom: 10px; width: 560px; border: 1px solid #DCDCDC;  }
+#left_side td { font: 0.9em Arial, Helvetica, sans-serif;}
+#left_side a { text-decoration: none; font: 0.9em Arial, Helvetica, sans-serif;}
+#left_side a:hover {
+	text-decoration: underline;
+	text-align: center;
+	font-size: 0.9em;
+}
+#left_side h3 { padding: 5px 0 0 0px; margin: 0; font:  bold 1.2em Arial, Sans-Serif; }
+	#left_side p { color: #454545; padding: 0 5px 0 5px; text-align: justify }
+	#left_side img { float: left; padding: 0 10px 5px 0 }
+	#left_side ul { list-style-position: inside; margin-left: 2px }
+	#left_side ul li { list-style-type: square; margin-left: 15px;  }
+	#left_side ul ul li { list-style: none; margin-left: 10px; list-style-type: lower-alpha; list-style-position: inside }
+	
+/* The footer */
+#footer { clear: both; width: 800px; border-top: 1px solid #DCDCDC; margin: 0 auto; margin-top: 10px; color: #777; 
+background: #fff }
+#footer .right  { float: right; text-align: right; background: #FFF; }
+#footer a { text-decoration: none; background: #FFF }
