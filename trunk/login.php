@@ -1,10 +1,10 @@
 <?php
 
 /*
-	login.php - User Authentication Page XML Directory
-	
+	UCxml web Portal - Login
+
 	Zoli Toth, FEI TUKE
-	Unified Communications solution in open source - UCxml
+	Unified Communications solution with Open Source applications - UCxml
 
 	original idea:
 	Joe Hopkins <joe@csma.biz>
@@ -25,6 +25,7 @@ if (isset($_GET['module']) && $_POST['username'] == "")
 	if ($ModuleName == "logout")
 	{
 		session_destroy();
+		session_unset();
 		$logout = "You have been successfully logged out!";
 	}
 }
@@ -49,6 +50,8 @@ if(isset($_POST['Login']))
 		header("Location: index.php?module=menu");
 	} else {
 		//fail to login
+		session_destroy();
+		session_unset();
 		$errMsg = "Bad Username or Password";
 	}
 }
@@ -75,7 +78,7 @@ output_login_page($errMsg,$logout,$installed);
 function output_login_page ($errMsg,$logout,$installed)
 {
 
-	$xtpl=new XTemplate ("modules/templates/login.html");
+	$xtpl=new XTemplate ("login.html");
 	if ($installed == 'false')
 	{
 		$xtpl->parse("main.install");

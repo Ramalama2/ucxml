@@ -3,7 +3,7 @@
 	UCxml web Portal - Main menu
 	
 	Zoli Toth, FEI TUKE
-	Unified Communications solution in open source - UCxml
+	Unified Communications solution with Open Source applications - UCxml
 
 	original idea:		
 	Joe Hopkins <joe@csma.biz>

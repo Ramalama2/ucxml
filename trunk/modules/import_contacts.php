@@ -3,7 +3,7 @@
 	UCxml web Portal - Import contacts
 	
 	Zoli Toth, FEI TUKE
-	Unified Communications solution in open source - UCxml
+	Unified Communications solution with Open Source applications - UCxml
 
 */
 
