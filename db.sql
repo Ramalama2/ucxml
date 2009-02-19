@@ -21,21 +21,21 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS `contacts` (
   `id` varchar(36) NOT NULL DEFAULT '0',
-  `display_name` varchar(100) NOT NULL DEFAULT '',
-  `member_of` varchar(100) NOT NULL DEFAULT '',
-  `type` varchar(100) NOT NULL DEFAULT '',
-  `lname` varchar(100) NOT NULL DEFAULT '',
-  `fname` varchar(100) NOT NULL DEFAULT '',
-  `company` varchar(100) NOT NULL DEFAULT '',
-  `title` varchar(100) NOT NULL DEFAULT '',
-  `office_phone` varchar(100) DEFAULT '',
-  `home_phone` varchar(100) DEFAULT '',
-  `cell_phone` varchar(100) DEFAULT '',
+  `display_name` varchar(30) NOT NULL DEFAULT '',
+  `member_of` varchar(32) NOT NULL DEFAULT '',
+  `type` varchar(30) NOT NULL DEFAULT '',
+  `lname` varchar(30) NOT NULL DEFAULT '',
+  `fname` varchar(30) NOT NULL DEFAULT '',
+  `company` varchar(30) NOT NULL DEFAULT '',
+  `title` varchar(30) NOT NULL DEFAULT '',
+  `office_phone` varchar(30) DEFAULT '',
+  `home_phone` varchar(30) DEFAULT '',
+  `cell_phone` varchar(30) DEFAULT '',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `owner` varchar(100) NOT NULL DEFAULT '',
-  `custom_phone` varchar(100) DEFAULT '',
-  `custom_number` varchar(100) DEFAULT '',
-  `other_phone` varchar(100) DEFAULT ''
+  `owner` varchar(20) NOT NULL DEFAULT '',
+  `custom_phone` varchar(30) DEFAULT '',
+  `custom_number` varchar(30) DEFAULT '',
+  `other_phone` varchar(30) DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -54,15 +54,15 @@ INSERT INTO `contacts` (`id`, `display_name`, `member_of`, `type`, `lname`, `fna
 --
 
 CREATE TABLE IF NOT EXISTS `memos` (
-  `id` varchar(100) NOT NULL DEFAULT '',
+  `id` varchar(36) NOT NULL DEFAULT '',
   `msg` blob NOT NULL,
   `date` int(11) NOT NULL DEFAULT '0',
-  `access` varchar(100) NOT NULL DEFAULT '',
-  `sender` varchar(100) NOT NULL DEFAULT '',
-  `receiver` varchar(100) NOT NULL DEFAULT '',
-  `title` varchar(100) NOT NULL DEFAULT '',
+  `access` varchar(20) NOT NULL DEFAULT '',
+  `sender` varchar(20) NOT NULL DEFAULT '',
+  `receiver` varchar(20) NOT NULL DEFAULT '',
+  `title` varchar(30) NOT NULL DEFAULT '',
   `preference` varchar(11) NOT NULL DEFAULT '',
-  `memo_ob` varchar(20) NOT NULL DEFAULT ''
+  `memo_ob` varchar(6) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -103,14 +103,14 @@ INSERT INTO `object` (`id`, `type`, `member_of`, `title`) VALUES
 
 CREATE TABLE IF NOT EXISTS `phone` (
   `id` varchar(36) NOT NULL DEFAULT '0',
-  `MAC` varchar(100) NOT NULL DEFAULT '',
-  `date` varchar(100) NOT NULL DEFAULT '',
-  `number` varchar(100) NOT NULL DEFAULT '',
+  `MAC` varchar(16) NOT NULL DEFAULT '',
+  `date` varchar(12) NOT NULL DEFAULT '',
+  `number` varchar(20) NOT NULL DEFAULT '',
   `away_msg` varchar(100) NOT NULL DEFAULT '',
-  `fname` varchar(100) NOT NULL DEFAULT '',
-  `lname` varchar(100) NOT NULL DEFAULT '',
+  `fname` varchar(20) NOT NULL DEFAULT '',
+  `lname` varchar(20) NOT NULL DEFAULT '',
   `status` int(1) NOT NULL DEFAULT '0',
-  `access_lvl` varchar(100) DEFAULT '',
+  `access_lvl` varchar(12) DEFAULT '',
   `preference` varchar(11) NOT NULL DEFAULT '',
   `ph_sec` char(3) NOT NULL DEFAULT '',
   `status_view` varchar(2) NOT NULL DEFAULT '-1'
@@ -132,10 +132,10 @@ INSERT INTO `phone` (`id`, `MAC`, `date`, `number`, `away_msg`, `fname`, `lname`
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` varchar(36) NOT NULL DEFAULT '',
-  `username` varchar(100) NOT NULL DEFAULT '',
-  `password` varchar(100) NOT NULL DEFAULT '',
-  `email` varchar(100) NOT NULL DEFAULT '',
-  `account_type` varchar(100) NOT NULL DEFAULT ''
+  `username` varchar(50) NOT NULL DEFAULT '',
+  `password` varchar(32) NOT NULL DEFAULT '',
+  `email` varchar(50) NOT NULL DEFAULT '',
+  `account_type` varchar(5) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --

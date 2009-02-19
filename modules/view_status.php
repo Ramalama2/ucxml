@@ -3,7 +3,7 @@
 	UCxml web Portal - View contacts
 	
 	Zoli Toth, FEI TUKE
-	Unified Communications solution in open source - UCxml
+	Unified Communications solution with Open Source applications - UCxml
 */
 
 
@@ -95,23 +95,22 @@ function output_view_status ()
 
 		$others_status = defang_input($_GET['others_status']);
 
-		if ($others_status == 'in')
+		if ($others_status == 'all')
 		{
-			//user wants to view people in the available, status
-			$loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
-			$xtpl->assign("selected_1",'selected');
-			$xtpl->assign("in",$others_status);
-
+            //user wants to view everyones' status
+			$loc_sql = "WHERE phone.access_lvl != 'unknown'";
+			$xtpl->assign("selected_all",'selected');
 
 		} elseif ($others_status == 'out') {
 			//user wants to view people unavailable, status
 			$loc_sql = "WHERE phone.status = 0 AND phone.access_lvl != 'unknown'";
 			$xtpl->assign("selected_0",'selected');
 
-		} elseif ($others_status == 'all') {
-			//user wants to view everyones' status
-			$loc_sql = "WHERE phone.access_lvl != 'unknown'";
-			$xtpl->assign("selected_all",'selected');
+		} elseif ($others_status == 'in') {
+			//user wants to view people in the available, status
+			$loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
+			$xtpl->assign("selected_1",'selected');
+			$xtpl->assign("in",$others_status);
 
 		}
 		else{

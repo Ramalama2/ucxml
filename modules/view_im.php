@@ -1,16 +1,12 @@
 <?php
 /*
-	UCxml web Portal - View contacts
+	XML Directory - Web User Interface
 	
-	Zoli Toth, FEI TUKE
-	Unified Communications solution with Open Source applications - UCxml
-
-	original idea:	
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
-$xtpl=new XTemplate ("modules/templates/view_contacts.html");
+$xtpl=new XTemplate ("modules/templates/view_im.html");
 
 if (isset($_POST['submit_add']))
 {
@@ -31,7 +27,7 @@ if (isset($_POST['submit_add']))
 	
 } else {
 	//display contacts
-	render_HeaderFooter("UCxml web Portal - Manage Contacts");
+	render_HeaderFooter("Open 79XX XML Directory - Manage Contacts");
 	output_view_contacts();
 	render_Footer();		
 }
@@ -43,31 +39,7 @@ if (isset($_POST['submit_add']))
 function output_view_contacts ()
 {
 	global $db, $xtpl;
-	$xtpl=new XTemplate ("modules/templates/view_contacts.html");
-
-	
-	//Assign categories to dropdown
-	$member_of_sql = "SELECT * FROM object WHERE type = 'category' ORDER BY object.title";
-	$chk = mysql_query($member_of_sql, $db);
-	$member_of_qry = mysql_query($member_of_sql, $db);
-
-
-	if (isset($_POST['member_of']))
-	{
-		$in_member = defang_input($_POST['member_of']);
-	} else {
-		$in_member = defang_input($_GET['mbr_of']);
-	}
-
-	$xtpl->assign("member_of","- Show All -");
-	$xtpl->parse('main.member_of_dropdown');
-
-	dropdown_menu(0,0,$in_member);
-
-	if ($in_member != '' && $in_member != '- Show All -')
-	{
-		$tmp_sql_view = "WHERE member_of = "."'".$in_member."'";
-	}
+	$xtpl=new XTemplate ("modules/templates/view_im.html");
 
 
 	//custum order by
@@ -76,14 +48,38 @@ function output_view_contacts ()
 		if ($_GET['ob'] == "ob_ln")
 		{
 			$ob = "lname";
-		} elseif ($_GET['ob'] == "ob_title") {
+		} elseif ($_GET['ob'] == "ob_title") { 
 			$ob = "title";
-		} elseif ($_GET['ob'] == "ob_company") {
+		} elseif ($_GET['ob'] == "ob_company") { 
 			$ob = "company";
 		}
 	} else {
 	$ob = "lname";
 	}
+	
+	//Assign categories to dropdown
+	$member_of_sql = "SELECT * FROM object WHERE type = 'category' ORDER BY object.title";
+	$chk = mysql_query($member_of_sql, $db);
+	$member_of_qry = mysql_query($member_of_sql, $db);
+	
+	
+	if (isset($_POST['member_of']))
+	{
+		$in_member = defang_input($_POST['member_of']);
+	} else {
+		$in_member = defang_input($_GET['mbr_of']);
+	}
+	
+	$xtpl->assign("member_of","- Show All -");	
+	$xtpl->parse('main.member_of_dropdown');
+	
+	dropdown_menu(0,0,$in_member);
+	
+	if ($in_member != '' && $in_member != '- Show All -')
+	{
+		$tmp_sql_view = "WHERE member_of = "."'".$in_member."'";
+	}
+	
 
 		$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
@@ -176,12 +172,12 @@ function dropdown_menu($member_of, $indent,$in_member)
 			{
 				$xtpl->assign("category_id",'error');
 				$xtpl->assign("color",'#9F9F9F'); //color it grey
-
+				//$xtpl->assign("bgcolor",'#FFFFFF');
 
 			} else { //object is a category
 				$xtpl->assign("category_id",$mo2['id']);
 				$xtpl->assign("color",'#000000');
- 
+				//$xtpl->assign("bgcolor",'#999999');
 			}
 			if ($mo2['id'] == $in_member)
 			{

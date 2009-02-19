@@ -3,11 +3,10 @@
 	UCxml web Portal - Export contacts
 	
 	Zoli Toth, FEI TUKE
-	Unified Communications solution in open source - UCxml
+	Unified Communications solution with Open Source applications - UCxml
 
 */
 
-require_once "../lib/mysql.php";
 $host = 'localhost';
 $user = 'root';
 $pass = 'root';
@@ -42,5 +41,4 @@ header("Content-disposition: csv" . date("Y-m-d") . ".csv");
 header( "Content-disposition: filename=".$filename.".csv");
 print $csv_output;
 exit;
-?>
 ?>
