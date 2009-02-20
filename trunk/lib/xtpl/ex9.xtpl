@@ -1,0 +1,42 @@
+<!-- BEGIN: main -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Language" content="en" />
+<meta name="GENERATOR" content="Co-Comp Ltd" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>XTemplate Tag Callbacks</title>
+</head>
+<!-- $HeadURL: https://xtpl.svn.sourceforge.net/svnroot/xtpl/trunk/ex8.xtpl $
+$Id: ex8.xtpl 21 2007-05-29 18:01:15Z cocomp $ -->
+<body>
+	<h1>Tag Callbacks</h1>
+	<div>
+		This example shows using tag callbacks to call php functions or methods.<br />
+		In this example we use the default text "Some text for example"
+
+		<ul>
+			<li>Standard tags look like {tagname} or {tagarray.indexname} for arrays</li>
+			<li>Tags with comments look like {tagname# Comment} or {tagname # Comment}</li>
+			<li>Tags with callbacks look like {tagname|function} (using vertical bar or pipe symbol)</li>
+			<li>They can all be combined {tagarray.indexname|function#Comment}</li>
+		</ul>
+
+		<ul>
+			<li>Simple callback {example1|strtoupper}: {{example1|strtoupper}}</li>
+			<li>Simple callback (same tag different callback) {example1|strtolower}: {{example1|strtolower}}</li>
+			<li>Chained callbacks {example2|strtolower|ucwords}: {{example2|strtolower|ucwords}}</li>
+			<li>Multi-parameter callback {example3|str_replace('Some', 'Replaced', %s)}: {{example3|str_replace('Some', 'Replaced', %s)}}</li>
+			<li>Subclassed method callback {example4|my_custom_callback}: {{example4|my_custom_callback}}</li>
+			<li>Taking things to the limit {example5|strtolower|ucwords|str_replace(Some, 'My, Rep,  la\'ced Test', "%s")|my_custom_callback}: {{example5|strtolower|ucwords|str_replace(Some, 'My, Rep,  la\'ced Test', "%s")|my_custom_callback# It took some real effort to get the regular expression for this working!}}</li>
+		</ul>
+	</div>
+	<div><p>Any methods you create in a sub-class of XTemplate (e.g. my_class extends XTemplate) are automatically available as a callback and will take priority over function calls of the same name.<br />
+	Additionally, the following callback functions are available as standard (can be altered in XTemplate::allowed_callbacks array):</p>
+	<!-- BEGIN: callback -->
+	<a href="http://php.net/{{callback}}" title="Lookup function on PHP.net">{{callback}}</a>,
+	<!-- END: callback -->
+	</div>
+</body>
+</html>
+<!-- END: main -->

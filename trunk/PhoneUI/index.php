@@ -1,5 +1,5 @@
 <?php
-require_once "../lib/xtpl.php";
+require_once "../lib/xtpl/xtemplate.class.php";
 require_once "../lib/utils.php";
 require_once "../lib/mysql.php";
 
