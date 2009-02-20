@@ -3,7 +3,7 @@
 	UCxml PhoneUI - browse menu items
 	
 	Zoli Toth, FEI TUKE
-	Unified Communications solution in open source - UCxml
+	Unified Communications solution with Open Source applications - UCxml
 
 	original idea:		
 	Joe Hopkins <joe@csma.biz>
@@ -11,7 +11,7 @@
 */
 
 
-require_once "../lib/xtpl.php";
+require_once "../lib/xtpl/xtemplate.class.php";
 require_once "../lib/utils.php";
 require_once "../lib/mysql.php";
 
@@ -323,11 +323,10 @@ function parse_phone ($in_phone)
 
 function return_dial($phone)
 {
-	/*
-		This function is used to display the number and for each of the contacts different phones,
-		The user is able to hit dial from this screen
-		If in global settings prefix is checked, then the custom prefix will be attached to the number
-	*/
+/*
+	This function is used to display the number and for each of the contacts different phones,
+	The user is able to hit dial from this screen
+*/
 
 	$number = $phone;
 	return $number;
