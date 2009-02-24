@@ -226,7 +226,7 @@ $csv_output .= "\n";
 }
 
 $filename = $file."_".date("Y-m-d_H-i",time());
-header("Content-type: application/vnd.ms-excel");
+header("Content-type:text/octect-stream");
 header("Content-disposition: csv" . date("Y-m-d") . ".csv");
 header( "Content-disposition: filename=".$filename.".csv");
 print $csv_output;
