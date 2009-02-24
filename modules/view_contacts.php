@@ -17,7 +17,7 @@ if (isset($_POST['submit_add']))
 	// add contact
 	$tmp_id = create_guid($tmp_id);
 	$tmp_owner = $_SESSION['user_id'];
-	$tmpInitSQL = "INSERT INTO contacts (id,owner) VALUES ('$tmp_id','$tmp_owner')";
+	$tmpInitSQL = "INSERT INTO contacts (id) VALUES ('$tmp_id')";
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
 		// show editor
@@ -37,7 +37,7 @@ if (isset($_POST['submit_add']))
 	//display contacts
 	render_HeaderFooter("UCxml web Portal - Manage Contacts");
 	output_view_contacts();
-	render_Footer();		
+	render_Footer();
 }
 
 //
@@ -50,29 +50,32 @@ function output_view_contacts ()
 	$xtpl=new XTemplate ("modules/templates/view_contacts.html");
 
 
-	//Assign categories to dropdown
-	$member_of_sql = "SELECT * FROM object WHERE type = 'category' ORDER BY object.title";
-	$chk = mysql_query($member_of_sql, $db);
-	$member_of_qry = mysql_query($member_of_sql, $db);
+    if (isset($_GET['view_member_of'])) {
 
+		$view_member_of = defang_input($_GET['view_member_of']);
 
-	if (isset($_POST['member_of']))
-	{
-		$in_member = defang_input($_POST['member_of']);
-	} else {
-		$in_member = defang_input($_GET['mbr_of']);
-	}
+		if ($view_member_of == 'all')
+		{
+            //user wants to view everyones' status
+			$loc_sql = "";
+			$xtpl->assign("sel_all",'selected');
 
-	$xtpl->assign("member_of","- Show All -");
-	$xtpl->parse('main.member_of_dropdown');
+		} elseif ($view_member_of == 'b512') {
+			//user wants to view people unavailable, status
+			$loc_sql = "WHERE contacts.member_of = 'b512'";
+			$xtpl->assign("sel_b512",'selected');
 
-	dropdown_menu(0,0,$in_member);
+		} elseif ($view_member_of == 'b521') {
+			//user wants to view people unavailable, status
+			$loc_sql = "WHERE contacts.member_of = 'b521'";
+			$xtpl->assign("sel_b521",'selected');
 
-	if ($in_member != '' && $in_member != '- Show All -')
-	{
-		$tmp_sql_view = "WHERE member_of = "."'".$in_member."'";
-	}
-
+		} elseif ($view_member_of == 'emergency') {
+			//user wants to view people unavailable, status
+			$loc_sql = "WHERE contacts.member_of = 'emergency'";
+			$xtpl->assign("sel_emergency",'selected');
+		}
+    }
 
 	//custum order by
 	if (isset($_GET['ob']))
@@ -91,7 +94,7 @@ function output_view_contacts ()
 
 		$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
-		$theSQL = "SELECT id,fname,lname,company,title,member_of FROM contacts $tmp_sql_view ORDER BY $ob";
+		$theSQL = "SELECT id,fname,lname,company,title,member_of FROM contacts $loc_sql ORDER BY $ob";
 		$theRES = mysql_query($theSQL, $db);
 		$oddRow = true;
 		while ($in = mysql_fetch_assoc($theRES))
@@ -112,18 +115,8 @@ function output_view_contacts ()
 			$xtpl->assign("home_phone",$in['home_phone']);
 			$xtpl->assign("cell_phone",$in['cell_phone']);
 			$xtpl->assign("other_phone",$in['other_phone']);
+			$xtpl->assign("member_of",$in['member_of']);
 
-			$parent_id = $in['member_of'];
-			$parent_sql = "SELECT object.title as title, object.id AS id FROM object WHERE object.id = '$parent_id'";
-
-			$parent_result = mysql_query($parent_sql, $db);
-			if ($p = mysql_fetch_assoc($parent_result))
-			{
-				$xtpl->assign("category",$p['title']);
-				$xtpl->assign("cat_id",$p['id']);	
-			} else {
-				//sql error
-			}
 			$xtpl->parse("main.row");
 			$oddRow = !$oddRow;
 
@@ -135,74 +128,14 @@ function output_view_contacts ()
 				$result = mysql_query($sql);
 			}
 		}
-	/*}
-	else {
-		//User has not hit search
-		//show some breaks for whitespace
-		$xtpl->parse("main.breaks");
-	}*/
-	
+
 	// Output
 	$xtpl->parse("main");
 	$xtpl->out("main");
 }
-function dropdown_menu($member_of, $indent,$in_member)
-{
-	/*
-		This function selects the containers and categories from the database
-		and places them in the dropdown menu.  The containers are shown just for
-		reference as to where each category is.  The categories are colored grey.
-	*/
-
-	global $db, $xtpl;
-
-	//Assign containers to dropdown
-	$conQRY = "SELECT * FROM object WHERE member_of = '$member_of' ORDER BY 'title'";
-	$conRESULT = mysql_query($conQRY, $db);
-
-	while ($mo2 = mysql_fetch_assoc($conRESULT))
-	{
-		if ($mo2['type'] == "Category" || $mo2['type'] == "Container")
-		{
-			//Assign and parse each dropdown item
-
-			$x = 0;
-			while ($x < $indent)
-			{
-				$xtpl->assign("spacer","../");
-				$xtpl->parse("main.member_of_dropdown.spacer");
-				$xtpl->parse("main.row.member_of_list.spacer");
-				$x++;
-			}
-			$xtpl->assign("member_of",$mo2['title']);
-
-			if ($mo2['type'] == "Container")
-			{
-				$xtpl->assign("category_id",'error');
-				$xtpl->assign("color",'#9F9F9F'); //color it grey
-
-
-			} else { //object is a category
-				$xtpl->assign("category_id",$mo2['id']);
-				$xtpl->assign("color",'#000000');
-
-			}
-			if ($mo2['id'] == $in_member)
-			{
-				$xtpl->assign("selected","selected");
-			}
-
-			$xtpl->parse("main.member_of_dropdown");
-			$xtpl->parse("main.row.member_of_list");
-			$xtpl->assign("selected","");
-		}
-		dropdown_menu($mo2['id'], $indent+1,$in_member);
-	}
-}
 
 function CSVexport()
 {
-
 global $db;
 $table = 'contacts';
 $file = 'export';

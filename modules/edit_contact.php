@@ -1,11 +1,11 @@
 <?php
 /*
 	UCxml web Portal - Edit contact
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:	
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
@@ -40,7 +40,6 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			$tmp_custom_number = defang_input($_POST['custom_number']);
 			$tmp_cell_phone = defang_input($_POST['cell_phone']);
 			$tmp_other_phone = defang_input($_POST['other_phone']);
-			$tmp_owner = defang_input($_POST['owner']);
 
 
 			//Create clean name for display_name column in contacts table.
@@ -76,7 +75,6 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 				custom_phone='$tmp_custom_phone',
 				custom_number='$tmp_custom_number',
 				cell_phone='$tmp_cell_phone',
-				owner='$tmp_owner',
 				other_phone='$tmp_other_phone'
 				WHERE id='$tmp_id'";
 
@@ -132,7 +130,7 @@ function output_edit_contact ($myId)
 	if ($in = mysql_fetch_assoc($theRES))
 	{
 		$xtpl->assign("id",$in['id']);
-		$xtpl->assign("current_member_of",$in['member_of']);
+		$xtpl->assign("member_of",$in['member_of']);
 		$xtpl->assign("lname",$in['lname']);
 		$xtpl->assign("fname",$in['fname']);
 		$xtpl->assign("company",$in['company']);
@@ -151,34 +149,38 @@ function output_edit_contact ($myId)
 		$xtpl->assign("cell_phone",$in['cell_phone']);
 		$xtpl->assign("other_phone",$in['other_phone']);
 
-			//display owner of current contact
-			$tmp_owner = $in['owner'];
-			$theSQL = "SELECT username FROM users WHERE id='$tmp_owner'";
-			$theRES = mysql_query($theSQL, $db);
-			if ($in2 = mysql_fetch_assoc($theRES))
-			{
-				$tmp_owner_name = $in2['username'];
-			} else {
-				$tmp_owner_name = "Owner not found.";
-			}
-			$xtpl->assign("owner",$tmp_owner_name);
-			$xtpl->parse('main.cat_exist.own_noedit');
-
-		}
-
 		$xtpl->assign("date",$in['date']);
 
-		if ($in['style'] == "Seperate")
+
+		if ($in['member_of'] == "B512")
 		{
-			$xtpl->assign("style", "Seperate");
-			$xtpl->assign("var_style","Together");
-		} else {
-			$xtpl->assign("var_style", "Seperate");
-			$xtpl->assign("style","Together");
+			$xtpl->assign("sel_b512", "selected");
+			$xtpl->assign("sel_b521", "");
+			$xtpl->assign("sel_emergency", "");
+			$xtpl->assign("sel_choose", "");
+		}
+        elseif ($in['member_of'] == "B521")
+		{
+			$xtpl->assign("sel_b512", "");
+			$xtpl->assign("sel_b521", "selected");
+			$xtpl->assign("sel_emergency", "");
+			$xtpl->assign("sel_choose", "");
+		}
+        elseif ($in['member_of'] == "Emergency")
+		{	$xtpl->assign("sel_b512", "");
+			$xtpl->assign("sel_b521", "");
+			$xtpl->assign("sel_emergency", "selected");
+			$xtpl->assign("sel_choose", "");
+		}
+        else
+		{
+			$xtpl->assign("sel_b512", "");
+			$xtpl->assign("sel_b521", "");
+			$xtpl->assign("sel_emergency", "");
+			$xtpl->assign("sel_choose", "selected");
 		}
 
-		dropdown_menu(0,$in['member_of']);
-
+        }
 	$xtpl->parse('main.cat_exist');
 	$xtpl->parse('main');
 	$xtpl->out("main");

@@ -44,7 +44,6 @@ if (isset($_POST['action']))
 			}
 			
 			$tmp_email = defang_input($_POST['email']);
-			//$tmp_account_type = defang_input($_POST['account_type']);
 			
 			
 			if ($un = mysql_fetch_assoc($other_usernames))
@@ -106,12 +105,6 @@ function output_edit_user ($myId,$user)
 		$xtpl->assign("email",$in['email']);
 		$xtpl->assign("username",$in['username']);
 
-		if ($in['account_type'] == "Admin")
-		{
-			$xtpl->assign("account_type","Admin");
-		} else {
-			$xtpl->assign("account_type","User");
-		}
 	}
 	
 	if ($user == "bad")
@@ -120,12 +113,6 @@ function output_edit_user ($myId,$user)
 		$xtpl->assign("email",defang_input($_POST['email']));
 		$xtpl->assign("username",defang_input($_POST['username']));
 		$xtpl->assign("password",defang_input($_POST['password']));
-		if (defang_input($_POST['account_type']) == "Admin")
-		{
-			$xtpl->assign("account_type","Admin");
-		} else {
-			$xtpl->assign("account_type","User");
-		}
 	}
 	// Output
 	$xtpl->parse("main");
