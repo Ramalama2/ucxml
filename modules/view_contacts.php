@@ -1,11 +1,11 @@
 <?php
 /*
 	UCxml web Portal - View contacts
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:	
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
@@ -28,8 +28,12 @@ if (isset($_POST['submit_add']))
 	}
 } elseif (isset($_POST['submit_import'])) {
 		header("Location: index.php?module=import_contacts");
-	
-} else {
+
+}
+ elseif (isset($_POST['submit_export'])) {
+		CSVexport();
+
+}else {
 	//display contacts
 	render_HeaderFooter("UCxml web Portal - Manage Contacts");
 	output_view_contacts();
@@ -45,7 +49,7 @@ function output_view_contacts ()
 	global $db, $xtpl;
 	$xtpl=new XTemplate ("modules/templates/view_contacts.html");
 
-	
+
 	//Assign categories to dropdown
 	$member_of_sql = "SELECT * FROM object WHERE type = 'category' ORDER BY object.title";
 	$chk = mysql_query($member_of_sql, $db);
@@ -108,10 +112,10 @@ function output_view_contacts ()
 			$xtpl->assign("home_phone",$in['home_phone']);
 			$xtpl->assign("cell_phone",$in['cell_phone']);
 			$xtpl->assign("other_phone",$in['other_phone']);
-			
+
 			$parent_id = $in['member_of'];
 			$parent_sql = "SELECT object.title as title, object.id AS id FROM object WHERE object.id = '$parent_id'";
-			
+
 			$parent_result = mysql_query($parent_sql, $db);
 			if ($p = mysql_fetch_assoc($parent_result))
 			{
@@ -140,7 +144,7 @@ function output_view_contacts ()
 	
 	// Output
 	$xtpl->parse("main");
-	$xtpl->out("main");		
+	$xtpl->out("main");
 }
 function dropdown_menu($member_of, $indent,$in_member)
 {
@@ -149,13 +153,13 @@ function dropdown_menu($member_of, $indent,$in_member)
 		and places them in the dropdown menu.  The containers are shown just for
 		reference as to where each category is.  The categories are colored grey.
 	*/
-	
+
 	global $db, $xtpl;
 
 	//Assign containers to dropdown
 	$conQRY = "SELECT * FROM object WHERE member_of = '$member_of' ORDER BY 'title'";
 	$conRESULT = mysql_query($conQRY, $db);
-	
+
 	while ($mo2 = mysql_fetch_assoc($conRESULT))
 	{
 		if ($mo2['type'] == "Category" || $mo2['type'] == "Container")
@@ -181,7 +185,7 @@ function dropdown_menu($member_of, $indent,$in_member)
 			} else { //object is a category
 				$xtpl->assign("category_id",$mo2['id']);
 				$xtpl->assign("color",'#000000');
- 
+
 			}
 			if ($mo2['id'] == $in_member)
 			{
@@ -194,5 +198,39 @@ function dropdown_menu($member_of, $indent,$in_member)
 		}
 		dropdown_menu($mo2['id'], $indent+1,$in_member);
 	}
+}
+
+function CSVexport()
+{
+
+global $db;
+$table = 'contacts';
+$file = 'export';
+
+$result = mysql_query("SHOW COLUMNS FROM ".$table."");
+$i = 0;
+if (mysql_num_rows($result) > 0) {
+while ($row = mysql_fetch_assoc($result)) {
+$csv_output .= $row['Field']."; ";
+$i++;
+}
+}
+$csv_output .= "\n";
+
+$values = mysql_query("SELECT * FROM ".$table."");
+while ($rowr = mysql_fetch_row($values)) {
+for ($j=0;$j<$i;$j++) {
+$csv_output .= $rowr[$j]."; ";
+}
+$csv_output .= "\n";
+}
+
+$filename = $file."_".date("Y-m-d_H-i",time());
+header("Content-type: application/vnd.ms-excel");
+header("Content-disposition: csv" . date("Y-m-d") . ".csv");
+header( "Content-disposition: filename=".$filename.".csv");
+print $csv_output;
+exit;
+
 }
 ?>
