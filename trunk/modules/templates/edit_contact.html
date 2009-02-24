@@ -51,7 +51,6 @@ function validate_edit_contact()
         <p>Information collected when creating/editing a contact... </p>
           <ul>
             <li><strong>Title</strong> - Text you would like to be displayed along side the last, first name of the contact</li>
-            <li><strong>Owner</strong> - The username of the person who created this contact</li>
             <li><strong>Member Of</strong> - Contact Holder that contact is contained in.</li>
             <li><strong>First Name</strong> - The first name is the 2nd part of the contact label on the phone </li>
             <li><strong>Last Name</strong> - The last name is the first part of the contact label on the phone </li>
@@ -88,7 +87,7 @@ function validate_edit_contact()
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 		</div>
-            
+
             <li><a href="#" title="Articles">Delete Contact:</a></li>
                   <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
                   <input type="hidden" name="id" value="{id}">
@@ -102,30 +101,27 @@ function validate_edit_contact()
 		<div id="left_side">
 			<h3>
 			  <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Contacts</div></h3>
-			  <p>This contact created by: <strong>{owner}</strong>, modified at: <strong>{date}</strong></p>
+			  <p>This contact modified at: <strong>{date}</strong></p>
 	    <table width="560" bgcolor="#F6F6F6" >
     	<tr>
-        <td width="144"><strong>Member of Contact Holder </strong></td>
+        <td width="144"><strong>Member of </strong></td>
         <td width="404"><select name="member_of" size="1">
-            <!-- BEGIN: member_of_dropdown -->
-            <option  style="color:{color};" value="{category_id}" {selected}>
-            <!-- BEGIN: spacer -->
-            {spacer}
-            <!-- END: spacer -->
-            {member_of}</option>
-            <!-- END: member_of_dropdown -->
+            <option {sel_choose}>Choose</option>
+            <option {sel_b512}>B512</option>
+            <option {sel_b521}>B521</option>
+            <option {sel_emergency}>Emergency</option>
           </select>
           * </td>
 		</tr>
-   
-      <tr> 
+
+      <tr>
         <td width="200"></td>
         <td>&nbsp;</td>
       </tr>
         
       <tr>
         <td><strong>First Name: </strong></td>
-        <td><input type="text" name="fname" size="30" maxlength="50" value="{fname}"> 
+        <td><input type="text" name="fname" size="30" maxlength="50" value="{fname}">
         *</td>
       </tr>
       <tr>
@@ -143,37 +139,37 @@ function validate_edit_contact()
         <td><input type="text" name="title" size="30" maxlength="50" value="{title}"></td>
       </tr>
 
-      <tr> 
+      <tr>
         <td width="25"></td>
         <td>&nbsp;</td>
       </tr>
 
-      <tr> 
+      <tr>
         <td width="25"><strong>Phone Numbers:</strong></td>
         <td>&nbsp;</td>
       </tr>
 
-      <tr> 
+      <tr>
         <td width="25"><strong>Office Phone:</strong></td>
         <td><input type="text" name="office_phone" size="40" maxlength="100" value="{office_phone}"> </td>
       </tr>
 
-      <tr> 
+      <tr>
         <td width="25"><strong>Home Phone:</strong></td>
         <td><input type="text" name="home_phone" size="40" maxlength="100" value="{home_phone}"> </td>
       </tr>
 
-      <tr> 
+      <tr>
         <td width="25"><strong>Cell Phone:</strong></td>
         <td><input type="text" name="cell_phone" size="40" maxlength="100" value="{cell_phone}"> </td>
       </tr>
 
-      <tr> 
+      <tr>
         <td width="25"><strong>Other Phone:</strong></td>
         <td><input type="text" name="other_phone" size="40" maxlength="100" value="{other_phone}"> </td>
       </tr>
 
-      <tr> 
+      <tr>
         <td height="25"><input type="text" name="custom_phone" onFocus="clear_textbox();" size="25" maxlength="100" value="{custom_phone}"></td>
         <td><input type="text" name="custom_number" size="40" maxlength="100" value="{custom_number}"> </td>
       </tr>
@@ -183,8 +179,8 @@ function validate_edit_contact()
 	</div>
       <!-- END: cat_exist -->
   <!-- BEGIN: add_cat -->
-  <font size="2" face="Arial, Helvetica, sans-serif">You need a category before 
-  you create a contact. Use the object listings page to add a category</font> 
+  <font size="2" face="Arial, Helvetica, sans-serif">You need a category before
+  you create a contact. Use the object listings page to add a category</font>
   <!-- END: add_cat -->
 
 </div>

@@ -65,12 +65,6 @@ function validate_edit_user()
             <li><strong>Assign Password</strong> - Desired password for user login</li>
             <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
             <li><strong>Email</strong> - User's email address</li>
-            <li><strong>Account Type</strong> - Assigns Account privileges for this web login.
-              <ul>
-                <li><em>Admin</em> - Account has access to all parts of web interface.</li>
-                <li><em>User </em>- Account has limited </li>
-              </ul>
-            </li>
           </ul>
         </blockquote>
     </div>
@@ -130,14 +124,6 @@ function validate_edit_user()
         <td><strong>E-mail:</strong></td>
         <td><input type="text" name="email" size="30" maxlength="50" value="{email}"></td>
       </tr>
-      <tr>
-        <td><strong>Account Type:</strong></td>
-        <td><select name="account_type">
-          <option>{account_type}</option>
-          <option>{var_account_type}</option>
-        </select>
-        *</td>
-		</tr>
 		  </table></div>
 <input type="submit" value="Change">
 <select name="set-language">

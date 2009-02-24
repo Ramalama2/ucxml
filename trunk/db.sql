@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `id` varchar(36) NOT NULL DEFAULT '0',
   `display_name` varchar(30) NOT NULL DEFAULT '',
   `member_of` varchar(32) NOT NULL DEFAULT '',
-  `type` varchar(30) NOT NULL DEFAULT '',
   `lname` varchar(30) NOT NULL DEFAULT '',
   `fname` varchar(30) NOT NULL DEFAULT '',
   `company` varchar(30) NOT NULL DEFAULT '',
@@ -35,14 +34,15 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `owner` varchar(20) NOT NULL DEFAULT '',
   `custom_phone` varchar(30) DEFAULT '',
   `custom_number` varchar(30) DEFAULT '',
-  `other_phone` varchar(30) DEFAULT ''
+  `other_phone` varchar(30) DEFAULT '',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `contacts`
 --
 
-INSERT INTO `contacts` (`id`, `display_name`, `member_of`, `type`, `lname`, `fname`, `company`, `title`, `office_phone`, `home_phone`, `cell_phone`, `date`, `owner`, `custom_phone`, `custom_number`, `other_phone`) VALUES
+INSERT INTO `contacts` (`id`, `display_name`, `member_of`, `lname`, `fname`, `company`, `title`, `office_phone`, `home_phone`, `cell_phone`, `date`, `owner`, `custom_phone`, `custom_number`, `other_phone`) VALUES
 ('f0538239-592a7-64f48-158b-4991859e6a', 'VDJ, DJ - Skola', '8ef5254f-638f3-a62fd-68f2-42ea5b5c5b', 'VDJ', 'DJ', 'Skola', 'Ang.', '3444', '', '', '2009-02-10 15:47:03', '0', 'Create Custom', '', ''),
 ('a7d8d7a2-c722f-4caf7-a103-4991853a8d', 'Onovy, On - Skola', '6fbd03fe-207ba-39338-3072-42ea5ae8bb', 'Onovy', 'On', 'Skola', 'Doc', '', '', '', '2009-02-10 14:48:44', '639e8ade-13225-cad00-ddeb-43b55e6719', 'Create Custom', '', ''),
 ('2c2acaf8-ef4ff-c2ad4-8645-49957e58cb', '', '', '', '', '', '', '', '', '', '2009-02-13 15:05:24', '0', '', '', '');
@@ -62,7 +62,8 @@ CREATE TABLE IF NOT EXISTS `memos` (
   `receiver` varchar(20) NOT NULL DEFAULT '',
   `title` varchar(30) NOT NULL DEFAULT '',
   `preference` varchar(11) NOT NULL DEFAULT '',
-  `memo_ob` varchar(6) NOT NULL DEFAULT ''
+  `memo_ob` varchar(6) NOT NULL DEFAULT '',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -113,7 +114,8 @@ CREATE TABLE IF NOT EXISTS `phone` (
   `access_lvl` varchar(12) DEFAULT '',
   `preference` varchar(11) NOT NULL DEFAULT '',
   `ph_sec` char(3) NOT NULL DEFAULT '',
-  `status_view` varchar(2) NOT NULL DEFAULT '-1'
+  `status_view` varchar(2) NOT NULL DEFAULT '-1',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -135,7 +137,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(50) NOT NULL DEFAULT '',
   `password` varchar(32) NOT NULL DEFAULT '',
   `email` varchar(50) NOT NULL DEFAULT '',
-  `account_type` varchar(5) NOT NULL DEFAULT ''
+  `account_type` varchar(5) NOT NULL DEFAULT '',
+  PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
