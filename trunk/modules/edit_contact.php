@@ -184,53 +184,5 @@ function output_edit_contact ($myId)
 	$xtpl->parse('main.cat_exist');
 	$xtpl->parse('main');
 	$xtpl->out("main");
-	}
-
-
-function dropdown_menu($member_of, $in_member)
-{
-	global $db, $xtpl;
-
-	//Assign containers to dropdown
-	$conQRY = "SELECT * FROM object WHERE member_of = '$member_of' ORDER BY 'title'";
-	$conRESULT = mysql_query($conQRY, $db);
-
-	if($member_of == '0')
-	{
-		//this is the first parse of dropdown assign label
-		$xtpl->assign("member_of","- Choose Contact Holder -");
-		$xtpl->assign("category_id","0");
-		$xtpl->assign("selected","");
-		$xtpl->parse('main.cat_exist.member_of_dropdown');
-	}
-
-	while ($mo2 = mysql_fetch_assoc($conRESULT))
-	{
-		if ($mo2['type'] == "Category" || $mo2['type'] == "Container")
-		{
-			$xtpl->assign("member_of",$mo2['title']);
-
-			if ($mo2['type'] == "Container")
-			{
-				$xtpl->assign("category_id",'error');
-				$xtpl->assign("color",'#9F9F9F');
-				//$xtpl->assign("bgcolor",'#FFFFFF');
-
-			} else { //object is a category
-				$xtpl->assign("category_id",$mo2['id']);
-				$xtpl->assign("color",'#000000');
-				//$xtpl->assign("bgcolor",'#999999');
-			}
-			if ($mo2['id'] == $in_member)
-			{
-				$xtpl->assign("selected","selected");
-			}
-
-			$xtpl->parse("main.cat_exist.member_of_dropdown");
-			$xtpl->assign("selected","");
-			//$xtpl->out("main.member_of_dropdown");
-		}
-		dropdown_menu($mo2['id'], $in_member);
-	}
 }
 ?>
