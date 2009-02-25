@@ -92,6 +92,11 @@ function output_view_contacts ()
 	$ob = "lname";
 	}
 
+              if ($_SESSION['account_type'] == 'Admin')
+			{
+				$xtpl -> parse ("main.column.admin_edit_del");
+			}
+
 		$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
 		$theSQL = "SELECT id,fname,lname,company,title,member_of FROM contacts $loc_sql ORDER BY $ob";
@@ -99,7 +104,12 @@ function output_view_contacts ()
 		$oddRow = true;
 		while ($in = mysql_fetch_assoc($theRES))
 		{
-			//Generate data rows
+                if ($_SESSION['account_type'] == 'Admin')
+			{
+				$xtpl -> parse ("main.row.admin_edit_del");
+			}
+
+		//Generate data rows
 			if ($oddRow)
 			{
 				$xtpl->assign("bg","#EFEFEF");

@@ -96,7 +96,9 @@ window.open(url, "_self");
 	    <td align="center" width="136"><a href="index.php?module=view_contacts&ob=ob_title&mbr_of={mbr_of}"><strong>Title</strong></a></td>
 	    <td align="center" width="122"><a href="index.php?module=view_contacts&ob=ob_company&mbr_of={mbr_of}"><strong>Company</strong></a></td>
 	    <td align="center" width="74"><strong>Member Of</strong></td>
+		<!-- BEGIN: admin_edit_del -->
 	    <td width="69">&nbsp;&nbsp;</td>
+		<!-- END: admin_edit_del -->
         </tr>
   <!-- END: column -->
 
@@ -106,8 +108,10 @@ window.open(url, "_self");
 	    <td bgcolor="{bg}">{title}</td>
 	    <td bgcolor="{bg}">{company}</td>
 	    <td bgcolor="{bg}">{member_of}</td>
+		<!-- BEGIN: admin_edit_del -->
 		<td bgcolor="{bg}"><a href="index.php?module=edit_contact&id={id}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a>
         | <a href="index.php?module=edit_contact&id={id}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
+		<!-- END: admin_edit_del -->
   </tr>
   <!-- END: row -->
   </table></div>
