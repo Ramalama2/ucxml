@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `member_of` varchar(32) NOT NULL DEFAULT '',
   `lname` varchar(30) NOT NULL DEFAULT '',
   `fname` varchar(30) NOT NULL DEFAULT '',
-  `company` varchar(30) NOT NULL DEFAULT '',
+  `nick` varchar(30) NOT NULL DEFAULT '',
   `title` varchar(30) NOT NULL DEFAULT '',
   `office_phone` varchar(30) DEFAULT '',
   `home_phone` varchar(30) DEFAULT '',
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
 -- Dumping data for table `contacts`
 --
 
-INSERT INTO `contacts` (`id`, `display_name`, `member_of`, `lname`, `fname`, `company`, `title`, `office_phone`, `home_phone`, `cell_phone`, `date`, `owner`, `custom_phone`, `custom_number`, `other_phone`) VALUES
+INSERT INTO `contacts` (`id`, `display_name`, `member_of`, `lname`, `fname`, `nick`, `title`, `office_phone`, `home_phone`, `cell_phone`, `date`, `owner`, `custom_phone`, `custom_number`, `other_phone`) VALUES
 ('f0538239-592a7-64f48-158b-4991859e6a', 'VDJ, DJ - Skola', '8ef5254f-638f3-a62fd-68f2-42ea5b5c5b', 'VDJ', 'DJ', 'Skola', 'Ang.', '3444', '', '', '2009-02-10 15:47:03', '0', 'Create Custom', '', ''),
 ('a7d8d7a2-c722f-4caf7-a103-4991853a8d', 'Onovy, On - Skola', '6fbd03fe-207ba-39338-3072-42ea5ae8bb', 'Onovy', 'On', 'Skola', 'Doc', '', '', '', '2009-02-10 14:48:44', '639e8ade-13225-cad00-ddeb-43b55e6719', 'Create Custom', '', ''),
 ('2c2acaf8-ef4ff-c2ad4-8645-49957e58cb', '', '', '', '', '', '', '', '', '', '2009-02-13 15:05:24', '0', '', '', '');

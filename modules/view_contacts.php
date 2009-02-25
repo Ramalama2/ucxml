@@ -85,8 +85,8 @@ function output_view_contacts ()
 			$ob = "lname";
 		} elseif ($_GET['ob'] == "ob_title") {
 			$ob = "title";
-		} elseif ($_GET['ob'] == "ob_company") {
-			$ob = "company";
+		} elseif ($_GET['ob'] == "ob_nick") {
+			$ob = "nick";
 		}
 	} else {
 	$ob = "lname";
@@ -99,7 +99,7 @@ function output_view_contacts ()
 
 		$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
-		$theSQL = "SELECT id,fname,lname,company,title,member_of FROM contacts $loc_sql ORDER BY $ob";
+		$theSQL = "SELECT id,fname,lname,nick,title,member_of FROM contacts $loc_sql ORDER BY $ob";
 		$theRES = mysql_query($theSQL, $db);
 		$oddRow = true;
 		while ($in = mysql_fetch_assoc($theRES))
@@ -119,7 +119,7 @@ function output_view_contacts ()
 			$xtpl->assign("id",$in['id']);
 			$xtpl->assign("fname",$in['fname']);
 			$xtpl->assign("lname",$in['lname']);
-			$xtpl->assign("company",$in['company']);
+			$xtpl->assign("nick",$in['nick']);
 			$xtpl->assign("title",$in['title']);
 			$xtpl->assign("office_phone",$in['office_phone']);
 			$xtpl->assign("home_phone",$in['home_phone']);
@@ -130,7 +130,7 @@ function output_view_contacts ()
 			$xtpl->parse("main.row");
 			$oddRow = !$oddRow;
 
-			if ($in['fname'] == '' && $in['lname'] == '' && $in['company'] == '' && $in['title'] == '' && $in['office_phone'] == '' && $in['home_phone'] == '' && $in['cell_phone'] == '' && $in['cell_phone'] == '' && $in['other_phone'] == '')
+			if ($in['fname'] == '' && $in['lname'] == '' && $in['nick'] == '' && $in['title'] == '' && $in['office_phone'] == '' && $in['home_phone'] == '' && $in['cell_phone'] == '' && $in['cell_phone'] == '' && $in['other_phone'] == '')
 			{
 				//contacts has no information, delete the entry
 				$tmp_delete_id = $in['id'];

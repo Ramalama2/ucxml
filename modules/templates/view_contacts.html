@@ -50,7 +50,7 @@ window.open(url, "_self");
         <ul>
           <li><strong>Last, First Name</strong> - The first and last name of the specific contact. This will be the information displayed on the phone to represent this contact.</li>
           <li><strong>Title</strong> - The title will be displayed along side the Last, First name of the contact in the phone interface.</li>
-          <li><strong>Company</strong> - The company the contact belongs to. This information will be displayed along side the title, when viewing the contact using the phone interface.</li>
+          <li><strong>Nickname</strong> - The nickname the contact belongs to. This information will be displayed along side the title, when viewing the contact using the phone interface.</li>
           <li><strong>Edit/Delete</strong> - Clicking edit will direct you to the contact editing page. Clicking delete will delete this contact from the database.</li>
         </ul>
     </div>
@@ -94,7 +94,7 @@ window.open(url, "_self");
 	  <tr bgcolor="#DFDFDF" >
 	    <td align="center" width="135"><a href="index.php?module=view_contacts&ob=ob_ln&mbr_of={mbr_of}"><strong>Last, First Name</strong></a></td>
 	    <td align="center" width="136"><a href="index.php?module=view_contacts&ob=ob_title&mbr_of={mbr_of}"><strong>Title</strong></a></td>
-	    <td align="center" width="122"><a href="index.php?module=view_contacts&ob=ob_company&mbr_of={mbr_of}"><strong>Company</strong></a></td>
+	    <td align="center" width="122"><a href="index.php?module=view_contacts&ob=ob_nick&mbr_of={mbr_of}"><strong>Nickname</strong></a></td>
 	    <td align="center" width="74"><strong>Member Of</strong></td>
 		<!-- BEGIN: admin_edit_del -->
 	    <td width="69">&nbsp;&nbsp;</td>
@@ -106,7 +106,7 @@ window.open(url, "_self");
 	  <tr>
 	    <td bgcolor="{bg}"><a href="index.php?module=edit_contact&id={id}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{lname},{fname}</a></td>
 	    <td bgcolor="{bg}">{title}</td>
-	    <td bgcolor="{bg}">{company}</td>
+	    <td bgcolor="{bg}">{nick}</td>
 	    <td bgcolor="{bg}">{member_of}</td>
 		<!-- BEGIN: admin_edit_del -->
 		<td bgcolor="{bg}"><a href="index.php?module=edit_contact&id={id}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a>
