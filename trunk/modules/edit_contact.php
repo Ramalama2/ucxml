@@ -32,7 +32,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			$tmp_member_of = defang_input($_POST['member_of']);
 			$tmp_lname = defang_input($_POST['lname']);
 			$tmp_fname = defang_input($_POST['fname']);
-			$tmp_company = defang_input($_POST['company']);
+			$tmp_nick = defang_input($_POST['nick']);
 			$tmp_title = defang_input($_POST['title']);
 			$tmp_office_phone = defang_input($_POST['office_phone']);
 			$tmp_home_phone = defang_input($_POST['home_phone']);
@@ -52,15 +52,15 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 				} else {
 					$tmpTitle = $tmp_lname.$tmp_fname;
 				}
-				if ($tmp_company != '')
+				if ($tmp_nick != '')
 				{
-					$tmpTitle = $tmpTitle.' - '.$tmp_company;
+					$tmpTitle = $tmpTitle.' - '.$tmp_nick;
 				}
-			} elseif ($tmp_company != '') {
-				//lname,fname is not specified, display company
-				$tmpTitle = $tmp_company;
+        	} elseif ($tmp_nick != '') {
+				//lname,fname is not specified, display nick
+				$tmpTitle = $tmp_nick;
 			} else {
-				$tmpTitle = $tmp_company;
+				$tmpTitle = $tmp_nick;
 			}
 
 			$tmpUpdateSQL = "UPDATE contacts SET
@@ -68,7 +68,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 				display_name= '$tmpTitle',
 				fname='$tmp_fname',
 				lname='$tmp_lname',
-				company='$tmp_company',
+				nick='$tmp_nick',
 				title='$tmp_title',
 				office_phone='$tmp_office_phone',
 				home_phone='$tmp_home_phone',
@@ -133,7 +133,7 @@ function output_edit_contact ($myId)
 		$xtpl->assign("member_of",$in['member_of']);
 		$xtpl->assign("lname",$in['lname']);
 		$xtpl->assign("fname",$in['fname']);
-		$xtpl->assign("company",$in['company']);
+		$xtpl->assign("nick",$in['nick']);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("office_phone",$in['office_phone']);
 		$xtpl->assign("home_phone",$in['home_phone']);
@@ -181,7 +181,6 @@ function output_edit_contact ($myId)
 		}
 
         }
-	$xtpl->parse('main.cat_exist');
 	$xtpl->parse('main');
 	$xtpl->out("main");
 }

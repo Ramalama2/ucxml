@@ -33,7 +33,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		contacts.id AS id,
 		contacts.lname AS lname,
 		contacts.fname AS fname,
-		contacts.company AS company,
+		contacts.nick AS nick,
 		contacts.office_phone AS office_phone,
 		contacts.home_phone AS home_phone,
 		contacts.cell_phone AS cell_phone,
@@ -49,18 +49,18 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 	if ($in = mysql_fetch_assoc($theContactRES))
 	{
 		$tmpTitle = $in['fname'] ." ". $in['lname'];
-		if ($in['title'] != '' && $in['company'] != '')
+		if ($in['title'] != '' && $in['nick'] != '')
 		{
 			//show with '-' beacuse both exist
-			$tmpCompany = $in['title'] ." - ". $in['company'];
+			$tmpNick = $in['title'] ." - ". $in['nick'];
 		} else {
 			//show without dash, 1 or less exist
-			$tmpCompany = $in['title'].$in['company'];
+			$tmpNick = $in['title'].$in['nick'];
 		}	
 		
 		$xtpl=new XTemplate ("templates/contact_detail.xml");
 		$xtpl->assign("tmpTitle",$tmpTitle);
-		$xtpl->assign("company",$tmpCompany);
+		$xtpl->assign("nick",$tmpNick);
 		
 		$name = '';//$name is blank when inside a contact
 		
@@ -179,7 +179,7 @@ function list_contacts ($member_cat,$style,$obID,$MAC)
 			contacts.display_name AS display_name,
 			contacts.lname AS lname,
 			contacts.fname AS fname,
-			contacts.company AS company,
+			contacts.nick AS nick,
 			contacts.office_phone AS office_phone,
 			contacts.home_phone AS home_phone,
 			contacts.cell_phone AS cell_phone,
