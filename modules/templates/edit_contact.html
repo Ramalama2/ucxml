@@ -17,14 +17,9 @@ function validate_edit_contact()
   {
 	ok=1;
 	errors = "";
-	 if(document.forms[0].member_of.value == "error") 
-   	{ 
-		errors += " You have selected a container, please select a category.\n";
-		ok=0;
-	}
-    if(document.forms[0].member_of.value == "0") 
-   	{ 
-		errors += " - Select a category for this contact to be placed in.\n";
+	 if(document.forms[0].member_of.value == "choose")
+   	{
+		errors += " You must select member_of.\n";
 		ok=0;
 	}
 	if(ok == 0)
@@ -72,7 +67,7 @@ function validate_edit_contact()
 	    <h3>
 	      <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Contact options</div></h3>
 	    <ul>	
-		    <li><a href="#" title="Gallery">Save a created  contact</a></li>
+		    <li><a href="#">Save a created  contact</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
               <input type="hidden" name="id" value="{id}">
               <input type="hidden" name="baseauth" value="{baseauth}">
@@ -80,7 +75,7 @@ function validate_edit_contact()
               <input type="submit" name="submit_save" onClick="return validate_edit_contact()" value="  Save  ">
 		</div>
 
-            <li><a href="#" title="Articles">Cancel editing:</a></li>
+            <li><a href="#">Cancel editing:</a></li>
 				<div style="padding-left:20px;padding-bottom:15px;">
                 <input type="submit" name="submit_cancel" value=" Cancel ">
                   <input type="hidden" name="id" value="{id}">
@@ -88,7 +83,7 @@ function validate_edit_contact()
                   <input type="hidden" name="action" value="edit">
 		</div>
 
-            <li><a href="#" title="Articles">Delete Contact:</a></li>
+            <li><a href="#">Delete Contact:</a></li>
                   <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
                   <input type="hidden" name="id" value="{id}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
@@ -106,7 +101,7 @@ function validate_edit_contact()
     	<tr>
         <td width="144"><strong>Member of </strong></td>
         <td width="404"><select name="member_of" size="1">
-            <option {sel_choose}>Choose</option>
+            <option {sel_choose} value="choose">Choose</option>
             <option {sel_b512}>B512</option>
             <option {sel_b521}>B521</option>
             <option {sel_emergency}>Emergency</option>
