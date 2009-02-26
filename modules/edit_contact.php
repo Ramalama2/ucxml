@@ -40,7 +40,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			$tmp_custom_number = defang_input($_POST['custom_number']);
 			$tmp_cell_phone = defang_input($_POST['cell_phone']);
 			$tmp_other_phone = defang_input($_POST['other_phone']);
-
+			$tmp_owner = defang_input($_POST['owner']);
 
 			//Create clean name for display_name column in contacts table.
 			//This is the name used to order and display the contacts on the phone UI
@@ -75,6 +75,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 				custom_phone='$tmp_custom_phone',
 				custom_number='$tmp_custom_number',
 				cell_phone='$tmp_cell_phone',
+				owner='$tmp_owner',
 				other_phone='$tmp_other_phone'
 				WHERE id_contact='$tmp_id_contact'";
 
@@ -137,6 +138,7 @@ function output_edit_contact ($myID_contact)
 		$xtpl->assign("office_phone",$in['office_phone']);
 		$xtpl->assign("home_phone",$in['home_phone']);
 
+
 		if ($in['custom_phone'] != '')
 		{
 			$xtpl->assign("custom_phone",$in['custom_phone']);
@@ -149,6 +151,23 @@ function output_edit_contact ($myID_contact)
 		$xtpl->assign("other_phone",$in['other_phone']);
 
 		$xtpl->assign("date",$in['date']);
+
+        if ($_SESSION['account_type'] == 'Admin' || $tmp_owner = $in['owner'] )
+		{
+			$xtpl -> parse ("main.admin_owner");
+		}
+
+        $tmp_owner = $in['owner'];
+        $theSQL = "SELECT username FROM users WHERE id_user='$tmp_owner'";
+        $theRES = mysql_query($theSQL, $db);
+          if ($in2 = mysql_fetch_assoc($theRES))
+          {
+            $tmp_owner_name = $in2['username'];
+          } else {
+            $tmp_owner_name = "Owner not found.";
+            }
+           $xtpl->assign("owner",$tmp_owner_name);
+//           $xtpl->parse('main.cat_exist.own_noedit');
 
 
 		if ($in['member_of'] == "B512")

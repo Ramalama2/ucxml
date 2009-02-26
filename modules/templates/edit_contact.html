@@ -65,7 +65,8 @@ function validate_edit_contact()
 	  <div id="right_side">
 	    <h3>
 	      <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Contact options</div></h3>
-	    <ul>	
+	    <ul>
+<!-- BEGIN: admin_owner -->
 		    <li><a href="#">Save a created  contact</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
               <input type="hidden" name="id_contact" value="{id_contact}">
@@ -74,28 +75,29 @@ function validate_edit_contact()
               <input type="submit" name="submit_save" onClick="return validate_edit_contact()" value="  Save  ">
 		</div>
 
-            <li><a href="#">Cancel editing:</a></li>
-				<div style="padding-left:20px;padding-bottom:15px;">
+            <li><a href="#">Delete Contact:</a></li>
+                  <div style="padding-left:20px;padding-bottom:15px;">
+				  <input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
+                  <input type="hidden" name="id_contact" value="{id_contact}">
+                  <input type="hidden" name="baseauth" value="{baseauth}">
+                  <input type="hidden" name="action" value="edit">
+				</div>
+<!-- END: admin_owner -->
+
+			<li><a href="#">Cancel editing:</a></li>
+				<div style="padding-left:20px">
                 <input type="submit" name="submit_cancel" value=" Cancel ">
                   <input type="hidden" name="id_contact" value="{id_contact}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
-		</div>
-
-            <li><a href="#">Delete Contact:</a></li>
-                  <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
-                  <input type="hidden" name="id_contact" value="{id_contact}">
-                  <input type="hidden" name="baseauth" value="{baseauth}">
-                  <input type="hidden" name="action" value="edit">
-		</div>
-
+				</div>
 	    </ul>
 	  </div>
 
 		<div id="left_side">
 			<h3>
 			  <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Contacts</div></h3>
-			  <p>This contact modified at: <strong>{date}</strong></p>
+			  <p>This contact created by <strong>{owner}</strong> modified at: <strong>{date}</strong></p>
 	    <table width="560" bgcolor="#F6F6F6" >
     	<tr>
         <td width="144"><strong>Member of: </strong></td>
@@ -122,10 +124,6 @@ function validate_edit_contact()
         <td><strong>Last Name:</strong></td>
         <td><input type="text" name="lname" size="30" maxlength="50" value="{fname}">
         *</td>
-      </tr>
-      <tr>
-        <td><strong>Nickname:</strong></td>
-        <td><input type="text" name="nick" size="30" maxlength="50" value="{nick}"></td>
       </tr>
 
       <tr>

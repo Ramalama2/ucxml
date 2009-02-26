@@ -16,7 +16,8 @@ if (isset($_POST['submit_add']))
 {
 	// add contact
 	$tmp_id_contact = create_guid($tmp_id_contact);
-	$tmpInitSQL = "INSERT INTO contacts (id_contact) VALUES ('$tmp_id_contact')";
+    $tmp_owner = $_SESSION['user_id'];
+	$tmpInitSQL = "INSERT INTO contacts (id_contact, owner) VALUES ('$tmp_id_contact','$tmp_owner')";
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
 		// show editor
@@ -25,11 +26,10 @@ if (isset($_POST['submit_add']))
 		 // Failure
 		 echo "Unable to create contact";
 	}
-} elseif (isset($_POST['submit_import'])) {
+/*}elseif (isset($_POST['submit_import'])) {
 		header("Location: index.php?module=import_contacts");
-
-}
- elseif (isset($_POST['submit_export'])) {
+}*/
+ }elseif (isset($_POST['submit_export'])) {
 		CSVexport();
 
 }else {
