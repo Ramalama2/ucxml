@@ -120,7 +120,7 @@ function output_view_status ()
 	$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
 
-	$theSQL = "SELECT id,access_lvl,fname,lname,away_msg, status FROM phone $loc_sql ";
+	$theSQL = "SELECT id_phone,access_lvl,fname,lname,away_msg, status FROM phone $loc_sql ";
 	$theRES = mysql_query($theSQL, $db);
 
 	$oddRow = true;
@@ -133,7 +133,7 @@ function output_view_status ()
 		} else {
 			$xtpl->assign("bg","#DFDFDF");
 		}
-		$xtpl->assign("id",$in['id']);
+		$xtpl->assign("id_phone",$in['id_phone']);
 		$xtpl->assign("status",$in['status']);
 		$xtpl->assign("name",$in['lname'].", ".$in['fname']);
 		$xtpl->assign("away_msg",$in['away_msg']);

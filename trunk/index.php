@@ -119,6 +119,7 @@ function render_HeaderFooter ($mytitle) {
 
 $xtpl->assign("page_title",$mytitle);
 $xtpl->assign("current",$_SESSION['user_name']);
+$xtpl->assign("user_id",$_SESSION['user_id']);
 
 	if ($_SESSION['account_type'] == 'Admin')
 	{

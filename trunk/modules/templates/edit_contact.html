@@ -68,7 +68,7 @@ function validate_edit_contact()
 	    <ul>	
 		    <li><a href="#">Save a created  contact</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
-              <input type="hidden" name="id" value="{id}">
+              <input type="hidden" name="id_contact" value="{id_contact}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
               <input type="submit" name="submit_save" onClick="return validate_edit_contact()" value="  Save  ">
@@ -77,14 +77,14 @@ function validate_edit_contact()
             <li><a href="#">Cancel editing:</a></li>
 				<div style="padding-left:20px;padding-bottom:15px;">
                 <input type="submit" name="submit_cancel" value=" Cancel ">
-                  <input type="hidden" name="id" value="{id}">
+                  <input type="hidden" name="id_contact" value="{id_contact}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 		</div>
 
             <li><a href="#">Delete Contact:</a></li>
                   <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
-                  <input type="hidden" name="id" value="{id}">
+                  <input type="hidden" name="id_contact" value="{id_contact}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 		</div>
@@ -124,8 +124,8 @@ function validate_edit_contact()
         *</td>
       </tr>
       <tr>
-        <td><strong>Nickname: </strong></td>
-        <td><input type="text" name="Nick" size="30" maxlength="50" value="{nick}"></td>
+        <td><strong>Nickname:</strong></td>
+        <td><input type="text" name="nick" size="30" maxlength="50" value="{nick}"></td>
       </tr>
 
       <tr>

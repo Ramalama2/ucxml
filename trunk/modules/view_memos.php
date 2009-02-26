@@ -27,8 +27,8 @@ if (isset($_POST['submit_save']))
 elseif (isset($_POST['submit_add']))
 {
 	//add new memo
-	$tmp_id = create_guid($tmp_id);
-	$tmpInitSQL = "INSERT INTO memos (id) VALUES ('$tmp_id')";
+	$tmp_id_memo = create_guid($tmp_id_memo);
+	$tmpInitSQL = "INSERT INTO memos (id_memo) VALUES ('$tmp_id_memo')";
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
 	//memo has been created
@@ -39,10 +39,10 @@ elseif (isset($_POST['submit_add']))
 			"UPDATE memos SET
 			date = '$tmp_date',
 			sender = '$tmp_from'		
-			WHERE id ='$tmp_id'";
+			WHERE id_memo ='$tmp_id_memo'";
 		mysql_query($tmpUpdateSQL, $db);
 		// show editor
-		header("Location: index.php?module=edit_memos&id=$tmp_id&new=true");
+		header("Location: index.php?module=edit_memos&id_memo=$tmp_id_memo&new=true");
 	} else {
 	 // Failure
 	echo "Unable to create memo.";
@@ -113,7 +113,7 @@ function output_view_memos()
 		}
 	}
 	
-	$theSQL = "SELECT id,title,access,sender,date FROM memos ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,access,sender,date FROM memos ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -129,7 +129,7 @@ function output_view_memos()
 		$tmp_unixtime = $in['date'];
 		$displaydate = date("n/d, h:i A" ,$tmp_unixtime);
 		
-		$xtpl->assign("id",$in['id']);
+		$xtpl->assign("id_memo",$in['id_memo']);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("date",$displaydate);
 		$xtpl->assign("access",$in['access']);

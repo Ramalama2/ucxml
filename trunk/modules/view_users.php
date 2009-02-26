@@ -1,11 +1,11 @@
 <?php
 /*
 	UCxml web Portal - View users
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:	
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
@@ -14,12 +14,16 @@
 if (isset($_POST['submit_add']))
 {
 	// add user
-	$tmp_id = create_guid($tmp_id);
-	$tmpInitSQL = "INSERT INTO users (id) VALUES ('$tmp_id')";
+	$tmp_id_user = create_guid($tmp_id_user);
+
+	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('$tmp_id_user')";
+  mysql_query("INSERT INTO contacts (id_contact) VALUES ('".$tmp_id_user."')");
+
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
-		// OK, show editor
-		header("Location: index.php?module=edit_user&id=$tmp_id&new=true");
+
+	// OK, show editor
+		header("Location: index.php?module=edit_user&id_user=$tmp_id_user&new=true");
 	} else {
 	 // Failure
 	 echo "Unable to create user.";
@@ -41,22 +45,24 @@ function output_view_users ()
 	$xtpl=new XTemplate ("modules/templates/view_users.html");
 
 	// Content
-	
+
 	//custom order by
 	if (isset($_GET['ob']))
 	{
 		if ($_GET['ob'] == "ob_username")
 		{
 			$ob = "username";
-		} elseif ($_GET['ob'] == "ob_email") { 
+		} elseif ($_GET['ob'] == "ob_email") {
 			$ob = "email";
-		} elseif ($_GET['ob'] == "ob_account_type") { 
+		} elseif ($_GET['ob'] == "ob_account_type") {
 			$ob = "account_type";
 		}
 	} else {
 	$ob = "username";
 	}
-	$theSQL = "SELECT id,username,email,account_type FROM users ORDER BY $ob";
+
+
+	$theSQL = "SELECT id_user,username,email,account_type FROM users ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -68,11 +74,11 @@ function output_view_users ()
 		} else {
 			$xtpl->assign("bg","#DFDFDF");
 		}
-		$xtpl->assign("id",$in['id']);
+		$xtpl->assign("id_user",$in['id_user']);
 		$xtpl->assign("username",$in['username']);
 		$xtpl->assign("email",$in['email']);
 		$xtpl->assign("account_type",$in['account_type']);
-		if ($_SESSION['user_id'] == $in['id'] || $in['id'] == '0')
+		if ($_SESSION['user_id'] == $in['id_user'] || $in['id_user'] == '0')
 		{
 			$xtpl->assign("delete","");
 		} else {
@@ -82,9 +88,9 @@ function output_view_users ()
 		$xtpl->parse("main.row");
 		$oddRow = !$oddRow;
 	}
-	
+
 	// Output
 	$xtpl->parse("main");
-	$xtpl->out("main");		
+	$xtpl->out("main");
 }
 ?>

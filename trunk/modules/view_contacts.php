@@ -15,13 +15,12 @@ $xtpl=new XTemplate ("modules/templates/view_contacts.html");
 if (isset($_POST['submit_add']))
 {
 	// add contact
-	$tmp_id = create_guid($tmp_id);
-	$tmp_owner = $_SESSION['user_id'];
-	$tmpInitSQL = "INSERT INTO contacts (id) VALUES ('$tmp_id')";
+	$tmp_id_contact = create_guid($tmp_id_contact);
+	$tmpInitSQL = "INSERT INTO contacts (id_contact) VALUES ('$tmp_id_contact')";
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
 		// show editor
-		header("Location: index.php?module=edit_contact&id=$tmp_id&new=true");
+		header("Location: index.php?module=edit_contact&id_contact=$tmp_id_contact&new=true");
 	} else {
 		 // Failure
 		 echo "Unable to create contact";
@@ -99,15 +98,12 @@ function output_view_contacts ()
 
 		$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
-		$theSQL = "SELECT id,fname,lname,nick,title,member_of FROM contacts $loc_sql ORDER BY $ob";
+
+		$theSQL = "SELECT id_contact,fname,lname,nick,title,member_of FROM contacts $loc_sql ORDER BY $ob";
 		$theRES = mysql_query($theSQL, $db);
 		$oddRow = true;
 		while ($in = mysql_fetch_assoc($theRES))
 		{
-                if ($_SESSION['account_type'] == 'Admin')
-			{
-				$xtpl -> parse ("main.row.admin_edit_del");
-			}
 
 		//Generate data rows
 			if ($oddRow)
@@ -116,7 +112,7 @@ function output_view_contacts ()
 			} else {
 				$xtpl->assign("bg","#DFDFDF");
 			}
-			$xtpl->assign("id",$in['id']);
+			$xtpl->assign("id_contact",$in['id_contact']);
 			$xtpl->assign("fname",$in['fname']);
 			$xtpl->assign("lname",$in['lname']);
 			$xtpl->assign("nick",$in['nick']);
@@ -127,14 +123,19 @@ function output_view_contacts ()
 			$xtpl->assign("other_phone",$in['other_phone']);
 			$xtpl->assign("member_of",$in['member_of']);
 
+			if ($_SESSION['account_type'] == 'Admin')
+			{
+				$xtpl -> parse ("main.row.admin_edit_del");
+			}
+
 			$xtpl->parse("main.row");
 			$oddRow = !$oddRow;
 
 			if ($in['fname'] == '' && $in['lname'] == '' && $in['nick'] == '' && $in['title'] == '' && $in['office_phone'] == '' && $in['home_phone'] == '' && $in['cell_phone'] == '' && $in['cell_phone'] == '' && $in['other_phone'] == '')
 			{
 				//contacts has no information, delete the entry
-				$tmp_delete_id = $in['id'];
-				$sql = "DELETE FROM contacts WHERE id='$tmp_delete_id'";
+				$tmp_delete_id_contact = $in['id_contact'];
+				$sql = "DELETE FROM contacts WHERE id_contact='$tmp_delete_id_contact'";
 				$result = mysql_query($sql);
 			}
 		}
