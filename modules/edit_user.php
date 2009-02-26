@@ -11,7 +11,7 @@
 */
 
 //Checks if id is known, stores in variable
-if (isset($_GET['id'])) $tmp_id = defang_input($_GET['id']);
+if (isset($_GET['id_user'])) $tmp_id_user = defang_input($_GET['id_user']);
 
 $user = "good"; //defaults user to good before chances of it beging invalid
 
@@ -24,17 +24,17 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 		if (isset($_POST['submit_save']))
 		{
 			// Saving
-			$tmp_id = defang_input($_POST['id']);
+			$tmp_id_user = defang_input($_POST['id_user']);
 			
 			$tmp_username = defang_input($_POST['username']);
-			$unique_user_sql = "SELECT username,id FROM `users` WHERE username = '$tmp_username' AND id != '$tmp_id'";
+			$unique_user_sql = "SELECT username,id_user FROM `users` WHERE username = '$tmp_username' AND id_user != '$tmp_id_user'";
 			$other_usernames = mysql_query($unique_user_sql, $db);
-			
+
 			$tmp_raw_password = defang_input($_POST['password0']);
 			$tmp_password = md5($tmp_raw_password);
 			$tmp_email = defang_input($_POST['email']);
 			$tmp_account_type = defang_input($_POST['account_type']);
-			
+
 			if ($tmp_raw_password != "password_is_saved1")
 			{
 				//password was changed, save
@@ -43,13 +43,13 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 				//password was not changed, dont save
 				$password_sql = "";
 			}
-			
+
 			if ($un = mysql_fetch_assoc($other_usernames))
 			{
 				//There is already a user with this name
 				render_HeaderSidebar("UCxml web Portal - User Edit");
 				$user = "bad";
-				output_edit_user($tmp_id,$user);
+				output_edit_user($tmp_id_user,$user);
 				render_Footer();
 
 			} else {
@@ -60,18 +60,23 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 						$password_sql
 						email = '$tmp_email',
 						account_type = '$tmp_account_type'
-						WHERE id ='$tmp_id'";
-						
+						WHERE id_user ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL, $db);
+
+					$tmpUpdateSQL2 = "UPDATE contacts SET
+						nick = '$tmp_username'
+						WHERE id_contact ='$tmp_id_user'";
+					mysql_query($tmpUpdateSQL2, $db);
+
 					header("Location: index.php?module=view_users");
-				}	
+				}
 			}
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 			// Deleting
-			$tmp_id = defang_input($tmp_id);
-			if ($tmp_id != '0' && $tmp_id != $_SESSION['user_id'])
+			$tmp_id_user = defang_input($tmp_id_user);
+			if ($tmp_id_user != '0' && $tmp_id_user != $_SESSION['user_id'])
 			{
-				delete_user($tmp_id);
+				delete_user($tmp_id_user);
 			} else {
 				//deleting of admin account is not allowed
 				header("Location: index.php?module=view_users");
@@ -82,46 +87,46 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			// Cancel
 			if ($_GET['new'] == "true")
 			{
-				delete_user($tmp_id);
+				delete_user($tmp_id_user);
 			}
 			header("Location: index.php?module=view_users");
-			
+
 		} else {
 			// Action, but no valid submit button.
 			header("Location: index.php?module=view_users");
 		}
-		
+
 	} else {
 		// Bad action
 		header("Location: index.php?module=view_users");
 	}
-	
+
 } else {
 	// NO action
 	render_HeaderFooter("UCxml web Portal - User Edit");
-	output_edit_user($tmp_id,$user);
+	output_edit_user($tmp_id_user,$user);
 	render_Footer();
 }
 
-function delete_user ($tmp_id)
+function delete_user ($tmp_id_user)
 {
-	$sql = "DELETE FROM users WHERE id='$tmp_id'";
+	$sql = "DELETE FROM users WHERE id_user='$tmp_id_user'";
     $result = mysql_query($sql);
-}			
+}
 
 //Create page and fill in known data
-function output_edit_user ($myId,$user)
+function output_edit_user ($myID_user,$user)
 {
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/edit_user.html");
 
-	$theSQL = "SELECT * FROM users WHERE id='$myId'";
+	$theSQL = "SELECT * FROM users WHERE id_user='$myID_user'";
 
 	$theRES = mysql_query($theSQL, $db);
 
 	if ($in = mysql_fetch_assoc($theRES))
 	{
-		$xtpl->assign("id",$in['id']);
+		$xtpl->assign("id_user",$in['id_user']);
 		$xtpl->assign("fake_password","password_is_saved1");//do not output real password.
 		$xtpl->assign("email",$in['email']);
 		$xtpl->assign("username",$in['username']);
@@ -142,7 +147,7 @@ function output_edit_user ($myId,$user)
 		$xtpl->assign("email",defang_input($_POST['email']));
 		$xtpl->assign("username",defang_input($_POST['username']));
 		$xtpl->assign("password",defang_input($_POST['password']));
-		if ($_SESSION['user_id'] == $in['id'] || $in['id'] == '0')
+		if ($_SESSION['user_id'] == $in['id_user'] || $in['id_user'] == '0')
 		{
 			//dont show delete
 		} else {

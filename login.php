@@ -38,12 +38,12 @@ if(isset($_POST['Login']))
 	$username = defang_input($_POST['username']);
 	$password = defang_input($_POST['password']);
 	$crypt_pass = md5($password);
-	$checkSQL = "SELECT id,username,account_type FROM users WHERE username='$username' AND password='$crypt_pass'";
+	$checkSQL = "SELECT id_user,username,account_type FROM users WHERE username='$username' AND password='$crypt_pass'";
 	$checkRES = mysql_query($checkSQL, $db);
 
 	if ($in = mysql_fetch_assoc($checkRES))
 	{
-		$_SESSION['user_id'] = $in['id'];
+		$_SESSION['user_id'] = $in['id_user'];
 		$_SESSION['user_name'] = $in['username'];
 		$_SESSION['account_type'] = $in['account_type'];
 

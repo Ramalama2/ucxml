@@ -79,7 +79,8 @@ function validate_edit_user()
 	    <h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
 	    <ul>	
 		    <li><a href="#" title="Gallery">Save a created  user</a></li>
-              <div style="padding-left:20px;padding-bottom:15px;"><input type="hidden" name="id" value="{id}">
+              <div style="padding-left:20px;padding-bottom:15px;">
+		<input type="hidden" name="id_user" value="{id_user}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
                 <!-- BEGIN: notuser -->
@@ -90,7 +91,7 @@ function validate_edit_user()
 
             <li><a href="#" title="Articles">Cancel registration:</a></li>
 			<div style="padding-left:20px;"><input type="submit" name="submit_cancel" value=" Cancel ">
-                  <input type="hidden" name="id" value="{id}">
+                  <input type="hidden" name="id_user" value="{id_user}">
               <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 </div>

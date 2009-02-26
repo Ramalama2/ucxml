@@ -11,9 +11,9 @@
 */
 
 //Checks if id is known, stores in variable
-if (isset($_GET['id']))
+if (isset($_GET['id_memo']))
 {
-	$tmp_id = defang_input($_GET['id']);
+	$tmp_id_memo = defang_input($_GET['id_memo']);
 }
 
 if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
@@ -25,7 +25,7 @@ if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
 		if (isset($_POST['submit_save']))
 		{
 			// Saving
-			$tmp_id = defang_input($_POST['id']);
+			$tmp_id_memo = defang_input($_POST['id_memo']);
 			$tmp_title = defang_input($_POST['title']);
 			$tmp_access = defang_input($_POST['access']);
 			$tmp_msg = defang_input($_POST['msg']);
@@ -34,7 +34,7 @@ if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
 				title = '$tmp_title',
 				msg = '$tmp_msg',
 				access = '$tmp_access'		
-				WHERE id ='$tmp_id'";
+				WHERE id_memo ='$tmp_id_memo'";
 				
 			if (mysql_query($tmpUpdateSQL, $db))
 			{
@@ -47,15 +47,15 @@ if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
 			// Cancel
 			if ($_GET['new'] == 'true')
 			{
-				delete_memo($tmp_id);
+				delete_memo($tmp_id_memo);
 			}	
 			header("Location: index.php?module=view_memos");
 		
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 				// Deleting
-				if ($tmp_id != '0') //prevent user from deleting main container
+				if ($tmp_id_memo != '0') //prevent user from deleting main container
 				{
-					delete_memo($tmp_id);
+					delete_memo($tmp_id_memo);
 					header("Location: index.php?module=view_memos");
 				} else {
 					header("Location: index.php?module=delete_error");
@@ -71,7 +71,7 @@ if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
 } else {
 	// No action
 	render_HeaderFooter("UCxml web Portal - Edit Memo");
-	output_edit_memo($tmp_id);
+	output_edit_memo($tmp_id_memo);
 	render_Footer();
 }
 
@@ -79,19 +79,19 @@ if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
 //  FUNCTIONS
 //
 
-function delete_memo ($tmp_id)
+function delete_memo ($tmp_id_memo)
 {
-	$sql = "DELETE FROM memos WHERE id='$tmp_id'";
+	$sql = "DELETE FROM memos WHERE id_memo='$tmp_id_memo'";
     $result = mysql_query($sql);
 }		
 
 //Create page and fill in known data
-function output_edit_memo ($myId)
+function output_edit_memo ($myID_memo)
 {
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/edit_memos.html");
 
-	$theSQL = "SELECT * FROM memos WHERE id='$myId'";
+	$theSQL = "SELECT * FROM memos WHERE id_memo='$myID_memo'";
 
 	$theRES = mysql_query($theSQL, $db);
 
@@ -100,7 +100,7 @@ function output_edit_memo ($myId)
 		$tmp_unixtime = $in['date'];
 		$displaydate = date("l, F d, Y h:i" ,$tmp_unixtime);
 		
-		$xtpl->assign("id",$in['id']);
+		$xtpl->assign("id_memo",$in['id_memo']);
 		$xtpl->assign("date",$displaydate);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("msg",$in['msg']);

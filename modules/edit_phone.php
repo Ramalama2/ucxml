@@ -11,7 +11,7 @@
 */
 
 //Checks if id is known, stores in variable
-if (isset($_GET['id'])) $tmp_id = defang_input($_GET['id']);
+if (isset($_GET['id_phone'])) $tmp_id_phone = defang_input($_GET['id_phone']);
 
 if (isset($_POST['action']) || isset($_GET['submit_delete']))
 {
@@ -23,7 +23,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 		if (isset($_POST['submit_save']))
 		{
 			// Saving
-			$tmp_id = defang_input($_POST['id']);
+			$tmp_id_phone = defang_input($_POST['id_phone']);
 			$tmp_MAC = defang_input($_POST['MAC']);
 			$tmp_access_lvl = defang_input($_POST['access_lvl']);
 			$tmp_number = defang_input($_POST['number']);
@@ -36,7 +36,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 				fname = '$tmp_fname',
 				lname = '$tmp_lname',
 				access_lvl = '$tmp_access_lvl'
-				WHERE id ='$tmp_id'";
+				WHERE id_phone ='$tmp_id_phone'";
 			
 			if (mysql_query($tmpUpdateSQL, $db))
 			{
@@ -47,8 +47,8 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 					
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 			// Deleting
-			$tmp_id = defang_input($tmp_id);
-			delete_phone($tmp_id);
+			$tmp_id_phone = defang_input($tmp_id_phone);
+			delete_phone($tmp_id_phone);
 			header("Location: index.php?module=view_phones");
 
 		} else if (isset($_POST['submit_cancel'])) {
@@ -56,7 +56,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			if ($_GET['new'] == "true")
 			{
 				
-				delete_phone($tmp_id);
+				delete_phone($tmp_id_phone);
 			}
 			header("Location: index.php?module=view_phones");
 		} else {
@@ -71,31 +71,31 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 	
 } else {
 	// NO action
-	output_edit_phone($tmp_id);
+	output_edit_phone($tmp_id_phone);
 	render_Footer();
 }
 
-function delete_phone ($tmp_id)
+function delete_phone ($tmp_id_phone)
 {
-	$sql = "DELETE FROM phone WHERE id='$tmp_id'";
+	$sql = "DELETE FROM phone WHERE id_phone='$tmp_id_phone'";
     $result = mysql_query($sql);
 }			
 
 //Create page and fill in known data
-function output_edit_phone ($myId)
+function output_edit_phone ($myID_phone)
 {
 	render_HeaderFooter("UCxml web Portal - Edit Phone Registrations");
 	
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/edit_phone.html");
 
-	$theSQL = "SELECT * FROM phone WHERE id='$myId'";
+	$theSQL = "SELECT * FROM phone WHERE id_phone='$myID_phone'";
 
 	$theRES = mysql_query($theSQL, $db);
 
 	if ($in = mysql_fetch_assoc($theRES))
 	{
-		$xtpl->assign("id",$in['id']);
+		$xtpl->assign("id_phone",$in['id_phone']);
 		$xtpl->assign("MAC",$in['MAC']);
 		if ($in['access_lvl'] == "Restricted")
 		{

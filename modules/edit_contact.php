@@ -14,8 +14,8 @@
 $xtpl=new XTemplate ("modules/templates/edit_contact.html");
 
 //Checks if id is known, stores in variable
-if (isset($_GET['id']))
-	$tmp_id = defang_input($_GET['id']);
+if (isset($_GET['id_contact']))
+	$tmp_id_contact = defang_input($_GET['id_contact']);
 
 
 if (isset($_POST['action']) || isset($_GET['submit_delete']))
@@ -28,7 +28,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 		if (isset($_POST['submit_save']))
 		{
 			// Saving
-			$tmp_id = defang_input($_POST['id']);
+			$tmp_id_contact = defang_input($_POST['id_contact']);
 			$tmp_member_of = defang_input($_POST['member_of']);
 			$tmp_lname = defang_input($_POST['lname']);
 			$tmp_fname = defang_input($_POST['fname']);
@@ -76,7 +76,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 				custom_number='$tmp_custom_number',
 				cell_phone='$tmp_cell_phone',
 				other_phone='$tmp_other_phone'
-				WHERE id='$tmp_id'";
+				WHERE id_contact='$tmp_id_contact'";
 
 				mysql_query($tmpUpdateSQL, $db);
 
@@ -84,17 +84,17 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 			// Deleting
-			$tmp_id = defang_input($tmp_id);
-			delete_contact($tmp_id);
+			$tmp_id_contact = defang_input($tmp_id_contact);
+			delete_contact($tmp_id_contact);
 			header("Location: index.php?module=view_contacts&mbr_of=".$_GET['mbr_of']);
 
 		} else if (isset($_POST['submit_cancel'])) {
 			// Cancel
 			if ($_GET['new'] == "true")
 			{
-				delete_contact($tmp_id);
+				delete_contact($tmp_id_contact);
 			}
-			//delete_contact($tmp_id);
+			//delete_contact($tmp_id_contact);
 			header("Location: index.php?module=view_contacts");
 
 		} else {
@@ -109,31 +109,30 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 } else {
 	// No action
 	render_HeaderFooter("UCxml web Portal - Editing");
-	output_edit_contact($tmp_id);
+	output_edit_contact($tmp_id_contact);
 	render_Footer();
 }
 
-function delete_contact ($tmp_id)
+function delete_contact ($tmp_id_contact)
 {
-	$sql = "DELETE FROM contacts WHERE id='$tmp_id'";
+	$sql = "DELETE FROM contacts WHERE id_contact='$tmp_id_contact'";
     $result = mysql_query($sql);
 }
 
 //Create page and fill in known data
-function output_edit_contact ($myId)
+function output_edit_contact ($myID_contact)
 {
 	global $db, $xtpl;
 
 		//look up info specific to contact
-	$theSQL = "SELECT * FROM contacts WHERE id='$myId'";
+	$theSQL = "SELECT * FROM contacts WHERE id_contact='$myID_contact'";
 	$theRES = mysql_query($theSQL, $db);
 	if ($in = mysql_fetch_assoc($theRES))
 	{
-		$xtpl->assign("id",$in['id']);
+		$xtpl->assign("id_contact",$in['id_contact']);
 		$xtpl->assign("member_of",$in['member_of']);
 		$xtpl->assign("lname",$in['lname']);
 		$xtpl->assign("fname",$in['fname']);
-		$xtpl->assign("nick",$in['nick']);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("office_phone",$in['office_phone']);
 		$xtpl->assign("home_phone",$in['home_phone']);

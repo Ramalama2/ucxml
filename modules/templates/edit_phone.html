@@ -20,19 +20,19 @@ function validate_edit_user()
 	
 	if(document.forms[0].lname.value == "") 
    	{ 
-		errors += " - Last Name be entered.\n";
+		errors += " - Last Name must be entered.\n";
 		ok=0;
 		document.forms[0].lname.focus();
 	}
 	if(document.forms[0].fname.value == "") 
    	{ 
-		errors += " - First Name be entered.\n";
+		errors += " - First Name must be entered.\n";
 		ok=0;
 		document.forms[0].fname.focus();
 	} 
 	if(document.forms[0].MAC.value == "") 
    	{ 
-		errors += " - MAC Addressmust be entered.\n";
+		errors += " - MAC Address must be entered.\n";
 		ok=0;
 		document.forms[0].MAC.focus();
 	}
@@ -65,24 +65,25 @@ function validate_edit_user()
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
 	    <ul>	
-		    <li><a href="#" title="Gallery">Save a created  phone</a></li>
-              <div style="padding-left:20px;padding-bottom:15px;"><input type="hidden" name="id" value="{id}">
+		    <li><a href="#">Save a created  phone</a></li>
+              <div style="padding-left:20px;padding-bottom:15px;">
+		<input type="hidden" name="id_phone" value="{id_phone}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
               <input type="submit" name="submit_save" onClick="return validate_edit_user()" value="  Save  ">
 		</div>
 
-            <li><a href="#" title="Articles">Cancel registration:</a></li>
+            <li><a href="#">Cancel registration:</a></li>
 				<div style="padding-left:20px;padding-bottom:15px;">
                 <input type="submit" name="submit_cancel" value=" Cancel ">
-                  <input type="hidden" name="id" value="{id}">
+                  <input type="hidden" name="id_phone" value="{id_phone}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 </div>
             
-            <li><a href="#" title="Articles">Delete Phone:</a></li>
+            <li><a href="#">Delete Phone:</a></li>
                   <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
-                  <input type="hidden" name="id" value="{id}">
+                  <input type="hidden" name="id_phone" value="{id_phone}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 </div>
@@ -115,13 +116,14 @@ function validate_edit_user()
       <tr>
         <td><strong>Access Level:</strong></td>
         <td><select name="access_lvl">
-            <option {selected_restricted}>Restricted</option>
-            <option {selected_unrestricted}>Unrestricted</option>
-			<option {selected_unknown}>Unknown</option>
+		<option {selected_restricted}>Restricted</option>
+		<option {selected_unrestricted}>Unrestricted</option>
+		<option {selected_unknown}>Unknown</option>
           </select>
           * </td>
-		  </tr></table></div>
-	  </form>
+	</tr>
+	</table></div>
+ </form>
 	</div>
 </div>
 </div>
