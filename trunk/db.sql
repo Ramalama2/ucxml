@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
   `home_phone` varchar(30) DEFAULT '',
   `cell_phone` varchar(30) DEFAULT '',
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `owner` varchar(36) NOT NULL DEFAULT '',
   `custom_phone` varchar(30) DEFAULT '',
   `custom_number` varchar(30) DEFAULT '',
   `other_phone` varchar(30) DEFAULT ''
@@ -40,9 +41,9 @@ CREATE TABLE IF NOT EXISTS `contacts` (
 -- Dumping data for table `contacts`
 --
 
-INSERT INTO `contacts` (`id_contact`, `display_name`, `member_of`, `lname`, `fname`, `nick`, `title`, `office_phone`, `home_phone`, `cell_phone`, `date`, `custom_phone`, `custom_number`, `other_phone`) VALUES
-('f0538239-592a7-64f48-158b-4991859e6a', 'VDJ, DJ - Skola', 'B521', 'VDJ', 'DJ', 'Skola', 'Ang.', '3444', '', '', '2009-02-10 15:47:03', 'Create Custom', '', ''),
-('a7d8d7a2-c722f-4caf7-a103-4991853a8d', 'Onovy, On - Skola', 'B512', 'Onovy', 'On', 'Skola', 'Doc', '', '', '', '2009-02-10 14:48:44', 'Create Custom', '', '');
+INSERT INTO `contacts` (`id_contact`, `display_name`, `member_of`, `lname`, `fname`, `nick`, `title`, `office_phone`, `home_phone`, `cell_phone`, `date`, `owner`, `custom_phone`, `custom_number`, `other_phone`) VALUES
+('f0538239-592a7-64f48-158b-4991859e6a', 'VDJ, DJ - Skola', 'B521', 'VDJ', 'DJ', 'Skola', 'Ang.', '3444', '', '', '2009-02-10 15:47:03', '0', 'Create Custom', '', ''),
+('a7d8d7a2-c722f-4caf7-a103-4991853a8d', 'Onovy, On - Skola', 'B512', 'Onovy', 'On', 'Skola', 'Doc', '', '', '', '2009-02-10 14:48:44', '0', 'Create Custom', '', '');
 -- --------------------------------------------------------
 
 --
