@@ -117,6 +117,17 @@ require_once "lib/xtra_java.php";
 function render_HeaderFooter ($mytitle) {
 	$xtpl=new XTemplate ("header.html");
 
+// if the user has a custom avatar, show their avatar
+// if the user has a custom avatar
+	$default_av="images/avatars/default.gif";
+	if( $_SESSION['av'] )
+	{
+	$xtpl->assign("current_av",$_SESSION['user_id'].'.'.$_SESSION['av']);
+}else{
+	$xtpl->parse("main.default_av");
+	$xtpl->assign("default_av",$default_av);
+}
+
 $xtpl->assign("page_title",$mytitle);
 $xtpl->assign("current",$_SESSION['user_name']);
 $xtpl->assign("user_id",$_SESSION['user_id']);
