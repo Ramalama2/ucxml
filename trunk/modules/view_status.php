@@ -1,7 +1,7 @@
 <?php
 /*
 	UCxml web Portal - View contacts
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 */
@@ -10,12 +10,11 @@
 $xtpl=new XTemplate ("WebUI/modules/templates/view_status.html");
 
 $myPref = "primary";
-if (isset($_POST['submit_save']))
+if (isset($_POST['save_view']))
 {
 	// Saving
 		$tmp_status_view = defang_input($_POST['status_view']);
-		$tmpUpdateSQL =
-			"UPDATE phone
+		$tmpUpdateSQL = "UPDATE phone
 			SET	status_view = '$tmp_status_view'
 			WHERE preference = '$myPref'";
 
@@ -33,7 +32,6 @@ if (isset($_POST['submit_save']))
 //  FUNCTIONS
 //
 
-
 function output_view_status ()
 {
 	global $db, $xtpl;
@@ -46,9 +44,13 @@ function output_view_status ()
 		if ($in['status_view'] == "-1")
 		{
 			$xtpl->assign("selected_all",'selected');
+
 		} elseif ($in['status_view'] == "1") {
+
 			$xtpl->assign("selected_1",'selected');
+
 		} else {
+
 			$xtpl->assign("selected_0",'selected');
 		}
 	}
@@ -82,82 +84,75 @@ function output_view_status ()
 	}
 
   	if (isset($_GET['ur']))
-	{
+		{
 		$urMAC = defang_input($_GET['ur']);
 		show_status($MAC,$urMAC);
 
-	} elseif (isset($_GET['view_my_status'])) {
+		} elseif (isset($_GET['view_my_status'])) {
 
 		show_status($MAC,$MAC);
+		}
+
+	  elseif (isset($_GET['others_status'])) {
+
+			$others_status = defang_input($_GET['others_status']);
+
+			if ($others_status == 'all')
+			{
+			          //user wants to view everyones' status
+				$loc_sql = "WHERE phone.access_lvl != 'unknown'";
+				$xtpl->assign("selected_all",'selected');
+
+			} elseif ($others_status == 'out') {
+				//user wants to view people unavailable, status
+				$loc_sql = "WHERE phone.status = 0 AND phone.access_lvl != 'unknown'";
+				$xtpl->assign("selected_0",'selected');
+
+			} elseif ($others_status == 'in') {
+				//user wants to view people in the available, status
+				$loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
+				$xtpl->assign("selected_1",'selected');
+				$xtpl->assign("in",$others_status);
+			}
+
+			$xtpl->parse("main.column");//show columns
+				//user has submited a search, show the contacts
+
+			$theSQL = "SELECT id_phone,access_lvl,fname,lname,away_msg,status FROM phone $loc_sql ";
+			$theRES = mysql_query($theSQL, $db);
+
+			$oddRow = true;
+			while ($in = mysql_fetch_assoc($theRES))
+			{
+				//Generate data rows
+				if ($oddRow)
+				{
+					$xtpl->assign("bg","#EFEFEF");
+				} else {
+					$xtpl->assign("bg","#DFDFDF");
+				}
+				$xtpl->assign("id_phone",$in['id_phone']);
+				$xtpl->assign("status",$in['status']);
+				$xtpl->assign("name",$in['lname'].", ".$in['fname']);
+				$xtpl->assign("away_msg",$in['away_msg']);
+				$xtpl->assign("access_lvl",$in['access_lvl']);
+
+				$xtpl->parse("main.row");
+				$oddRow = !$oddRow;
+			}
+
+			// Output
+			$xtpl->parse("main");
+			$xtpl->out("main");
 
 	}
-    elseif (isset($_GET['others_status'])) {
-
-		$others_status = defang_input($_GET['others_status']);
-
-		if ($others_status == 'all')
-		{
-            //user wants to view everyones' status
-			$loc_sql = "WHERE phone.access_lvl != 'unknown'";
-			$xtpl->assign("selected_all",'selected');
-
-		} elseif ($others_status == 'out') {
-			//user wants to view people unavailable, status
-			$loc_sql = "WHERE phone.status = 0 AND phone.access_lvl != 'unknown'";
-			$xtpl->assign("selected_0",'selected');
-
-		} elseif ($others_status == 'in') {
-			//user wants to view people in the available, status
-			$loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
-			$xtpl->assign("selected_1",'selected');
-			$xtpl->assign("in",$others_status);
-
-		}
-		else{
-
-		}
-
-	$xtpl->parse("main.column");//show columns
-		//user has submited a search, show the contacts
-
-	$theSQL = "SELECT id_phone,access_lvl,fname,lname,away_msg, status FROM phone $loc_sql ";
-	$theRES = mysql_query($theSQL, $db);
-
-	$oddRow = true;
-	while ($in = mysql_fetch_assoc($theRES))
-	{
-		//Generate data rows
-		if ($oddRow)
-		{
-			$xtpl->assign("bg","#EFEFEF");
-		} else {
-			$xtpl->assign("bg","#DFDFDF");
-		}
-		$xtpl->assign("id_phone",$in['id_phone']);
-		$xtpl->assign("status",$in['status']);
-		$xtpl->assign("name",$in['lname'].", ".$in['fname']);
-		$xtpl->assign("away_msg",$in['away_msg']);
-		$xtpl->assign("access_lvl",$in['access_lvl']);
-
-
-		$xtpl->parse("main.row");
-		$oddRow = !$oddRow;
-
-	}
-
-	// Output
-	$xtpl->parse("main");
-	$xtpl->out("main");
-} elseif (isset($_GET['my_status'])) {
+	elseif (isset($_GET['my_status'])) {
 		//User has requested to change their status
 		if ($registered == "TRUE")
 		{
 			$xtpl=new XTemplate ("templates/my_status.xml");
-			$statusqry = "SELECT
-				phone.status AS status
-				FROM phone
-				WHERE MAC = '$MAC'";
 
+			$statusqry = "SELECT phone.status AS status FROM phone WHERE MAC = '$MAC'";
 			$theCountRES = mysql_query($statusqry, $db);
 
 			//Fetch phone availablility
@@ -189,13 +184,6 @@ function output_view_status ()
 }
 function show_status ($MAC,$urMAC)
 {
-	/*
-		The user has selected the message she wishes to view, the MAC address
-		is used to select the corresponding fields from the db
-		the "away_msg" if using the preprogrammed is a number, that corresponds to a msg
-		written in the php in the function.  If user has a custom message, the message
-		is written in text in the away_msg field
-	*/
 	global $db;
 	global $URLBase;
 
@@ -224,18 +212,15 @@ function show_status ($MAC,$urMAC)
 			$xtpl=new XTemplate ("templates/view_my_status.xml");
 			$xtpl->assign("url_base",$URLBase);
 			$xtpl->assign("MAC",$MAC);
-			$tmp_display = num2txt($in['away_msg']);
+			$tmp_display = $in['away_msg'];
 			$xtpl->assign("msg",$tmp_display);
-		} else {
+		}
+		else {
 			$xtpl=new XTemplate ("templates/status_detail.xml");
 			$xtpl->assign("msg",$in['lname'].",".$in['fname']);
-
 		}
 
-		$curphone = parse_phone($in['number']);
-		$number = return_dial($curphone);
-
-		$tmp_display = num2txt($in['away_msg']);
+		$tmp_display = $in['away_msg'];
 
 		$tmp_location = $in['status'];
 
@@ -254,7 +239,6 @@ function show_status ($MAC,$urMAC)
 		$xtpl->assign("prompt",$tmp_display);
 		$xtpl->assign("tmpyour",$tmp_your);
 		$xtpl->assign("tmpTitle",$display_away);
-		$xtpl->assign("number",$number);
 		$xtpl->parse("main");
 		$xtpl->out("main");
 	}

@@ -109,13 +109,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(50) NOT NULL DEFAULT '',
   `password` varchar(32) NOT NULL DEFAULT '',
   `email` varchar(50) NOT NULL DEFAULT '',
-  `account_type` varchar(5) NOT NULL DEFAULT ''
+  `account_type` varchar(5) NOT NULL DEFAULT '',
+  `av` varchar(3) NOT NULL DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `account_type`) VALUES
-('0', 'admin', 'a74ad8dfacd4f985eb3977517615ce25', '', 'Admin'),
-('639e8ade-13225-cad00-ddeb-43b55e6719', 'joe', 'ee11cbb19052e40b07aac0ca060c23ee', 'joe1234@hostXYZ.com', 'User');
+INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `account_type`, `av`) VALUES
+('0', 'admin', 'a74ad8dfacd4f985eb3977517615ce25', '', 'Admin', '0'),
+('639e8ade-13225-cad00-ddeb-43b55e6719', 'joe', 'ee11cbb19052e40b07aac0ca060c23ee', 'joe1234@hostXYZ.com', 'User', '0');

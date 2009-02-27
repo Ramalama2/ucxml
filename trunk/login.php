@@ -38,7 +38,7 @@ if(isset($_POST['Login']))
 	$username = defang_input($_POST['username']);
 	$password = defang_input($_POST['password']);
 	$crypt_pass = md5($password);
-	$checkSQL = "SELECT id_user,username,account_type FROM users WHERE username='$username' AND password='$crypt_pass'";
+	$checkSQL = "SELECT id_user,username,account_type,av FROM users WHERE username='$username' AND password='$crypt_pass'";
 	$checkRES = mysql_query($checkSQL, $db);
 
 	if ($in = mysql_fetch_assoc($checkRES))
@@ -46,6 +46,11 @@ if(isset($_POST['Login']))
 		$_SESSION['user_id'] = $in['id_user'];
 		$_SESSION['user_name'] = $in['username'];
 		$_SESSION['account_type'] = $in['account_type'];
+
+		if( $in['av'] )
+		{
+			$_SESSION['av'] = $in['av'];
+		}
 
 		header("Location: index.php?module=menu");
 	} else {

@@ -127,7 +127,24 @@ function validate_edit_user()
   </div>
    </form>
 
-      <form name="form2" method="post" action="">
+<form name="form2" method="post" action="" enctype="multipart/form-data">
+	<strong>Custom Avatar:</strong><br/>
+    <table>
+<tr>
+	<td><label for="ucp_av_file">File:</label></td>
+	<td><input type="file" name="av_file" id="ucp_av_file" ></td>
+   	<td><input type="checkbox" name="av_delete" value="1" id="ucp_av_delete" onclick="if(this.checked){if( document.getElementById('ucp_av_file').value.length ){return false;}}"{delete} ></td>
+	<td><label for="ucp_av_delete" style="width: auto;">Delete Avatar</label></td>
+   	<td><input type="hidden" name="action" value="edit"></td>
+	<td><input type="submit" name="submit_av" value="Save Changes" ></td>
+
+</tr>
+	{error_msg}
+		<img src="{current_av}" title="Your Current Avatar" {default_av} alt="avatar">
+	</table>
+</form>
+
+      <form name="form3" method="post" action="">
 	  <div id="right_side">
 	    <h3>
 	      <div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">My Contact Options</div></h3>

@@ -15,9 +15,10 @@ if (isset($_POST['submit_add']))
 {
 	// add user
 	$tmp_id_user = create_guid($tmp_id_user);
+    $tmp_owner = $_SESSION['user_id'];
 
 	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('$tmp_id_user')";
-  mysql_query("INSERT INTO contacts (id_contact) VALUES ('".$tmp_id_user."')");
+	mysql_query("INSERT INTO contacts (id_contact,owner) VALUES ('".$tmp_id_user."','".$tmp_owner."')");
 
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
