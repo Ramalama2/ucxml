@@ -57,7 +57,7 @@ function validate_edit_user()
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-      <p>The <strong>MY ACCOUNT </strong>page will show you a your account informations which you have ability to change them.</p>
+      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
         <p>Information collected when editing your account... </p>
         <blockquote>
           <ul>
@@ -126,6 +126,16 @@ function validate_edit_user()
 		  </table>
   </div>
    </form>
+<form name="form4" method="post" action="">
+   <label for="lang">Jazyk:</label>
+   <select name="lang" size="1">
+		<option {sel_sk} value="sk">Slovak</option>
+		<option {sel_en} value="en">English</option>
+   </select>
+  <input name="submit_lang" value="Change & Save" type="submit">
+  <input type="hidden" name="action" value="edit">
+
+</form>
 
 <form name="form2" method="post" action="" enctype="multipart/form-data">
 	<strong>Custom Avatar:</strong><br/>

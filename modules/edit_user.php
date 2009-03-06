@@ -10,6 +10,7 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
+
 //Checks if id is known, stores in variable
 if (isset($_GET['id_user'])) $tmp_id_user = defang_input($_GET['id_user']);
 
@@ -111,19 +112,19 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 function delete_user ($tmp_id_user)
 {
 	$sql = "DELETE FROM users WHERE id_user='$tmp_id_user'";
-    $result = mysql_query($sql);
+	$result = mysql_query($sql);
 }
 
 //Create page and fill in known data
 function output_edit_user ($myID_user,$user)
 {
+	include "language/lang.php";
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/edit_user.html");
-
+	$xtpl->assign( 'LANG', $lang );
+	
 	$theSQL = "SELECT * FROM users WHERE id_user='$myID_user'";
-
 	$theRES = mysql_query($theSQL, $db);
-
 	if ($in = mysql_fetch_assoc($theRES))
 	{
 		$xtpl->assign("id_user",$in['id_user']);
