@@ -10,7 +10,6 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
-$xtpl=new XTemplate ("modules/templates/view_contacts.html");
 
 if (isset($_POST['submit_add']))
 {
@@ -45,9 +44,10 @@ if (isset($_POST['submit_add']))
 
 function output_view_contacts ()
 {
+	include "language/lang.php";
 	global $db, $xtpl;
 	$xtpl=new XTemplate ("modules/templates/view_contacts.html");
-
+	$xtpl->assign( 'LANG', $lang );
 
     if (isset($_GET['view_member_of'])) {
 

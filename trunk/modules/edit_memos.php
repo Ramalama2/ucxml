@@ -10,6 +10,7 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
+
 //Checks if id is known, stores in variable
 if (isset($_GET['id_memo']))
 {
@@ -82,19 +83,21 @@ if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
 function delete_memo ($tmp_id_memo)
 {
 	$sql = "DELETE FROM memos WHERE id_memo='$tmp_id_memo'";
-    $result = mysql_query($sql);
+	$result = mysql_query($sql);
 }		
 
 //Create page and fill in known data
 function output_edit_memo ($myID_memo)
 {
+	
+	include "language/lang.php";
+
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/edit_memos.html");
+	$xtpl->assign( 'LANG', $lang );
 
 	$theSQL = "SELECT * FROM memos WHERE id_memo='$myID_memo'";
-
 	$theRES = mysql_query($theSQL, $db);
-
 	if ($in = mysql_fetch_assoc($theRES))
 	{
 		$tmp_unixtime = $in['date'];

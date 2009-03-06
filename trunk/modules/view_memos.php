@@ -10,6 +10,8 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
+
+
 $myPref = "primary";
 if (isset($_POST['submit_save'])) 
 {
@@ -19,7 +21,7 @@ if (isset($_POST['submit_save']))
 			"UPDATE memos 
 			SET	memo_ob = '$tmp_memo_ob'
 			WHERE preference = '$myPref'";
-			
+
 		mysql_query($tmpUpdateSQL, $db);
 		header("Location: index.php?module=view_memos");
 } 
@@ -33,12 +35,12 @@ elseif (isset($_POST['submit_add']))
 	{
 	//memo has been created
 		$tmp_date = time();
-		$tmp_from = $_SESSION['user_name'];	
-		
-		$tmpUpdateSQL = 
+		$tmp_from = $_SESSION['user_name'];
+
+		$tmpUpdateSQL =
 			"UPDATE memos SET
 			date = '$tmp_date',
-			sender = '$tmp_from'		
+			sender = '$tmp_from'
 			WHERE id_memo ='$tmp_id_memo'";
 		mysql_query($tmpUpdateSQL, $db);
 		// show editor
@@ -51,7 +53,7 @@ elseif (isset($_POST['submit_add']))
 	//display memo listings
 	render_HeaderFooter("UCxml web Portal - Memo View");
 	output_view_memos();
-	render_Footer();		
+	render_Footer();
 }
 
 //
@@ -60,11 +62,13 @@ elseif (isset($_POST['submit_add']))
 
 function output_view_memos()
 {
+	include "language/lang.php";
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/view_memos.html");
+	$xtpl->assign( 'LANG', $lang );
 
-		$theSQL = "SELECT * FROM memos WHERE preference = 'primary'";
-		$theRES = mysql_query($theSQL, $db);
+	$theSQL = "SELECT * FROM memos WHERE preference = 'primary'";
+	$theRES = mysql_query($theSQL, $db);
 	if ($in = mysql_fetch_assoc($theRES))
 	{
 		if ($in['memo_ob'] == "Sender")
@@ -79,7 +83,7 @@ function output_view_memos()
 	 else {
 		echo "Unable to save preferences.";
 	}
-	
+
 	$obprefSQL = "SELECT memo_ob FROM memos WHERE preference = 'primary'";
 	$obRES = mysql_query($obprefSQL, $db);
 	if ($gl = mysql_fetch_assoc($obRES))
@@ -95,11 +99,11 @@ function output_view_memos()
 		if ($_GET['ob'] == "ob_date")
 		{
 			$ob = "date DESC";
-		} elseif ($_GET['ob'] == "ob_title") { 
+		} elseif ($_GET['ob'] == "ob_title") {
 			$ob = "title";
-		} elseif ($_GET['ob'] == "ob_access") { 
+		} elseif ($_GET['ob'] == "ob_access") {
 			$ob = "access";
-		} elseif ($_GET['ob'] == "ob_sender") { 
+		} elseif ($_GET['ob'] == "ob_sender") {
 			$ob = "sender";
 		}
 	} else {
@@ -112,7 +116,7 @@ function output_view_memos()
 			$ob = $memo_ob;
 		}
 	}
-	
+
 	$theSQL = "SELECT id_memo,title,access,sender,date FROM memos ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
@@ -125,10 +129,10 @@ function output_view_memos()
 		} else {
 			$xtpl->assign("bg","#EFEFEF");
 		}
-		
+
 		$tmp_unixtime = $in['date'];
 		$displaydate = date("n/d, h:i A" ,$tmp_unixtime);
-		
+
 		$xtpl->assign("id_memo",$in['id_memo']);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("date",$displaydate);
@@ -139,11 +143,9 @@ function output_view_memos()
 		//alternate bg color
 		$oddRow = !$oddRow;
 	}
-	
-
 
 	// Output
 	$xtpl->parse("main");
-	$xtpl->out("main");		
+	$xtpl->out("main");
 }
 ?>

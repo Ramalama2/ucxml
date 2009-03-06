@@ -10,6 +10,7 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
+
 $myPref = "primary";
 
 if (isset($_POST['submit_save'])) {
@@ -55,9 +56,10 @@ elseif (isset($_POST['submit_add']))
 
 function output_view_phones ()
 {
-	
+	include "language/lang.php";	
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/view_phones.html");
+	$xtpl->assign( 'LANG', $lang );
 
 	$theSQL = "SELECT * FROM phone WHERE preference = 'primary'";
 	$theRES = mysql_query($theSQL, $db);

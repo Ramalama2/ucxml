@@ -68,8 +68,7 @@ if (isset($_POST['action']))
 				}
 			}
 
-
-		} else if (isset($_POST['submit_cancel_account'])) {
+    	} else if (isset($_POST['submit_cancel_account'])) {
 			// Cancel
 			header("Location: index.php?module=menu");
         }
@@ -139,7 +138,33 @@ if (isset($_POST['action']))
 	  header("Location: index.php?module=my_account");
 		}
 
-	   else {
+      elseif (isset($_POST['submit_lang']))
+		{
+			// Saving
+			$tmp_lang = defang_input($_POST['lang']);
+			$tmpUpdateSQL ="UPDATE users
+							SET	lang = '$tmp_lang'
+							WHERE id_user ='$tmp_id_user'";
+			mysql_query($tmpUpdateSQL, $db);
+
+	        $checkSQL = "SELECT lang FROM users WHERE id_user = '$tmp_id_user'";
+			$checkRES = mysql_query($checkSQL, $db);
+			if ($in = mysql_fetch_assoc($checkRES))
+			{
+				if( $in['lang'] )
+				{
+					$_SESSION['lang'] = $in['lang'];
+				}
+		    }
+			if (isset($_GET['lang']))
+			{
+				require_once "language/lang.php";
+		    }
+
+			header("Location: index.php?module=my_account");
+		}
+
+	else {
 			// Action, but no valid submit button.
 			header("Location: index.php?module=my_account");
 		}
@@ -159,13 +184,25 @@ if (isset($_POST['action']))
 //Create page and fill in known data
 function output_edit_user ($myID_user, $myID_contact, $user, $errMsg)
 {
+	include "language/lang.php";
 	global $db, $xtpl, $delete;
 	$target = "images/avatars/";
 	$xtpl=new XTemplate ("modules/templates/my_account.html");
+	$xtpl->assign( 'LANG', $lang );
 
-   	if( $errMsg )
+	if( $errMsg )
 	{
-	$xtpl->assign("error_msg",$errMsg);
+		$xtpl->assign("error_msg",$errMsg);
+	}
+
+   	$obprefSQL = "SELECT lang FROM users WHERE id_user='$tmp_id_user'";
+	$obRES = mysql_query($obprefSQL, $db);
+	if ($gl = mysql_fetch_assoc($obRES))
+	{
+		$lang = $gl['lang'];
+	} else {
+		//sql error
+		$lang = "en";
 	}
 
 	$theSQL = "SELECT * FROM users WHERE id_user='$myID_user'";
@@ -177,6 +214,7 @@ function output_edit_user ($myID_user, $myID_contact, $user, $errMsg)
 		$xtpl->assign("email",$in['email']);
 		$xtpl->assign("username",$in['username']);
 		$xtpl->assign("av",$in['av']);
+		$xtpl->assign("lang",$in['lang']);
 
 		// if the user does not have an avatar, echo the default avatar
 		// if the user has an avatar echo the path to it (whether it is just uploaded, or is already saved)
@@ -188,6 +226,17 @@ function output_edit_user ($myID_user, $myID_contact, $user, $errMsg)
 		{
 			// show a delete checkbox
 		$xtpl->assign ("delete", $delete? ' checked="checked"' : '');
+		}
+
+   		if ($in['lang'] == "sk")
+		{
+			$xtpl->assign("sel_sk", "selected");
+			$xtpl->assign("sel_en", "");
+		}
+        elseif ($in['lang'] == "en")
+		{
+			$xtpl->assign("sel_sk", "");
+			$xtpl->assign("sel_en", "selected");
 		}
 	}
 
@@ -252,7 +301,6 @@ function output_edit_user ($myID_user, $myID_contact, $user, $errMsg)
 			$xtpl->assign("sel_emergency", "");
 			$xtpl->assign("sel_choose", "selected");
 		}
-
     }
 
 	// Output

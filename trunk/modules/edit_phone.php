@@ -10,6 +10,7 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
+
 //Checks if id is known, stores in variable
 if (isset($_GET['id_phone'])) $tmp_id_phone = defang_input($_GET['id_phone']);
 
@@ -71,6 +72,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 	
 } else {
 	// NO action
+	render_HeaderFooter("UCxml web Portal - Edit Phone Registrations");
 	output_edit_phone($tmp_id_phone);
 	render_Footer();
 }
@@ -78,21 +80,19 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 function delete_phone ($tmp_id_phone)
 {
 	$sql = "DELETE FROM phone WHERE id_phone='$tmp_id_phone'";
-    $result = mysql_query($sql);
+	$result = mysql_query($sql);
 }			
 
 //Create page and fill in known data
 function output_edit_phone ($myID_phone)
 {
-	render_HeaderFooter("UCxml web Portal - Edit Phone Registrations");
-	
+	include "language/lang.php";
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/edit_phone.html");
+	$xtpl->assign( 'LANG', $lang );
 
 	$theSQL = "SELECT * FROM phone WHERE id_phone='$myID_phone'";
-
 	$theRES = mysql_query($theSQL, $db);
-
 	if ($in = mysql_fetch_assoc($theRES))
 	{
 		$xtpl->assign("id_phone",$in['id_phone']);

@@ -6,20 +6,18 @@
 	Unified Communications solution with Open Source applications - UCxml
 */
 
+$tmp_id_user = defang_input($_SESSION['user_id']);
 
-$xtpl=new XTemplate ("WebUI/modules/templates/view_status.html");
-
-$myPref = "primary";
 if (isset($_POST['save_view']))
 {
 	// Saving
-		$tmp_status_view = defang_input($_POST['status_view']);
-		$tmpUpdateSQL = "UPDATE phone
-			SET	status_view = '$tmp_status_view'
-			WHERE preference = '$myPref'";
+	$tmp_status_view = defang_input($_POST['status_view']);
+	$tmpUpdateSQL = "UPDATE users
+					SET	status_view = '$tmp_status_view'
+					WHERE id_user = '$tmp_id_user'";
+	mysql_query($tmpUpdateSQL, $db);
 
-		mysql_query($tmpUpdateSQL, $db);
-		header("Location: index.php?module=view_status");
+	header("Location: index.php?module=view_status");
 
 } else {
 	//display contacts
@@ -34,39 +32,53 @@ if (isset($_POST['save_view']))
 
 function output_view_status ()
 {
+	include "language/lang.php";
 	global $db, $xtpl;
 	$xtpl=new XTemplate ("modules/templates/view_status.html");
+	$xtpl->assign( 'LANG', $lang );
 
-		$theSQL = "SELECT * FROM phone WHERE preference = 'primary'";
-		$theRES = mysql_query($theSQL, $db);
-	if ($in = mysql_fetch_assoc($theRES))
-	{
-		if ($in['status_view'] == "-1")
+
+  	$checkSQL = "SELECT status_view FROM users WHERE id_user = '$tmp_id_user'";
+	$checkRES = mysql_query($checkSQL, $db);
+	if ($in = mysql_fetch_assoc($checkRES))
 		{
-			$xtpl->assign("selected_all",'selected');
+			if( $in['status_view'] )
+			{
+				$_SESSION['status_view'] = $in['status_view'];
+			}
+//          		$xtpl->assign("status_view",$in['status_view']);
 
-		} elseif ($in['status_view'] == "1") {
+       		if ($in['status_view'] == "all")
+			{
+				$xtpl->assign("sel_all", "selected");
+				$xtpl->assign("sel_in", "");
+				$xtpl->assign("sel_out", "");
+			}
+	        elseif ($in['status_view'] == "in")
+			{
+				$xtpl->assign("sel_all", "");
+				$xtpl->assign("sel_in", "selected");
+				$xtpl->assign("sel_out", "");
+			}
+	        else
+			{
+				$xtpl->assign("sel_all", "");
+				$xtpl->assign("sel_in", "");
+				$xtpl->assign("sel_out", "selected");
+			}
 
-			$xtpl->assign("selected_1",'selected');
+	    }
 
-		} else {
-
-			$xtpl->assign("selected_0",'selected');
-		}
-	}
-	 else {
-		echo "Unable to save preferences.";
-	}
-
-	$obprefSQL = "SELECT status_view FROM phone WHERE preference = 'primary'";
+	$obprefSQL = "SELECT status_view FROM users WHERE id_user = '$tmp_id_user'";
 	$obRES = mysql_query($obprefSQL, $db);
 	if ($gl = mysql_fetch_assoc($obRES))
 	{
 		$status_view = $gl['status_view'];
 	} else {
 		//sql error
-		$status_view = "-1";
+		$status_view = "all";
 	}
+
 
           //custom order by
 	if (isset($_GET['ob']))
@@ -83,42 +95,32 @@ function output_view_status ()
 	$ob = "lname";
 	}
 
-  	if (isset($_GET['ur']))
-		{
-		$urMAC = defang_input($_GET['ur']);
-		show_status($MAC,$urMAC);
+       if (isset($_GET['status_view']))
+	   {
+       		$status_view = defang_input($_GET['status_view']);
 
-		} elseif (isset($_GET['view_my_status'])) {
-
-		show_status($MAC,$MAC);
-		}
-
-	  elseif (isset($_GET['others_status'])) {
-
-			$others_status = defang_input($_GET['others_status']);
-
-			if ($others_status == 'all')
+			if ($in['status_view'] == "all")
 			{
-			          //user wants to view everyones' status
-				$loc_sql = "WHERE phone.access_lvl != 'unknown'";
-				$xtpl->assign("selected_all",'selected');
+			//user wants to view everyones' status
+				$loc_sql = "";
+				$xtpl->assign("sel_all",'selected');
 
-			} elseif ($others_status == 'out') {
+			} elseif ($in['status_view'] == "out") {
 				//user wants to view people unavailable, status
 				$loc_sql = "WHERE phone.status = 0 AND phone.access_lvl != 'unknown'";
-				$xtpl->assign("selected_0",'selected');
+				$xtpl->assign("sel_out",'selected');
 
-			} elseif ($others_status == 'in') {
+			} elseif ($in['status_view'] == "in") {
 				//user wants to view people in the available, status
 				$loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
-				$xtpl->assign("selected_1",'selected');
-				$xtpl->assign("in",$others_status);
+				$xtpl->assign("sel_in",'selected');
+				$xtpl->assign("in",$status_view);
 			}
 
+		}
 			$xtpl->parse("main.column");//show columns
-				//user has submited a search, show the contacts
 
-			$theSQL = "SELECT id_phone,access_lvl,fname,lname,away_msg,status FROM phone $loc_sql ";
+			$theSQL = "SELECT id_phone,status,lname,fname,away_msg,access_lvl FROM phone $loc_sql";
 			$theRES = mysql_query($theSQL, $db);
 
 			$oddRow = true;
@@ -139,14 +141,27 @@ function output_view_status ()
 
 				$xtpl->parse("main.row");
 				$oddRow = !$oddRow;
-			}
 
-			// Output
+			}
+      // Output
 			$xtpl->parse("main");
 			$xtpl->out("main");
 
-	}
-	elseif (isset($_GET['my_status'])) {
+
+/*  	if (isset($_GET['ur']))
+		{
+		$urMAC = defang_input($_GET['ur']);
+		show_status($MAC,$urMAC);
+
+		} elseif (isset($_GET['view_my_status'])) {
+
+		show_status($MAC,$MAC);
+		}
+*/
+}
+function my_status()
+{
+	if (isset($_GET['my_status'])) {
 		//User has requested to change their status
 		if ($registered == "TRUE")
 		{
@@ -180,10 +195,12 @@ function output_view_status ()
 	$xtpl->parse("main");
 	$xtpl->out("main");
 	}
-
 }
+
 function show_status ($MAC,$urMAC)
 {
+
+	include "language/lang.php";
 	global $db;
 	global $URLBase;
 
@@ -243,5 +260,4 @@ function show_status ($MAC,$urMAC)
 		$xtpl->out("main");
 	}
 }
-
 ?>

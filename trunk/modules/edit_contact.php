@@ -11,8 +11,6 @@
 */
 
 
-$xtpl=new XTemplate ("modules/templates/edit_contact.html");
-
 //Checks if id is known, stores in variable
 if (isset($_GET['id_contact']))
 	$tmp_id_contact = defang_input($_GET['id_contact']);
@@ -117,15 +115,21 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 function delete_contact ($tmp_id_contact)
 {
 	$sql = "DELETE FROM contacts WHERE id_contact='$tmp_id_contact'";
-    $result = mysql_query($sql);
+	$result = mysql_query($sql);
 }
 
 //Create page and fill in known data
 function output_edit_contact ($myID_contact)
 {
+
+	include "language/lang.php";
+
 	global $db, $xtpl;
 
-		//look up info specific to contact
+	$xtpl=new XTemplate ("modules/templates/edit_contact.html");
+	$xtpl->assign( 'LANG', $lang );
+
+	//look up info specific to contact
 	$theSQL = "SELECT * FROM contacts WHERE id_contact='$myID_contact'";
 	$theRES = mysql_query($theSQL, $db);
 	if ($in = mysql_fetch_assoc($theRES))

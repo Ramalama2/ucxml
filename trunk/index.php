@@ -20,7 +20,6 @@ require_once "lib/xtpl/xtemplate.class.php";
 // Check Login Status
 if (isset($_SESSION['user_id']))
 {
-
 	// Login OK
 	if (isset($_GET['module']))
 	{
@@ -114,23 +113,28 @@ if (isset($_SESSION['user_id']))
 require_once "lib/xtra_java.php";
 
 //function to bring header and navigation bar
-function render_HeaderFooter ($mytitle) {
+function render_HeaderFooter ($mytitle)
+{
+	include "language/lang.php";
 	$xtpl=new XTemplate ("header.html");
+	$xtpl->assign( 'LANG', $lang );
 
-// if the user has a custom avatar, show their avatar
-// if the user has a custom avatar
+	// if the user has a custom avatar, show their avatar, else show default
 	$default_av="images/avatars/default.gif";
+
 	if( $_SESSION['av'] )
 	{
-	$xtpl->assign("current_av",$_SESSION['user_id'].'.'.$_SESSION['av']);
-}else{
-	$xtpl->parse("main.default_av");
-	$xtpl->assign("default_av",$default_av);
-}
+		$xtpl->assign("current_av",$_SESSION['user_id'].'.'.$_SESSION['av']);
+	}
+	else{
+		$xtpl->parse("main.default_av");
+		$xtpl->assign("default_av",$default_av);
+	}
 
-$xtpl->assign("page_title",$mytitle);
-$xtpl->assign("current",$_SESSION['user_name']);
-$xtpl->assign("user_id",$_SESSION['user_id']);
+	$xtpl->assign("page_title",$mytitle);
+	$xtpl->assign("current",$_SESSION['user_name']);
+	$xtpl->assign("user_id",$_SESSION['user_id']);
+
 
 	if ($_SESSION['account_type'] == 'Admin')
 	{
@@ -140,8 +144,11 @@ $xtpl->assign("user_id",$_SESSION['user_id']);
 	$xtpl->out("main");
 }
 
-function render_Footer() {
+function render_Footer()
+{
+	include "language/lang.php";
 	$xtpl=new XTemplate ("footer.html");
+	$xtpl->assign( 'LANG', $lang );
 
 	if ($_SESSION['account_type'] == 'Admin')
 	{

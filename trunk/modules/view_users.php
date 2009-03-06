@@ -42,8 +42,10 @@ if (isset($_POST['submit_add']))
 
 function output_view_users ()
 {
+	include "language/lang.php";
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/view_users.html");
+	$xtpl->assign( 'LANG', $lang );
 
 	// Content
 
