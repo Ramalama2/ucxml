@@ -69,7 +69,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		}
 		//Number of phones to be displayed per page
 		$countQuery = "SELECT
-			COUNT(phone.id) AS total
+			COUNT(phone.id_phone) AS total
 			FROM phone
 			$loc_sql";
 	
@@ -85,7 +85,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		$remainingRows = ($totalCount - $start);
 		
 		$browseQuery = "SELECT 
-				phone.id AS id,
+				phone.id_phone AS id_phone,
 				phone.number AS number,
 				phone.fname AS fname,
 				phone.lname AS lname,
@@ -332,7 +332,7 @@ function count_qry($location)
 	global $db;
 	
 	$countQuery = "SELECT
-			COUNT(phone.id) AS total
+			COUNT(phone.id_phone) AS total
 			FROM phone
 			$location
 			AND phone.access_lvl != 'unknown'";

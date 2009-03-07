@@ -1,11 +1,11 @@
 <?php
 /*
 	UCxml PhoneUI - memos
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:		
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
@@ -22,35 +22,35 @@ require_once "lib/headers.php";
 
 if ($ph_sec == 'Yes' && $registered == 'FALSE')
 {
-	//Security to stop unregistered users from going any further if 'Phone Security' is on.  
+	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";
-	
+
 } elseif (isset($_GET['mem'])) {
 	// We are selecting a memo
 	$memID = defang_input($_GET['mem']);
-	$memQuery = "SELECT 
+	$memQuery = "SELECT
 	memos.date AS date,
-	memos.id AS id,
+	memos.id_memo AS id_memo,
 	memos.title AS title,
 	memos.access AS access,
 	memos.msg AS msg,
 	memos.sender AS sender
-	FROM memos WHERE memos.id='$memID'";
+	FROM memos WHERE memos.id_memo='$memID_memo'";
 	$thememRES = mysql_query($memQuery, $db);
-	
+
 	if ($in = mysql_fetch_assoc($thememRES))
 	{
 		$xtpl=new XTemplate ("templates/memo_detail.xml");
-		if ($in['access'] == 'Public' || $access_lvl == 'Unrestricted' || $ob_sec == 'No') 
+		if ($in['access'] == 'Public' || $access_lvl == 'Unrestricted')
 		{
 			$tmp_unixtime = $in['date'];
 			$displaydate = date("n/d, h:ia Y" ,$tmp_unixtime);
-			
+
 			$xtpl->assign("title",$in['title']);
 			$xtpl->assign("date",$displaydate);
 			$xtpl->assign("sender",$in['sender']);
 			$xtpl->assign("msg",$in['msg']);
-			
+
 		} else {
 			//User did not meet security requirements to view memo
 			$xtpl->assign("msg",'You must be using an Unrestricted phone to view this message');
@@ -59,61 +59,61 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		$xtpl->out("main");
 	}
 } else {
-	//echo $ob_sec, $registered;
-	list_memos ($ob_sec,$MAC,$registered);
+	//echo $registered;
+	list_memos ($MAC,$registered);
 }
 
-function list_memos ($ob_sec,$MAC,$registered)
+function list_memos ($MAC,$registered)
 {
 	/*
 		Set page count to 28, count how many memos are going to be listed.
 		List titles of memos, showing their dates by what the global says, and if user
 		has chosen an order, order by their custom order
 		Create URLs for each memo that will direct user to the text in the memo
-	
+
 	*/
 	global $db;
 	global $URLBase;
 	global $access_lvl;
 	global $memo_ob;
-	
+
 	$per_page = 27;//number of memos displayed on each page
-		
+
 		if (isset($_GET['start']))
 		{
 			$start = defang_input($_GET['start']);
 			$limitstart = 'LIMIT '.$start.','.$per_page;
-			
+
 		} else {
 			$start = 0;
 			$limitstart = 'LIMIT 0,'.$per_page;
 		}
-	
-	if ($access_lvl == 'Restricted' && $ob_sec == 'Yes')
+
+	if ($access_lvl == 'Restricted')
 	{
-		//User is restricted, apply security settings to show only 'Public' access 
+		//User is restricted, apply security settings to show only 'Public' access
 		$securityQuery = "WHERE memos.access = 'Public'";
 	} else {
 		//Security settings are not in place, or is restricted, do not restrict to 'Public' access
 		$securityQuery = "";
 	}
-	
+
 	$countQuery = "SELECT
-		COUNT(memos.id) AS total
+		COUNT(memos.id_memo) AS total
 		FROM memos
 		$securityQuery";
-	
+
 	$theCountRES = mysql_query($countQuery, $db);
 	//Fetch total items
 	if ($in = mysql_fetch_assoc($theCountRES))
 	{
 		$totalCount = $in['total'];
 	}
-	
+
 	//Calc remaining rows
 	$remainingRows = ($totalCount - $start);
-		
-		
+
+
 	//Get order by preferences
 	if (isset($_GET['ob']))
 	{
@@ -140,10 +140,10 @@ function list_memos ($ob_sec,$MAC,$registered)
 			$memo_ob_sql = $memo_ob;
 		}
 	}
-	
+
 	//Qry
 	$browseQuery = "SELECT
-		memos.id AS id,
+		memos.id_memo AS id_memo,
 		memos.title AS title,
 		memos.date AS date,
 		memos.access AS access,
@@ -152,8 +152,8 @@ function list_memos ($ob_sec,$MAC,$registered)
 		$securityQuery
 		ORDER BY memos.$memo_ob_sql
 		$limitstart";
-		
-	
+
+
 	if ($remainingRows <= $per_page)
 		{
 			$prompt = ($start + 1) ." to ". ($start + $remainingRows) ." of ". $totalCount.".";
@@ -161,30 +161,30 @@ function list_memos ($ob_sec,$MAC,$registered)
 			$prompt = ($start + 1) ." to ". ($start + $per_page) ." of ". $totalCount.".";
 		}
 	if ($totalCount != '0')
-	{	
+	{
 		$theBrowseRES = mysql_query($browseQuery, $db);
 		$xtpl=new XTemplate ("templates/memo_menu.xml");
-		
+
 			while ($in2 = mysql_fetch_assoc($theBrowseRES))
 			{
-				if ($in2['access'] == 'Public' || $access_lvl == 'Unrestricted' || $ob_sec == 'No')	
-				{	
+				if ($in2['access'] == 'Public' || $access_lvl == 'Unrestricted')
+				{
 					//User is registered, or a public Container is listed, or object security is turned off
 					$tmp_unixtime = $in2['date'];
 					$displaydate = date("n/d-" ,$tmp_unixtime);
-					
+
 					$tmpTitle = $displaydate.$in2['title'] ;
 					$title = substr($tmpTitle,0,25);
-					
+
 					$xtpl->assign("prompt",$prompt);
 					$xtpl->assign("title",$title);
 					$xtpl->assign("url_base",$URLBase);
 					$xtpl->assign("MAC",$MAC);
-					$xtpl->assign("ID",$in2['id']);
+					$xtpl->assign("ID",$in2['id_memo']);
 					$xtpl->parse("main.memo_menu");
 				}
-			}			
-		
+			}
+
 		// If there are more entries, show Next
 		if ($remainingRows > $per_page)
 		{
@@ -196,7 +196,7 @@ function list_memos ($ob_sec,$MAC,$registered)
 			$xtpl->assign("MAC",$MAC);
 			$xtpl->parse("main.memo_more");
 		}
-		
+
 		// Display objects that can re-order the memos
 		$order_title[0] = 'Sender';
 		$order_title[1] = 'Date';
@@ -211,7 +211,7 @@ function list_memos ($ob_sec,$MAC,$registered)
 			$xtpl->parse("main.order_opt");
 		++$x;
 		}
-		
+
 		//output
 		$xtpl->parse("main");
 		$xtpl->out("main");

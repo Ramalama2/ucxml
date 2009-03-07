@@ -1,32 +1,30 @@
 <?php
 /*
 	UCxml web Portal - View memos
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:	
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
-
-
-$myPref = "primary";
-if (isset($_POST['submit_save'])) 
+$tmp_id_user = defang_input($_SESSION['user_id']);
+if (isset($_POST['submit_save']))
 {
 	// Saving
 		$tmp_memo_ob = defang_input($_POST['memo_ob']);
-		$tmpUpdateSQL = 
-			"UPDATE memos 
+		$tmpUpdateSQL =
+			"UPDATE users
 			SET	memo_ob = '$tmp_memo_ob'
-			WHERE preference = '$myPref'";
-
+			WHERE id_user ='$tmp_id_user'";
 		mysql_query($tmpUpdateSQL, $db);
-		header("Location: index.php?module=view_memos");
-} 
 
-elseif (isset($_POST['submit_add']))
+		header("Location: index.php?module=view_memos");
+}
+
+elseif (isset($_POST['submit_post']))
 {
 	//add new memo
 	$tmp_id_memo = create_guid($tmp_id_memo);
@@ -44,7 +42,28 @@ elseif (isset($_POST['submit_add']))
 			WHERE id_memo ='$tmp_id_memo'";
 		mysql_query($tmpUpdateSQL, $db);
 		// show editor
-		header("Location: index.php?module=edit_memos&id_memo=$tmp_id_memo&new=true");
+		header("Location: index.php?module=post_memo&id_memo=$tmp_id_memo&new=true");
+	}
+}
+    elseif (isset($_POST['submit_post_private']))
+	{
+	//add new memo
+	$tmp_id_memo = create_guid($tmp_id_memo);
+	$tmpInitSQL = "INSERT INTO memos (id_memo) VALUES ('$tmp_id_memo')";
+	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
+	{
+	//memo has been created
+		$tmp_date = time();
+		$tmp_from = $_SESSION['user_name'];
+
+		$tmpUpdateSQL =
+			"UPDATE memos SET
+			date = '$tmp_date',
+			sender = '$tmp_from'
+			WHERE id_memo ='$tmp_id_memo'";
+		mysql_query($tmpUpdateSQL, $db);
+		// show editor
+		header("Location: index.php?module=post_memo_private&id_memo=$tmp_id_memo&new=true");
 	} else {
 	 // Failure
 	echo "Unable to create memo.";
@@ -52,7 +71,7 @@ elseif (isset($_POST['submit_add']))
 } else {
 	//display memo listings
 	render_HeaderFooter("UCxml web Portal - Memo View");
-	output_view_memos();
+	output_view_memos($tmp_id_user);
 	render_Footer();
 }
 
@@ -60,38 +79,21 @@ elseif (isset($_POST['submit_add']))
 //  FUNCTIONS
 //
 
-function output_view_memos()
+function output_view_memos($myID_user)
 {
 	include "language/lang.php";
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/view_memos.html");
 	$xtpl->assign( 'LANG', $lang );
 
-	$theSQL = "SELECT * FROM memos WHERE preference = 'primary'";
-	$theRES = mysql_query($theSQL, $db);
-	if ($in = mysql_fetch_assoc($theRES))
-	{
-		if ($in['memo_ob'] == "Sender")
-		{
-			$xtpl->assign("selected_sender",'selected');
-		} elseif ($in['memo_ob'] == "Date") {
-			$xtpl->assign("selected_date",'selected');
-		} else {
-			$xtpl->assign("selected_Title",'selected');
-		}
-	}
-	 else {
-		echo "Unable to save preferences.";
-	}
-
-	$obprefSQL = "SELECT memo_ob FROM memos WHERE preference = 'primary'";
+	$obprefSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
 	$obRES = mysql_query($obprefSQL, $db);
 	if ($gl = mysql_fetch_assoc($obRES))
 	{
 		$memo_ob = $gl['memo_ob'];
 	} else {
 		//sql error
-		$memo_ob = "Date";
+		$memo_ob = "date";
 	}
 	//custum order by
 	if (isset($_GET['ob']))
@@ -116,6 +118,11 @@ function output_view_memos()
 			$ob = $memo_ob;
 		}
 	}
+
+    if ($_SESSION['account_type'] == 'Admin')
+		{
+			$xtpl -> parse ("main.admin_broadcast");
+		}
 
 	$theSQL = "SELECT id_memo,title,access,sender,date FROM memos ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
@@ -142,6 +149,25 @@ function output_view_memos()
 		$xtpl->parse("main.row");
 		//alternate bg color
 		$oddRow = !$oddRow;
+	}
+
+   	$theSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
+	$theRES = mysql_query($theSQL, $db);
+	if ($in = mysql_fetch_assoc($theRES))
+	{
+		$xtpl->assign("memo_ob",$in['memo_ob']);
+
+		if ($in['memo_ob'] == "sender")
+		{
+			$xtpl->assign("sel_sender","selected");
+		} elseif ($in['memo_ob'] == "date") {
+			$xtpl->assign("sel_date","selected");
+		} else {
+			$xtpl->assign("sel_title","selected");
+		}
+	}
+     else {
+		echo "Unable to save preferences.";
 	}
 
 	// Output

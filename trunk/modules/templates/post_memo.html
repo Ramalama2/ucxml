@@ -52,13 +52,13 @@ function validate_edit_memo()
         
     </ul>
     </div>
-	
+
 	<div id="main">
                 <form name="form1" method="post" action="">
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Memos options</div></h3>
-	    <ul>	
-		    <li><a href="#" title="Gallery">Save a created  memo</a></li>
+	    <ul>
+		    <li><a href="">Save a created  memo</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
 		<input type="hidden" name="id_memo" value="{id_memo}">
               <input type="hidden" name="baseauth" value="{baseauth}">
@@ -66,51 +66,48 @@ function validate_edit_memo()
               <input type="submit" name="submit_save" onClick="return validate_edit_memo()" value="  Save  ">
 		</div>
 
-            <li><a href="#" title="Articles">Cancel Memos:</a></li>
+            <li><a href="">Cancel Memos:</a></li>
 				<div style="padding-left:20px;padding-bottom:15px;"><input type="submit" name="submit_cancel" value=" Cancel ">
                   <input type="hidden" name="id_memo" value="{id_memo}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 		</div>
             
-            <li><a href="#" title="Articles">Delete  Memos:</a></li>
+            <li><a href="">Delete  Memos:</a></li>
                   <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
                   <input type="hidden" name="id_memo" value="{id_memo}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
         </div>
-            
+
 	    </ul>
 	  </div>
-		
-		<div id="left_side">
-			<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Memos</div></h3>
-	    <table width="560" bgcolor="#F6F6F6" >
-			 <td width="91"><strong>Title:</strong></td>
-        <td><input type="text" name="title" size="30" maxlength="50" value="{title}">
-          * </td>
 
-      <tr>
-        <td><strong>Date: </strong></td>
-        <td>{date}</td>
-      </tr>
-      <tr>
-        <td><strong>Message:</strong></td>
-        <td><textarea name="msg" value="msg">{msg}</textarea></td>
-      </tr>
-      <tr>
-        <td><strong>Sender:</strong></td>
-        <td>{from}</td>
-      </tr>
-      <tr>
-        <td><strong>Access:</strong></td>
-        <td><select name="access" size="1">
-            <option>{access}</option>
-            <option>{var_access}</option>
-          </select>
-          * </td>
-		</tr>  </table></div>
-		</form>
+	<div id="left_side">
+	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Memos</div></h3>
+		<table width="560" bgcolor="#F6F6F6" >
+			<p>This Memo created by <strong>{from}</strong> at: <strong>{date}</strong></p>
+
+		<tr>
+		  <td width="91"><strong>Title:</strong></td>
+		  <td><input type="text" name="title" size="30" maxlength="50" value="{title}">	*</td>
+		</tr>
+
+		<tr>
+		  <td><strong>Message:</strong></td>
+		  <td><textarea name="msg" value="msg">{msg}</textarea></td>
+		</tr>
+
+		<tr>
+		  <td><strong>Access:</strong></td>
+	      <td><select name="access" size="1">
+				<option>{access}</option>
+				<option>{var_access}</option>
+			  </select> *</td>
+		</tr>
+		</table>
+	</div>
+	</form>
 	</div>
 </div>
 </div>
