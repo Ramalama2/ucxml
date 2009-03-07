@@ -43,8 +43,11 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "view_memos"){
 			require_once "modules/view_memos.php";
 
-		} elseif ($ModuleName == "edit_memos"){
-			require_once "modules/edit_memos.php";
+		} elseif ($ModuleName == "post_memo"){
+			require_once "modules/post_memo.php";
+
+		} elseif ($ModuleName == "post_memo_private"){
+			require_once "modules/post_memo_private.php";
 
 		} elseif ($ModuleName == "view_xcap"){
 			if ($_SESSION['account_type'] == 'Admin')

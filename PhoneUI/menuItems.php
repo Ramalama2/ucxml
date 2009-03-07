@@ -30,7 +30,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 	//Specific contact has been selected (style was seperate)
 	$urID = defang_input($_GET['ur']);
 	$browseQuery = "SELECT 
-		contacts.id AS id,
+		contacts.id_contact AS id_contact,
 		contacts.lname AS lname,
 		contacts.fname AS fname,
 		contacts.nick AS nick,
@@ -42,7 +42,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		contacts.custom_number AS custom_number,
 		contacts.title AS title
 		FROM contacts
-		WHERE contacts.id = '$urID'";
+		WHERE contacts.id_contact = '$urID_contact'";
 	
 	$theContactRES = mysql_query($browseQuery, $db);
 
@@ -145,7 +145,7 @@ function list_contacts ($member_cat,$obID,$MAC)
 
 	//Number of contacts to be displayed per page
 	$countQuery = "SELECT
-		COUNT(contacts.id) AS total
+		COUNT(contacts.id_contact) AS total
 		FROM contacts
 		WHERE contacts.member_of = '$obID'";
 	$theCountRES = mysql_query($countQuery, $db);
@@ -164,7 +164,7 @@ function list_contacts ($member_cat,$obID,$MAC)
 		//Items that match creteria exist, fetch data
 		//
 		$browseQuery = "SELECT
-			contacts.id AS id,
+			contacts.id_contact AS id_contact,
 			contacts.display_name AS display_name,
 			contacts.lname AS lname,
 			contacts.fname AS fname,
@@ -198,12 +198,12 @@ function list_contacts ($member_cat,$obID,$MAC)
 
 			$title = substr($tmpTitle,0,25);
 
-			$ID = $in2['id'];
+			$ID = $in2['id_contact'];
 
 			$xtpl->assign("title",$title);
 			$xtpl->assign("url_base",$URLBase);
 			$xtpl->assign("MAC",$MAC);
-			$xtpl->assign("ID",$ID);
+			$xtpl->assign("ID",$ID_contact);
 			$xtpl->parse("main.contact_menu");
 		}
 				// If there are more entries, show Next

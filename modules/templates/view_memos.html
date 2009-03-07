@@ -28,56 +28,62 @@ Order Memos By - This adjusts the default order of memos when viewing them on th
     * by Date - Memos will be ordered in reverse chronological order. (Newest memos shown first)
     * by Sender - Memos will be ordered alphabetically based on who posted the memo.
     * by Title - Memos will be ordered alphabetically based on the title
-
-
 	</div>
-	
+
 <div id="main">
      <form action="" method="post" id="form1"  style="padding-left:20px">
 	<div id="right_side">
-<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Memos options</div></h3>
-	    <ul>	
-		<li><a href="">Post new memos</a></li>
-            <div style="padding-left:20px;padding-bottom:15px;"><input type="submit" name="submit_add" value="  Post  " />
-	</div>
-		
-		<li><a href="">Order Memos in phone By:</a></li>
-            <div style="padding-left:20px;">
+	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Memos options</div></h3>
+		<ul>
+		<!-- BEGIN: admin_broadcast -->
+			<li><a href="">Post new Broadcast memo</a></li>
+            	<div style="padding-left:20px;padding-bottom:15px;">
+					<input type="submit" name="submit_post" value="  Post  " />
+    	        </div>
+		<!-- END: admin_broadcast -->
+
+			<li><a href="">Post private memo</a></li>
+            	<div style="padding-left:20px;padding-bottom:15px;">
+					<input type="submit" name="submit_post_private" value="  Post  " />
+    	        </div>
+
+			<li><a href="">Order Memos in phone By:</a></li>
+			<div style="padding-left:20px;">
 			<select name="memo_ob">
-                <option {selected_sender} value="Sender">Sender</option>
-                <option {selected_date} value="Date">Date</option>
-                <option {selected_Title} value="Title">Title</option>
-            </select>
-	  <input type="submit" name="submit_save" value="  Save  ">
-   </div>
-	    </ul>
+   		        <option {sel_sender} value="sender">Sender</option>
+          		<option {sel_date} value="date">Date</option>
+				<option {sel_title} value="title">Title</option>
+			</select>
+			  <input type="submit" name="submit_save" value="  Save  ">
+   			</div>
+		</ul>
 	</div>
-     </form>  		
+    </form>
 
 <div id="left_side">
+    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Memos table</div></h3>
 
-	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Memos table</div></h3>
-
-	 <table width="560" bgcolor="#F6F6F6" >
-	  <tr bgcolor="#DFDFDF" >
-	    <td align="center" width="135"><a href="index.php?module=view_memos&amp;ob=ob_title"><strong>Title</strong></a></td>
-	    <td align="center" width="136"><a href="index.php?module=view_memos&amp;ob=ob_sender"><strong>Sender</strong></a></td>
-	    <td align="center" width="122"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>Date</strong></a></td>
-	    <td align="center" width="74"><a href="index.php?module=view_memos&amp;ob=ob_access"><strong>Access</strong></a></td>
-	    <td width="69">&nbsp;&nbsp;</td>
-        </tr>
+<table width="560" bgcolor="#F6F6F6" >
+	<tr bgcolor="#DFDFDF" >
+		<td align="center" width="135"><a href="index.php?module=view_memos&amp;ob=ob_title"><strong>Title</strong></a></td>
+		<td align="center" width="136"><a href="index.php?module=view_memos&amp;ob=ob_sender"><strong>Sender</strong></a></td>
+		<td align="center" width="122"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>Date</strong></a></td>
+		<td align="center" width="74"><a href="index.php?module=view_memos&amp;ob=ob_access"><strong>Access</strong></a></td>
+		<td width="35">&nbsp;&nbsp;</td>
+	</tr>
 
   <!-- BEGIN: row -->
-	  <tr>
-	    <td bgcolor="{bg}"><a href="index.php?module=edit_memos&amp;id_memo={id_memo}">{title}</a></td>
-	    <td bgcolor="{bg}">{from}</td>
-	    <td bgcolor="{bg}">{date}</td>
-	    <td bgcolor="{bg}">{access}</td>
-	    <td bgcolor="{bg}"><a href="index.php?module=edit_memos&amp;id_memo={id_memo}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a> | <a href="index.php?module=edit_memos&amp;id_memo={id_memo}&amp;submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
-          </tr>
+	<tr>
+		<td bgcolor="{bg}"><a href="index.php?module=post_memo&amp;id_memo={id_memo}">{title}</a></td>
+		<td bgcolor="{bg}">{from}</td>
+		<td bgcolor="{bg}">{date}</td>
+		<td bgcolor="{bg}">{access}</td>
+		<td bgcolor="{bg}"><a href="index.php?module=post_memo&amp;id_memo={id_memo}&amp;submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
+	</tr>
   <!-- END: row -->
-  </table></div>
-		
+  </table>
+</div>
+
 </div>
 </div>
 </div>
