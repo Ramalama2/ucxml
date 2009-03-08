@@ -107,6 +107,8 @@ function output_view_memos($myID_user)
 			$ob = "access";
 		} elseif ($_GET['ob'] == "ob_sender") {
 			$ob = "sender";
+   		} elseif ($_GET['ob'] == "ob_msg") {
+			$ob = "msg";
 		}
 	} else {
 		if ($memo_ob == "Date")
@@ -124,7 +126,7 @@ function output_view_memos($myID_user)
 			$xtpl -> parse ("main.admin_broadcast");
 		}
 
-	$theSQL = "SELECT id_memo,title,access,sender,date FROM memos ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -145,10 +147,48 @@ function output_view_memos($myID_user)
 		$xtpl->assign("date",$displaydate);
 		$xtpl->assign("access",$in['access']);
 		$xtpl->assign("from",$in['sender']);
+		$xtpl->assign("msg",$in['msg']);
 
-		$xtpl->parse("main.row");
+		$xtpl->parse("main.row_send");
 		//alternate bg color
 		$oddRow = !$oddRow;
+	}
+
+	$theSQL = "SELECT id_memo,title,access,receiver,date,msg FROM memos ORDER BY $ob";
+	$theRES = mysql_query($theSQL, $db);
+	$oddRow = true;
+	while ($in = mysql_fetch_assoc($theRES))
+	{
+		//Generate data rows
+		if ($oddRow)
+		{
+			$xtpl->assign("bg","#F6F6F6");
+		} else {
+			$xtpl->assign("bg","#EFEFEF");
+		}
+
+		$tmp_unixtime = $in['date'];
+		$displaydate = date("n/d, h:i A" ,$tmp_unixtime);
+
+		$xtpl->assign("id_memo",$in['id_memo']);
+		$xtpl->assign("title",$in['title']);
+		$xtpl->assign("date",$displaydate);
+		$xtpl->assign("access",$in['access']);
+		$xtpl->assign("to",$in['receiver']);
+		$xtpl->assign("msg",$in['msg']);
+
+		$xtpl->parse("main.row_received");
+		//alternate bg color
+		$oddRow = !$oddRow;
+
+        if ($in['title'] == '' && $in['msg'] == '' && $in['access'] == '')
+			{
+				//contacts has no information, delete the entry
+				$tmp_delete_id_memo = $in['id_memo'];
+				$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
+				$result = mysql_query($sql);
+			}
+
 	}
 
    	$theSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";

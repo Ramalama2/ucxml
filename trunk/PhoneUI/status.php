@@ -130,7 +130,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 			$xtpl->assign("title",$title);
 			$xtpl->assign("url_base",$URLBase);
 			$xtpl->assign("MAC",$MAC);
-			$xtpl->assign("ID",$urMAC);
+			$xtpl->assign("ID_phone",$urMAC);
 			$xtpl->parse("main.contact_menu");
 		}
 			

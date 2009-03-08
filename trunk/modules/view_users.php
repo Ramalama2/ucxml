@@ -19,6 +19,7 @@ if (isset($_POST['submit_add']))
 
 	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('$tmp_id_user')";
 	mysql_query("INSERT INTO contacts (id_contact,owner) VALUES ('".$tmp_id_user."','".$tmp_owner."')");
+	mysql_query("INSERT INTO phone (id_phone) VALUES ('".$tmp_id_user."')");
 
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{

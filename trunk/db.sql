@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `memos` (
 --
 
 INSERT INTO `memos` (`id_memo`, `msg`, `date`, `access`, `sender`, `receiver`, `title`, `read`, `new`) VALUES
-('1ab418cf-c9af9-82e24-4a1b-4990988748', '', 1234213051, '', 'admin', '', '', '0', '1');
+('1ab418cf-c9af9-82e24-4a1b-4990988748', ':)', 1234213051, '', 'admin', '', 'Spam', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -81,8 +81,7 @@ CREATE TABLE IF NOT EXISTS `phone` (
   `date` varchar(12) NOT NULL DEFAULT '',
   `number` varchar(20) NOT NULL DEFAULT '',
   `away_msg` varchar(100) NOT NULL DEFAULT '',
-  `fname` varchar(20) NOT NULL DEFAULT '',
-  `lname` varchar(20) NOT NULL DEFAULT '',
+  `nick` varchar(20) NOT NULL DEFAULT '',
   `status` int(1) NOT NULL DEFAULT '0',
   `access_lvl` varchar(12) DEFAULT '',
   `preference` varchar(11) NOT NULL DEFAULT 'primary',
@@ -93,9 +92,9 @@ CREATE TABLE IF NOT EXISTS `phone` (
 -- Dumping data for table `phone`
 --
 
-INSERT INTO `phone` (`id_phone`, `MAC`, `date`, `number`, `away_msg`, `fname`, `lname`, `status`, `access_lvl`, `preference`, `ph_sec`) VALUES
-('38ceaef5-376ed-098c2-4236-43b563060c', 'SEP00131A6FD5E5', '', '', '', 'User', 'Sample', 0, 'Unrestricted', 'primary', 'Yes'),
-('501bea4d-b0a5c-c69ef-d6c3-4991927a77', 'X3S00131A6FD5E5', '', '', '', 'User2', 'Userovy', 0, 'Restricted', '', '');
+INSERT INTO `phone` (`id_phone`, `MAC`, `date`, `number`, `away_msg`, `nick`, `status`, `access_lvl`, `preference`, `ph_sec`) VALUES
+('38ceaef5-376ed-098c2-4236-43b563060c', 'SEP00131A6FD5E5', '', '', '', 'User', 0, 'Unrestricted', 'primary', 'Yes'),
+('501bea4d-b0a5c-c69ef-d6c3-4991927a77', 'X3S00131A6FD5E5', '', '', '', 'User2', 0, 'Restricted', '', '');
 
 -- --------------------------------------------------------
 
@@ -111,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `account_type` varchar(5) NOT NULL DEFAULT '',
   `av` varchar(3) NOT NULL DEFAULT '',
   `lang` varchar(2) NOT NULL DEFAULT 'en',
-  `status_view` varchar(3) NOT NULL DEFAULT '',
+  `status_view` varchar(3) NOT NULL DEFAULT 'all',
   `memo_ob` varchar(6) NOT NULL DEFAULT 'date'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

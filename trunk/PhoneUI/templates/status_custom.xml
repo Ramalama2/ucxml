@@ -1,13 +1,15 @@
 <!-- BEGIN: main -->
-<CiscoIPPhoneInput> 
-	<Title>Message to others...</Title> 
-	<Prompt>Enter your away message</Prompt> 
+<CiscoIPPhoneInput>
+<Title>Message to others...</Title>
+<Prompt>Enter your away message</Prompt>
+
 	<URL>{url_base}status.php?name={MAC}&amp;location={location}</URL>
-	<InputItem> 
-			<DisplayName>Away Message:</DisplayName> 
-			<QueryStringParam>custom_msg</QueryStringParam> 
-			<InputFlags>A</InputFlags> 
-			<DefaultValue></DefaultValue>
+	<InputItem>
+		<DisplayName>Away Message:</DisplayName>
+		<QueryStringParam>custom_msg</QueryStringParam>
+		<InputFlags>A</InputFlags>
+		<DefaultValue></DefaultValue>
 	</InputItem>
-	</CiscoIPPhoneInput>
+
+</CiscoIPPhoneInput>
 <!-- END: main -->

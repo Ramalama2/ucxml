@@ -198,12 +198,12 @@ function list_contacts ($member_cat,$obID,$MAC)
 
 			$title = substr($tmpTitle,0,25);
 
-			$ID = $in2['id_contact'];
+			$ID_contact = $in2['id_contact'];
 
 			$xtpl->assign("title",$title);
 			$xtpl->assign("url_base",$URLBase);
 			$xtpl->assign("MAC",$MAC);
-			$xtpl->assign("ID",$ID_contact);
+			$xtpl->assign("ID_contact",$ID_contact);
 			$xtpl->parse("main.contact_menu");
 		}
 				// If there are more entries, show Next

@@ -1,11 +1,11 @@
 <?php
 /*
 	UCxml web Portal - Edit phone
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:		
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
@@ -17,7 +17,7 @@ if (isset($_GET['id_phone'])) $tmp_id_phone = defang_input($_GET['id_phone']);
 if (isset($_POST['action']) || isset($_GET['submit_delete']))
 {
 	//User wants to save, cancel, or delete object
-	
+
 	$myAction = defang_input($_POST['action']);
 	if ($myAction == "edit" || $_GET['submit_delete'] == yes)
 	{
@@ -28,24 +28,22 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			$tmp_MAC = defang_input($_POST['MAC']);
 			$tmp_access_lvl = defang_input($_POST['access_lvl']);
 			$tmp_number = defang_input($_POST['number']);
-			$tmp_fname = defang_input($_POST['fname']);
-			$tmp_lname = defang_input($_POST['lname']);
-			
+			$tmp_nick = defang_input($_POST['nick']);
+
 			$tmpUpdateSQL = "UPDATE phone SET
 				MAC = '$tmp_MAC',
 				number = '$tmp_number',
-				fname = '$tmp_fname',
-				lname = '$tmp_lname',
+				nick = '$tmp_nick',
 				access_lvl = '$tmp_access_lvl'
 				WHERE id_phone ='$tmp_id_phone'";
-			
+
 			if (mysql_query($tmpUpdateSQL, $db))
 			{
 				header("Location: index.php?module=view_phones");
 			} else {
 				echo "Unable to edit phone.";
 			}
-					
+
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 			// Deleting
 			$tmp_id_phone = defang_input($tmp_id_phone);
@@ -81,7 +79,7 @@ function delete_phone ($tmp_id_phone)
 {
 	$sql = "DELETE FROM phone WHERE id_phone='$tmp_id_phone'";
 	$result = mysql_query($sql);
-}			
+}
 
 //Create page and fill in known data
 function output_edit_phone ($myID_phone)
@@ -102,10 +100,12 @@ function output_edit_phone ($myID_phone)
 			$xtpl->assign("selected_restricted","selected");
 			$xtpl->assign("selected_unrestricted","");
 			$xtpl->assign("selected_unknown","");
+
 		} else if ($in['access_lvl'] == "Unrestricted"){
 			$xtpl->assign("selected_restricted","");
 			$xtpl->assign("selected_unrestricted","selected");
 			$xtpl->assign("selected_unknown","");
+
 		} else {
 			//unknown is selected
 			$xtpl->assign("selected_restricted","");
@@ -113,13 +113,12 @@ function output_edit_phone ($myID_phone)
 			$xtpl->assign("selected_unknown","selected");
 		}
 		$xtpl->assign("number",$in['number']);
-		$xtpl->assign("fname",$in['fname']);
-		$xtpl->assign("lname",$in['lname']);
-		
-	}	
+		$xtpl->assign("nick",$in['nick']);
+
+	}
 	// Output
 	$xtpl->parse("main");
-	$xtpl->out("main");		
+	$xtpl->out("main");
 }
 
 
