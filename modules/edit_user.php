@@ -1,11 +1,11 @@
 <?php
 /*
 	UCxml web Portal - Edit user
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:		
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
@@ -13,6 +13,7 @@
 
 //Checks if id is known, stores in variable
 if (isset($_GET['id_user'])) $tmp_id_user = defang_input($_GET['id_user']);
+if (isset($_GET['id_phone'])) $tmp_id_phone = defang_input($_GET['id_phone']);
 
 $user = "good"; //defaults user to good before chances of it beging invalid
 
@@ -26,7 +27,12 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 		{
 			// Saving
 			$tmp_id_user = defang_input($_POST['id_user']);
-			
+
+			$tmp_id_phone = defang_input($_POST['id_phone']);
+			$tmp_MAC = defang_input($_POST['MAC']);
+			$tmp_access_lvl = defang_input($_POST['access_lvl']);
+			$tmp_number = defang_input($_POST['number']);
+
 			$tmp_username = defang_input($_POST['username']);
 			$unique_user_sql = "SELECT username,id_user FROM `users` WHERE username = '$tmp_username' AND id_user != '$tmp_id_user'";
 			$other_usernames = mysql_query($unique_user_sql, $db);
@@ -65,9 +71,17 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 					mysql_query($tmpUpdateSQL, $db);
 
 					$tmpUpdateSQL2 = "UPDATE contacts SET
-						nick = '$tmp_username'
+						nick = '$tmp_username',
 						WHERE id_contact ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL2, $db);
+
+                    $tmpUpdateSQL3 = "UPDATE phone SET
+						nick = '$tmp_username',
+           				MAC = '$tmp_MAC',
+						number = '$tmp_number',
+						access_lvl = '$tmp_access_lvl'
+						WHERE id_phone ='$tmp_id_user'";
+					mysql_query($tmpUpdateSQL3, $db);
 
 					header("Location: index.php?module=view_users");
 				}
@@ -105,24 +119,24 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 } else {
 	// NO action
 	render_HeaderFooter("UCxml web Portal - User Edit");
-	output_edit_user($tmp_id_user,$user);
+	output_edit_user($tmp_id_user,$tmp_id_phone, $user);
 	render_Footer();
 }
 
-function delete_user ($tmp_id_user)
+function delete_user ($tmp_id_user, $tmp_id_phone)
 {
 	$sql = "DELETE FROM users WHERE id_user='$tmp_id_user'";
 	$result = mysql_query($sql);
 }
 
 //Create page and fill in known data
-function output_edit_user ($myID_user,$user)
+function output_edit_user ($myID_user,$myID_phone,$user)
 {
 	include "language/lang.php";
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/edit_user.html");
 	$xtpl->assign( 'LANG', $lang );
-	
+
 	$theSQL = "SELECT * FROM users WHERE id_user='$myID_user'";
 	$theRES = mysql_query($theSQL, $db);
 	if ($in = mysql_fetch_assoc($theRES))
@@ -141,7 +155,7 @@ function output_edit_user ($myID_user,$user)
 			$xtpl->assign("var_account_type","Admin");
 		}
 	}
-	
+
 	if ($user == "bad")
 	{
 		$xtpl->parse("main.bad_username");
@@ -163,8 +177,37 @@ function output_edit_user ($myID_user,$user)
 			$xtpl->assign("var_account_type","Admin");
 		}
 	}
+
+   	$theSQL = "SELECT * FROM phone WHERE id_phone='$myID_phone'";
+	$theRES = mysql_query($theSQL, $db);
+	if ($in = mysql_fetch_assoc($theRES))
+	{
+		$xtpl->assign("id_phone",$in['id_phone']);
+		$xtpl->assign("MAC",$in['MAC']);
+		if ($in['access_lvl'] == "Restricted")
+		{
+			$xtpl->assign("selected_restricted","selected");
+			$xtpl->assign("selected_unrestricted","");
+			$xtpl->assign("selected_unknown","");
+
+		} else if ($in['access_lvl'] == "Unrestricted"){
+			$xtpl->assign("selected_restricted","");
+			$xtpl->assign("selected_unrestricted","selected");
+			$xtpl->assign("selected_unknown","");
+
+		} else {
+			//unknown is selected
+			$xtpl->assign("selected_restricted","");
+			$xtpl->assign("selected_unrestricted","");
+			$xtpl->assign("selected_unknown","selected");
+		}
+		$xtpl->assign("number",$in['number']);
+		$xtpl->assign("nick",$in['nick']);
+
+	}
+
 	// Output
 	$xtpl->parse("main");
-	$xtpl->out("main");		
+	$xtpl->out("main");
 }
 ?>

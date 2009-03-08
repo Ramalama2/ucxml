@@ -180,7 +180,7 @@ function list_memos ($MAC,$registered)
 					$xtpl->assign("title",$title);
 					$xtpl->assign("url_base",$URLBase);
 					$xtpl->assign("MAC",$MAC);
-					$xtpl->assign("ID",$in2['id_memo']);
+					$xtpl->assign("ID_memo",$in2['id_memo']);
 					$xtpl->parse("main.memo_menu");
 				}
 			}
@@ -203,7 +203,7 @@ function list_memos ($MAC,$registered)
 		$order_title[2] = 'Title';
 		$number = 3;
 		$x = 0;
-		while ($x < $number) {
+
 			$xtpl->assign("title",$order_title[$x]);
 			$xtpl->assign("ob",$order_title[$x]);
 			$xtpl->assign("url_base",$URLBase);

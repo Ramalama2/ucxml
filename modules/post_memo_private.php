@@ -100,15 +100,13 @@ function output_edit_memo ($myID_memo)
 
 	$theSQL = "SELECT number FROM phone";
 	$theRES = mysql_query($theSQL, $db);
-     while ($row = mysql_fetch_row($theRES))
+	while ($row = mysql_fetch_row($theRES))
 	{
-       foreach ($row as $value)
-	   {
-	   	echo $value;
-			$xtpl->assign ("receiver", $value);
-       		$xtpl->parse('main.type');
-
-       }
+		foreach ($row as $value)
+		{
+		$xtpl->assign ("receiver", $value);
+  		$xtpl->parse('main.type');
+		}
 	}
 
 	$theSQL = "SELECT * FROM memos WHERE id_memo='$myID_memo'";
@@ -123,7 +121,6 @@ function output_edit_memo ($myID_memo)
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("msg",$in['msg']);
 		$xtpl->assign("from",$in['sender']);
-//		$xtpl->assign("receiver",$in['receiver']);
 
 		if ($in['access'] == "Private")
 		{

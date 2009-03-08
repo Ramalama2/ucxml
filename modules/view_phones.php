@@ -1,4 +1,4 @@
-<?php	
+<?php
 /*
 	UCxml web Portal - View phones
 	
@@ -21,11 +21,11 @@ if (isset($_POST['submit_save'])) {
 		} else {
 			$tmp_ph_sec = "No";
 		}
-		
+
 		$tmpUpdateSQL = "UPDATE phone SET
 			ph_sec = '$tmp_ph_sec'
 			WHERE preference = '$myPref'";
-			
+
 		mysql_query($tmpUpdateSQL, $db);
 		header("Location: index.php?module=view_phones");
 }
@@ -47,7 +47,7 @@ elseif (isset($_POST['submit_add']))
 	//display phone listings
 	render_HeaderFooter("UCxml web Portal - Manage Phone Registrations");
 	output_view_phones();
-	render_Footer();		
+	render_Footer();
 }
 
 //
@@ -56,7 +56,7 @@ elseif (isset($_POST['submit_add']))
 
 function output_view_phones ()
 {
-	include "language/lang.php";	
+	include "language/lang.php";
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/view_phones.html");
 	$xtpl->assign( 'LANG', $lang );
@@ -70,23 +70,23 @@ function output_view_phones ()
 		{
 			$xtpl->assign("ph_sec_check",'CHECKED'); //place check in box
 		}
-		
+
 	 else {
 		//	echo "Unable to save preferences.";
 		}
 	}
-	
+
 	//custum order by
 	if (isset($_GET['ob']))
 	{
 		if ($_GET['ob'] == "ob_MAC")
 		{
 			$ob = "MAC";
-		} elseif ($_GET['ob'] == "ob_access_lvl") { 
+		} elseif ($_GET['ob'] == "ob_access_lvl") {
 			$ob = "access_lvl";
-		} elseif ($_GET['ob'] == "ob_ln") { 
+		} elseif ($_GET['ob'] == "ob_ln") {
 			$ob = "lname";
-		} elseif ($_GET['ob'] == "ob_num") { 
+		} elseif ($_GET['ob'] == "ob_num") {
 			$ob = "number";
 		} else {
 			$ob = "MAC";
@@ -94,11 +94,11 @@ function output_view_phones ()
 	} else {
 	$ob = "MAC";
 	}
-	
+
 	// Content
-	$theSQL = "SELECT id_phone,MAC,access_lvl,fname,lname,number FROM phone ORDER BY $ob";
+	$theSQL = "SELECT id_phone,MAC,access_lvl,nick,number FROM phone ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
-	
+
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
 	{
@@ -112,7 +112,7 @@ function output_view_phones ()
 		$xtpl->assign("id_phone",$in['id_phone']);
 		$xtpl->assign("MAC",$in['MAC']);
 		$xtpl->assign("access_lvl",$in['access_lvl']);
-		$xtpl->assign("name",$in['lname'].", ".$in['fname']);
+		$xtpl->assign("nick",$in['nick']);
 		$xtpl->assign("number",$in['number']);
 
 		$xtpl->parse("main.row");
@@ -120,10 +120,10 @@ function output_view_phones ()
 	}
 
 //Create page and fill in known data
-	
-	
+
+
 	// Output
 	$xtpl->parse("main");
-	$xtpl->out("main");		
+	$xtpl->out("main");
 }
 ?>

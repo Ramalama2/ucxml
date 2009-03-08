@@ -1,12 +1,14 @@
 <!-- BEGIN: main -->
 <CiscoIPPhoneDirectory>
-<Title>{tmpTitle}</Title>
-<Prompt>{company}</Prompt>
-<!-- BEGIN: dir_entry -->
-<DirectoryEntry>
-<Name>{type}</Name>
-<Telephone>{number}</Telephone>
-</DirectoryEntry>
-<!-- END: dir_entry -->
+	<Title>{tmpTitle}</Title>
+	<Prompt>{nick}</Prompt>
+
+	<!-- BEGIN: dir_entry -->
+	<DirectoryEntry>
+		<Name>{type}</Name>
+		<Telephone>{number}</Telephone>
+	</DirectoryEntry>
+	<!-- END: dir_entry -->
+
 </CiscoIPPhoneDirectory>
 <!-- END: main -->

@@ -22,7 +22,7 @@ if (isset($_POST['save_view']))
 } else {
 	//display contacts
 	render_HeaderFooter("UCxml web Portal - Phone Status");
-	output_view_status();
+	output_view_status($tmp_id_user);
 	render_Footer();
 }
 
@@ -30,7 +30,7 @@ if (isset($_POST['save_view']))
 //  FUNCTIONS
 //
 
-function output_view_status ()
+function output_view_status ($myID_user)
 {
 	include "language/lang.php";
 	global $db, $xtpl;
@@ -38,7 +38,7 @@ function output_view_status ()
 	$xtpl->assign( 'LANG', $lang );
 
 
-  	$checkSQL = "SELECT status_view FROM users WHERE id_user = '$tmp_id_user'";
+  	$checkSQL = "SELECT status_view FROM users WHERE id_user='$myID_user'";
 	$checkRES = mysql_query($checkSQL, $db);
 	if ($in = mysql_fetch_assoc($checkRES))
 		{
@@ -69,7 +69,7 @@ function output_view_status ()
 
 	    }
 
-	$obprefSQL = "SELECT status_view FROM users WHERE id_user = '$tmp_id_user'";
+	$obprefSQL = "SELECT status_view FROM users WHERE id_user='$myID_user'";
 	$obRES = mysql_query($obprefSQL, $db);
 	if ($gl = mysql_fetch_assoc($obRES))
 	{
@@ -117,10 +117,10 @@ function output_view_status ()
 				$xtpl->assign("in",$status_view);
 			}
 
-		}
+        }
 			$xtpl->parse("main.column");//show columns
 
-			$theSQL = "SELECT id_phone,status,lname,fname,away_msg,access_lvl FROM phone $loc_sql";
+			$theSQL = "SELECT id_phone,status,nick,away_msg,access_lvl FROM phone $loc_sql";
 			$theRES = mysql_query($theSQL, $db);
 
 			$oddRow = true;
@@ -135,7 +135,7 @@ function output_view_status ()
 				}
 				$xtpl->assign("id_phone",$in['id_phone']);
 				$xtpl->assign("status",$in['status']);
-				$xtpl->assign("name",$in['lname'].", ".$in['fname']);
+				$xtpl->assign("nick");
 				$xtpl->assign("away_msg",$in['away_msg']);
 				$xtpl->assign("access_lvl",$in['access_lvl']);
 

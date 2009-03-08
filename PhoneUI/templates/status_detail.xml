@@ -2,9 +2,11 @@
 <CiscoIPPhoneDirectory>
 <Title>{tmpTitle}</Title>
 <Prompt>{prompt}</Prompt>
-<DirectoryEntry>
-<Name>{msg}</Name>
-<Telephone>{number}</Telephone>
-</DirectoryEntry>
+
+	<DirectoryEntry>
+		<Name>{msg}</Name>
+		<Telephone>{number}</Telephone>
+	</DirectoryEntry>
+
 </CiscoIPPhoneDirectory>
 <!-- END: main -->
