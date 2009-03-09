@@ -83,7 +83,7 @@ function output_view_memos($myID_user)
 {
 	include "language/lang.php";
 	global $db;
-	$xtpl=new XTemplate ("modules/templates/view_memos.html");
+	$xtpl=new XTemplate ("modules/templates/view_memos_posted.html");
 	$xtpl->assign( 'LANG', $lang );
 
 	$obprefSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
@@ -126,7 +126,7 @@ function output_view_memos($myID_user)
 			$xtpl -> parse ("main.admin_broadcast");
 		}
 
-	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,access,receiver,date,msg FROM memos ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -146,23 +146,22 @@ function output_view_memos($myID_user)
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("date",$displaydate);
 		$xtpl->assign("access",$in['access']);
-		$xtpl->assign("from",$in['sender']);
+		$xtpl->assign("to",$in['receiver']);
 		$xtpl->assign("msg",$in['msg']);
 
-		$xtpl->parse("main.row_received");
+		$xtpl->parse("main.row_send");
 		//alternate bg color
 		$oddRow = !$oddRow;
 
-	    if ($in['title'] == '' && $in['msg'] == '' && $in['access'] == '')
-		{
-			//contacts has no information, delete the entry
-			$tmp_delete_id_memo = $in['id_memo'];
-			$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
-			$result = mysql_query($sql);
-		}
+        if ($in['title'] == '' && $in['msg'] == '' && $in['access'] == '')
+			{
+				//contacts has no information, delete the entry
+				$tmp_delete_id_memo = $in['id_memo'];
+				$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
+				$result = mysql_query($sql);
+			}
 
 	}
-
 
    	$theSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
 	$theRES = mysql_query($theSQL, $db);
