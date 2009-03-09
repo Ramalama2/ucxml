@@ -1,14 +1,4 @@
 <!-- BEGIN: main -->
-<head>
-	<title>{page_title}</title>
-	<meta http-equiv="Content-Language" content="English" />
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="author" content="David Herreman (www.free-css-templates.com)" />
-	<meta name="description" content="<?php echo $page_description; ?>" />
-	<meta name="keywords" content="<?php echo $page_keywords; ?>" />
-	<meta name="Revisit-After" content="7 Days" />
-	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
-</head>
 
 <script LANGUAGE="JavaScript">
 <!--
@@ -52,7 +42,7 @@ function validate_edit_user()
 
 // -->
 </script>
-<body>
+<body class="section-1">
 
 <div id="prec2">
 <div class="help">
@@ -69,7 +59,17 @@ function validate_edit_user()
         </blockquote>
     </div>
 
-	<div id="main">
+
+<div id="main">
+	<ul id="menu">
+  <li id="nav-1"><a href="index.php?module=my_account">My Account</a></li>
+  <li id="nav-2"><a href="index.php?module=my_account_lang">Language</a></li>
+  <li id="nav-3"><a href="index.php?module=my_account_avatar">Avatar</a></li>
+  <li id="nav-4"><a href="index.php?module=my_account_contact">Contact Info</a></li>
+  <li id="nav-5"><a href="index.php?module=my_account_phone">Phone Info</a></li>
+</ul>
+
+<div id="contents">
       <form name="form1" method="post" action="">
 	  <div id="right_side">
 	    <h3>
@@ -97,7 +97,7 @@ function validate_edit_user()
 		<div id="left_side">
 			<h3>
 			  <div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit My Account</div></h3>
-	    <table width="560" bgcolor="#F6F6F6" >
+	    <table width="550" bgcolor="#F6F6F6" >
 			 <td width="118"><strong>Username:</strong></td>
         <td width="420"><input type="text" name="username" size="30" maxlength="50" value="{username}">
           * </td>
@@ -126,133 +126,9 @@ function validate_edit_user()
 		  </table>
   </div>
    </form>
-<form name="form4" method="post" action="">
-   <label for="lang">Jazyk:</label>
-   <select name="lang" size="1">
-		<option {sel_sk} value="sk">Slovak</option>
-		<option {sel_en} value="en">English</option>
-   </select>
-  <input name="submit_lang" value="Change & Save" type="submit">
-  <input type="hidden" name="action" value="edit">
-
-</form>
-
-<form name="form2" method="post" action="" enctype="multipart/form-data">
-	<strong>Custom Avatar:</strong><br/>
-    <table>
-<tr>
-	<td><label for="ucp_av_file">File:</label></td>
-	<td><input type="file" name="av_file" id="ucp_av_file" ></td>
-   	<td><input type="checkbox" name="av_delete" value="1" id="ucp_av_delete" onclick="if(this.checked){if( document.getElementById('ucp_av_file').value.length ){return false;}}"{delete} ></td>
-	<td><label for="ucp_av_delete" style="width: auto;">Delete Avatar</label></td>
-   	<td><input type="hidden" name="action" value="edit"></td>
-	<td><input type="submit" name="submit_av" value="Save Changes" ></td>
-
-</tr>
-	{error_msg}
-		<img src="{current_av}" title="Your Current Avatar" {default_av} alt="avatar">
-	</table>
-</form>
-
-      <form name="form3" method="post" action="">
-	  <div id="right_side">
-	    <h3>
-	      <div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">My Contact Options</div></h3>
-	    <ul>
-		    <li><a href="#">Save My Contact</a></li>
-              <div style="padding-left:20px;padding-bottom:15px;">
-			  <input type="hidden" name="id_contact" value="{id_contact}">
-              <input type="hidden" name="baseauth" value="{baseauth}">
-              <input type="hidden" name="action" value="edit">
-              <input type="submit" name="submit_save_contact" value="  Save  ">
-		</div>
-
-            <li><a href="#">Cancel changes:</a></li>
-			<div style="padding-left:20px;">
-			<input type="submit" name="submit_cancel_contact" value=" Cancel ">
-            <input type="hidden" name="id_contact" value="{id_contact}">
-            <input type="hidden" name="baseauth" value="{baseauth}">
-            <input type="hidden" name="action" value="edit">
-		</div>
-
-	    </ul>
-	  </div>
-
-          		<div id="left_side">
-			<h3>
-			  <div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit My Contact</div></h3>
-	    <table width="560" bgcolor="#F6F6F6" >
-    	<tr>
-        <td width="144"><strong>Member of: </strong></td>
-        <td width="404"><select name="member_of" size="1">
-            <option {sel_choose} value="choose">Choose</option>
-            <option {sel_b512}>B512</option>
-            <option {sel_b521}>B521</option>
-            <option {sel_emergency}>Emergency</option>
-          </select>
-          * </td>
-		</tr>
-
-      <tr>
-        <td width="200"></td>
-        <td>&nbsp;</td>
-      </tr>
-
-      <tr>
-        <td><strong>First Name: </strong></td>
-        <td><input type="text" name="fname" size="30" maxlength="50" value="{fname}">
-        *</td>
-      </tr>
-      <tr>
-        <td><strong>Last Name:</strong></td>
-        <td><input type="text" name="lname" size="30" maxlength="50" value="{lname}">
-        *</td>
-      </tr>
-
-      <tr>
-        <td><strong>Title:</strong></td>
-        <td><input type="text" name="title" size="30" maxlength="50" value="{title}"></td>
-      </tr>
-
-      <tr>
-        <td width="25"></td>
-        <td>&nbsp;</td>
-      </tr>
-
-      <tr>
-        <td width="25"><strong>Phone Numbers</strong></td>
-        <td>&nbsp;</td>
-      </tr>
-
-      <tr>
-        <td width="25"><strong>Office Phone:</strong></td>
-        <td><input type="text" name="office_phone" size="40" maxlength="100" value="{office_phone}"> </td>
-      </tr>
-
-      <tr>
-        <td width="25"><strong>Home Phone:</strong></td>
-        <td><input type="text" name="home_phone" size="40" maxlength="100" value="{home_phone}"> </td>
-      </tr>
-
-      <tr>
-        <td width="25"><strong>Cell Phone:</strong></td>
-        <td><input type="text" name="cell_phone" size="40" maxlength="100" value="{cell_phone}"> </td>
-      </tr>
-
-      <tr>
-        <td width="25"><strong>Other Phone:</strong></td>
-        <td><input type="text" name="other_phone" size="40" maxlength="100" value="{other_phone}"> </td>
-      </tr>
-
-      <tr>
-        <td height="25"><input type="text" name="custom_phone" onFocus="clear_textbox();" size="25" maxlength="100" value="{custom_phone}"></td>
-        <td><input type="text" name="custom_number" size="40" maxlength="100" value="{custom_number}"> </td>
-      </tr>
-		  </table></div>
-
-</form>
 	</div>
-</div>
+    </div>
+	</div>
 </div>
 </body>
 <!-- END: main -->

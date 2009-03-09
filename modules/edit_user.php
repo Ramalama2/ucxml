@@ -13,7 +13,6 @@
 
 //Checks if id is known, stores in variable
 if (isset($_GET['id_user'])) $tmp_id_user = defang_input($_GET['id_user']);
-if (isset($_GET['id_phone'])) $tmp_id_phone = defang_input($_GET['id_phone']);
 
 $user = "good"; //defaults user to good before chances of it beging invalid
 
@@ -29,6 +28,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			$tmp_id_user = defang_input($_POST['id_user']);
 
 			$tmp_id_phone = defang_input($_POST['id_phone']);
+			$tmp_id_contact = defang_input($_POST['id_contact']);
 			$tmp_MAC = defang_input($_POST['MAC']);
 			$tmp_access_lvl = defang_input($_POST['access_lvl']);
 			$tmp_number = defang_input($_POST['number']);
@@ -71,15 +71,12 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 					mysql_query($tmpUpdateSQL, $db);
 
 					$tmpUpdateSQL2 = "UPDATE contacts SET
-						nick = '$tmp_username',
+						nick = '$tmp_username'
 						WHERE id_contact ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL2, $db);
 
                     $tmpUpdateSQL3 = "UPDATE phone SET
-						nick = '$tmp_username',
-           				MAC = '$tmp_MAC',
-						number = '$tmp_number',
-						access_lvl = '$tmp_access_lvl'
+						nick = '$tmp_username'
 						WHERE id_phone ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL3, $db);
 
@@ -123,10 +120,13 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 	render_Footer();
 }
 
-function delete_user ($tmp_id_user, $tmp_id_phone)
+function delete_user ($tmp_id_user)
 {
 	$sql = "DELETE FROM users WHERE id_user='$tmp_id_user'";
 	$result = mysql_query($sql);
+
+    $sql2 = "DELETE FROM phone WHERE id_phone='$tmp_id_user'";
+	$result2 = mysql_query($sql2);
 }
 
 //Create page and fill in known data

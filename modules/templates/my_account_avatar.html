@@ -1,0 +1,54 @@
+<!-- BEGIN: main -->
+<body class="section-3">
+
+<div id="prec2">
+<div class="help">
+	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
+      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
+        <p>Information collected when editing your account... </p>
+        <blockquote>
+          <ul>
+            <li><strong>Username</strong> - User's login name for this web interface</li>
+            <li><strong>Assign Password</strong> - Desired password for user login</li>
+            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
+            <li><strong>Email</strong> - User's email address</li>
+          </ul>
+        </blockquote>
+    </div>
+
+
+<div id="main">
+	<ul id="menu">
+  <li id="nav-1"><a href="index.php?module=my_account">My Account</a></li>
+  <li id="nav-2"><a href="index.php?module=my_account_lang">Language</a></li>
+  <li id="nav-3"><a href="index.php?module=my_account_avatar">Avatar</a></li>
+  <li id="nav-4"><a href="index.php?module=my_account_contact">Contact Info</a></li>
+  <li id="nav-5"><a href="index.php?module=my_account_phone">Phone Info</a></li>
+</ul>
+
+<div id="contents">
+	<form name="form1" method="post" action="" enctype="multipart/form-data">
+<p>	{error_msg}</p>
+
+	<strong>Custom Avatar:</strong><br/>
+    <table>
+
+<tr>
+	<td><label for="ucp_av_file">File:</label></td>
+	<td><input type="file" name="av_file" id="ucp_av_file" ></td>
+   	<td><input type="checkbox" name="av_delete" value="1" id="ucp_av_delete" onclick="if(this.checked){if( document.getElementById('ucp_av_file').value.length ){return false;}}"{delete} ></td>
+	<td><label for="ucp_av_delete" style="width: auto;">Delete Avatar</label></td>
+	<td><input type="submit" name="submit_av" value="Save Changes" ></td>
+</tr>
+		<img src="{current_av}" title="Your Current Avatar" {default_av} alt="avatar">
+
+	</table>
+	<input type="hidden" name="action" value="edit">
+
+</form>
+    </div>
+	</div>
+</div>
+</div>
+</body>
+<!-- END: main -->

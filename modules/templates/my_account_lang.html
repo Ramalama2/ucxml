@@ -1,0 +1,46 @@
+<!-- BEGIN: main -->
+<body class="section-2">
+
+<div id="prec2">
+<div class="help">
+	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
+      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
+        <p>Information collected when editing your account... </p>
+        <blockquote>
+          <ul>
+            <li><strong>Username</strong> - User's login name for this web interface</li>
+            <li><strong>Assign Password</strong> - Desired password for user login</li>
+            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
+            <li><strong>Email</strong> - User's email address</li>
+          </ul>
+        </blockquote>
+    </div>
+
+
+<div id="main">
+	<ul id="menu">
+  <li id="nav-1"><a href="index.php?module=my_account">My Account</a></li>
+  <li id="nav-2"><a href="index.php?module=my_account_lang">Language</a></li>
+  <li id="nav-3"><a href="index.php?module=my_account_avatar">Avatar</a></li>
+  <li id="nav-4"><a href="index.php?module=my_account_contact">Contact Info</a></li>
+  <li id="nav-5"><a href="index.php?module=my_account_phone">Phone Info</a></li>
+</ul>
+
+<div id="contents">
+	  <h2>Language</h2>
+<form name="form4" method="post" action="">
+   <label for="lang">Jazyk:</label>
+   <select name="lang" size="1">
+		<option {sel_sk} value="sk">Slovak</option>
+		<option {sel_en} value="en">English</option>
+   </select>
+  <input name="submit_lang" value="Change & Save" type="submit">
+  <input type="hidden" name="action" value="edit">
+
+</form>
+    </div>
+	</div>
+</div>
+</div>
+</body>
+<!-- END: main -->

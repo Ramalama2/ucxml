@@ -97,6 +97,18 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "my_account"){
 			require_once "modules/my_account.php";
 
+		} elseif ($ModuleName == "my_account_contact"){
+			require_once "modules/my_account_contact.php";
+
+		} elseif ($ModuleName == "my_account_phone"){
+			require_once "modules/my_account_phone.php";
+
+		} elseif ($ModuleName == "my_account_avatar"){
+			require_once "modules/my_account_avatar.php";
+
+		} elseif ($ModuleName == "my_account_lang"){
+			require_once "modules/my_account_lang.php";
+
 		} elseif ($ModuleName == "delete_error"){
 			require_once "modules/delete_error.php";
 			//End Modules Section
