@@ -1,6 +1,6 @@
 <!-- BEGIN: main -->
 
-<body class="section-1">
+<body class="section-2">
 
 <div id="prec2">
 <div class="help">
@@ -58,28 +58,28 @@ Order Memos By - This adjusts the default order of memos when viewing them on th
     </form>
 
 <div id="left_side">
-    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Posted Memos table</div></h3>
+    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Received Memos table</div></h3>
 
 <table width="560" bgcolor="#F6F6F6" >
 	<tr bgcolor="#DFDFDF" >
 		<td align="center" width="135"><strong>Title</strong></td>
-		<td align="center" width="136"><a href="index.php?module=view_memos&amp;ob=ob_sender"><strong>Sender</strong></a></td>
+		<td align="center" width="136"><a href="index.php?module=view_memos&amp;ob=ob_receiver"><strong>Receiver</strong></a></td>
 		<td align="center" width="122"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>Date</strong></a></td>
 		<td align="center" width="122"><strong>Message</strong></td>
 		<td align="center" width="74"><a href="index.php?module=view_memos&amp;ob=ob_access"><strong>Access</strong></a></td>
 		<td width="35">&nbsp;&nbsp;</td>
 	</tr>
 
-  <!-- BEGIN: row_received -->
+  <!-- BEGIN: row_send -->
 	<tr>
 		<td bgcolor="{bg}">{title}</td>
-		<td bgcolor="{bg}">{from}</td>
+		<td bgcolor="{bg}">{to}</td>
 		<td bgcolor="{bg}">{date}</td>
 		<td bgcolor="{bg}">{msg}</td>
 		<td bgcolor="{bg}">{access}</td>
 		<td bgcolor="{bg}"><a href="index.php?module=post_memo&amp;id_memo={id_memo}&amp;submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
 	</tr>
-  <!-- END: row_received -->
+  <!-- END: row_send -->
   </table>
 </div>
 

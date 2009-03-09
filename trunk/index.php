@@ -43,6 +43,9 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "view_memos"){
 			require_once "modules/view_memos.php";
 
+		} elseif ($ModuleName == "view_memos_posted"){
+			require_once "modules/view_memos_posted.php";
+
 		} elseif ($ModuleName == "post_memo"){
 			require_once "modules/post_memo.php";
 
