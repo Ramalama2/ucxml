@@ -27,12 +27,6 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			// Saving
 			$tmp_id_user = defang_input($_POST['id_user']);
 
-			$tmp_id_phone = defang_input($_POST['id_phone']);
-			$tmp_id_contact = defang_input($_POST['id_contact']);
-			$tmp_MAC = defang_input($_POST['MAC']);
-			$tmp_access_lvl = defang_input($_POST['access_lvl']);
-			$tmp_number = defang_input($_POST['number']);
-
 			$tmp_username = defang_input($_POST['username']);
 			$unique_user_sql = "SELECT username,id_user FROM `users` WHERE username = '$tmp_username' AND id_user != '$tmp_id_user'";
 			$other_usernames = mysql_query($unique_user_sql, $db);
@@ -62,6 +56,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			} else {
 				if ($unique['username'] != $tmp_username)
 				{
+
 					$tmpUpdateSQL = "UPDATE users SET
 						username = '$tmp_username',
 						$password_sql
@@ -80,7 +75,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 						WHERE id_phone ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL3, $db);
 
-					header("Location: index.php?module=view_users");
+					header("Location: index.php?module=edit_user&id_user='$tmp_id_user'");
 				}
 			}
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
@@ -116,7 +111,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 } else {
 	// NO action
 	render_HeaderFooter("UCxml web Portal - User Edit");
-	output_edit_user($tmp_id_user,$tmp_id_phone, $user);
+	output_edit_user($tmp_id_user, $user);
 	render_Footer();
 }
 
@@ -125,12 +120,15 @@ function delete_user ($tmp_id_user)
 	$sql = "DELETE FROM users WHERE id_user='$tmp_id_user'";
 	$result = mysql_query($sql);
 
-    $sql2 = "DELETE FROM phone WHERE id_phone='$tmp_id_user'";
+	$sql2 = "DELETE FROM phone WHERE id_phone='$tmp_id_user'";
 	$result2 = mysql_query($sql2);
+
+	$sql3 = "DELETE FROM contacts WHERE id_contact='$tmp_id_user'";
+	$result3 = mysql_query($sql3);
 }
 
 //Create page and fill in known data
-function output_edit_user ($myID_user,$myID_phone,$user)
+function output_edit_user ($myID_user,$user)
 {
 	include "language/lang.php";
 	global $db;
@@ -176,34 +174,6 @@ function output_edit_user ($myID_user,$myID_phone,$user)
 			$xtpl->assign("account_type","User");
 			$xtpl->assign("var_account_type","Admin");
 		}
-	}
-
-   	$theSQL = "SELECT * FROM phone WHERE id_phone='$myID_phone'";
-	$theRES = mysql_query($theSQL, $db);
-	if ($in = mysql_fetch_assoc($theRES))
-	{
-		$xtpl->assign("id_phone",$in['id_phone']);
-		$xtpl->assign("MAC",$in['MAC']);
-		if ($in['access_lvl'] == "Restricted")
-		{
-			$xtpl->assign("selected_restricted","selected");
-			$xtpl->assign("selected_unrestricted","");
-			$xtpl->assign("selected_unknown","");
-
-		} else if ($in['access_lvl'] == "Unrestricted"){
-			$xtpl->assign("selected_restricted","");
-			$xtpl->assign("selected_unrestricted","selected");
-			$xtpl->assign("selected_unknown","");
-
-		} else {
-			//unknown is selected
-			$xtpl->assign("selected_restricted","");
-			$xtpl->assign("selected_unrestricted","");
-			$xtpl->assign("selected_unknown","selected");
-		}
-		$xtpl->assign("number",$in['number']);
-		$xtpl->assign("nick",$in['nick']);
-
 	}
 
 	// Output
