@@ -1,0 +1,78 @@
+<!-- BEGIN: main -->
+
+<body class="section-5">
+
+<div id="prec2">
+<div class="help">
+	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
+      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
+        <p>Information collected when editing your account... </p>
+        <blockquote>
+          <ul>
+            <li><strong>Username</strong> - User's login name for this web interface</li>
+            <li><strong>Assign Password</strong> - Desired password for user login</li>
+            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
+            <li><strong>Email</strong> - User's email address</li>
+          </ul>
+        </blockquote>
+    </div>
+
+
+<div id="main">
+	<ul id="menu">
+  <li id="nav-1"><a href="index.php?module=my_account">My Account</a></li>
+  <li id="nav-2"><a href="index.php?module=my_account_lang">Language</a></li>
+  <li id="nav-3"><a href="index.php?module=my_account_avatar">Avatar</a></li>
+  <li id="nav-4"><a href="index.php?module=my_account_contact">Contact Info</a></li>
+  <li id="nav-5"><a href="index.php?module=my_account_phone">Phone Info</a></li>
+</ul>
+
+<div id="contents">
+	<form name="form1" method="post" action="">
+	<div id="right_side">
+	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
+	    <ul>
+			<li><a href="#">Save a created  phone</a></li>
+			<div style="padding-left:20px;padding-bottom:15px;">
+				<input type="hidden" name="id_phone" value="{id_phone}">
+				<input type="hidden" name="baseauth" value="{baseauth}">
+				<input type="hidden" name="action" value="edit">
+				<input type="submit" name="submit_save_phone" value="  Save  ">
+			</div>
+
+			<li><a href="#">Cancel registration:</a></li>
+			<div style="padding-left:20px;padding-bottom:15px;">
+				<input type="submit" name="submit_cancel_phone" value=" Cancel ">
+				<input type="hidden" name="id_phone" value="{id_phone}">
+				<input type="hidden" name="baseauth" value="{baseauth}">
+				<input type="hidden" name="action" value="edit">
+			</div>
+	    </ul>
+	</div>
+
+<div id="left_side">
+<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Phone Registration</div></h3>
+	<table width="250" bgcolor="#F6F6F6" >
+	<p>Phone used by:  <strong>{nick}</strong></p>
+	<p>&nbsp;</p>
+	<p>MAC Address:  <strong>{MAC}</strong></p>
+	<p>&nbsp;</p>
+	<p>Phone Number:  <strong>{number}</strong></p>
+	<p>&nbsp;</p>
+
+			<td><strong>Access Level:</strong></td>
+			<td><select name="access_lvl">
+				<option {selected_unknown}>Unknown</option>
+				<option {selected_restricted}>Restricted</option>
+				<option {selected_unrestricted}>Unrestricted</option>
+	          </select>
+          * </td>
+	</table></div>
+ </form>
+
+    </div>
+	</div>
+</div>
+</div>
+</body>
+<!-- END: main -->
