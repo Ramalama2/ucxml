@@ -94,6 +94,22 @@ if (isset($_SESSION['user_id']))
 				require_once "modules/not_admin.php";
 			}
 
+		} elseif ($ModuleName == "edit_user_contact"){
+			if ($_SESSION['account_type'] == 'Admin')
+			{
+				require_once "modules/edit_user_contact.php";
+			} else {
+				require_once "modules/not_admin.php";
+			}
+
+		} elseif ($ModuleName == "edit_user_phone"){
+			if ($_SESSION['account_type'] == 'Admin')
+			{
+				require_once "modules/edit_user_phone.php";
+			} else {
+				require_once "modules/not_admin.php";
+			}
+
 		} elseif ($ModuleName == "my_account"){
 			require_once "modules/my_account.php";
 
