@@ -11,20 +11,8 @@
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);
-if (isset($_POST['submit_save']))
-{
-	// Saving
-		$tmp_memo_ob = defang_input($_POST['memo_ob']);
-		$tmpUpdateSQL =
-			"UPDATE users
-			SET	memo_ob = '$tmp_memo_ob'
-			WHERE id_user ='$tmp_id_user'";
-		mysql_query($tmpUpdateSQL, $db);
 
-		header("Location: index.php?module=view_memos");
-}
-
-elseif (isset($_POST['submit_post']))
+if (isset($_POST['submit_post']))
 {
 	//add new memo
 	$tmp_id_memo = create_guid($tmp_id_memo);
@@ -105,8 +93,8 @@ function output_view_memos($myID_user)
 			$ob = "title";
 		} elseif ($_GET['ob'] == "ob_access") {
 			$ob = "access";
-		} elseif ($_GET['ob'] == "ob_sender") {
-			$ob = "sender";
+		} elseif ($_GET['ob'] == "ob_receiver") {
+			$ob = "receiver";
    		} elseif ($_GET['ob'] == "ob_msg") {
 			$ob = "msg";
 		}
@@ -121,10 +109,10 @@ function output_view_memos($myID_user)
 		}
 	}
 
-    if ($_SESSION['account_type'] == 'Admin')
-		{
-			$xtpl -> parse ("main.admin_broadcast");
-		}
+	if ($_SESSION['account_type'] == 'Admin')
+	{
+		$xtpl -> parse ("main.admin_broadcast");
+	}
 
 	$theSQL = "SELECT id_memo,title,access,receiver,date,msg FROM memos ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
@@ -154,32 +142,13 @@ function output_view_memos($myID_user)
 		$oddRow = !$oddRow;
 
         if ($in['title'] == '' && $in['msg'] == '' && $in['access'] == '')
-			{
-				//contacts has no information, delete the entry
-				$tmp_delete_id_memo = $in['id_memo'];
-				$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
-				$result = mysql_query($sql);
-			}
-
-	}
-
-   	$theSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
-	$theRES = mysql_query($theSQL, $db);
-	if ($in = mysql_fetch_assoc($theRES))
 	{
-		$xtpl->assign("memo_ob",$in['memo_ob']);
-
-		if ($in['memo_ob'] == "sender")
-		{
-			$xtpl->assign("sel_sender","selected");
-		} elseif ($in['memo_ob'] == "date") {
-			$xtpl->assign("sel_date","selected");
-		} else {
-			$xtpl->assign("sel_title","selected");
-		}
+		//contacts has no information, delete the entry
+		$tmp_delete_id_memo = $in['id_memo'];
+		$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
+		$result = mysql_query($sql);
 	}
-     else {
-		echo "Unable to save preferences.";
+
 	}
 
 	// Output

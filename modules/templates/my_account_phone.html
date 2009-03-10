@@ -14,6 +14,22 @@
             <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
             <li><strong>Email</strong> - User's email address</li>
           </ul>
+          <p># If this option is checked, all phones will need to be registered in order to access the directory.
+If an unregistered phone (a phone that has not been added to the Phone Registrations page using its MAC address)
+attempts to view the directory, it will be shown an accessed denied screen.
+The phone will also display its MAC address at the bottom of the screen, this is entire address needs to be added to the Phone Registrations page.
+# If this option is not checked, unregistered phones (a phone that has not been added to the Phone Registrations page
+using its MAC address) will have access to objects at the public Access level, but access to the private objects will
+depend on the Enable Object Security Preference.
+Phone security prevents unregistered phones from viewing the directory. If phone
+		security is disabled, all unregistered phones will have access to objects
+		marked 'Public'.</p>
+<p>	Order Memos By - This adjusts the default order of memos when viewing them on the phone interface or on the web interface.
+
+    * by Date - Memos will be ordered in reverse chronological order. (Newest memos shown first)
+    * by Sender - Memos will be ordered alphabetically based on who posted the memo.
+    * by Title - Memos will be ordered alphabetically based on the title</p>
+
         </blockquote>
     </div>
 
@@ -52,21 +68,39 @@
 
 <div id="left_side">
 <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Phone Registration</div></h3>
-	<table width="250" bgcolor="#F6F6F6" >
-	<p>Phone used by:  <strong>{nick}</strong></p>
-	<p>&nbsp;</p>
-	<p>MAC Address:  <strong>{MAC}</strong></p>
-	<p>&nbsp;</p>
-	<p>Phone Number:  <strong>{number}</strong></p>
-	<p>&nbsp;</p>
+	<table width="350" bgcolor="#F6F6F6" >
 
-			<td><strong>Access Level:</strong></td>
-			<td><select name="access_lvl">
-				<option {selected_unknown}>Unknown</option>
-				<option {selected_restricted}>Restricted</option>
-				<option {selected_unrestricted}>Unrestricted</option>
-	          </select>
-          * </td>
+		<p>Phone used by:  <strong>{nick}</strong></p>
+		<p>&nbsp;</p>
+		<p>MAC Address:  <strong>{MAC}</strong></p>
+		<p>&nbsp;</p>
+		<p>Phone Number:  <strong>{number}</strong></p>
+		<p>&nbsp;</p>
+
+	<tr>
+		<td><strong>Access Level:</strong></td>
+		<td><select name="access_lvl">
+			<option {selected_unknown}>Unknown</option>
+			<option {selected_restricted}>Restricted</option>
+			<option {selected_unrestricted}>Unrestricted</option>
+	        </select> * </td>
+	</tr>
+
+	<tr>
+		<td><strong>Enable Phone Security</strong></td>
+		<td><input name="ph_sec" type="checkbox" value="ph_sec" {ph_sec_check} ></td>
+	</tr>
+
+	<tr>
+		<td><strong>Order Memos in phone By:</strong></td>
+		<td><select name="memo_ob">
+				<option {sel_sender} value="sender">Sender</option>
+				<option {sel_date} value="date">Date</option>
+				<option {sel_title} value="title">Title</option>
+			</select>
+		</td>
+	</tr>
+
 	</table></div>
  </form>
 

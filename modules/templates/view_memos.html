@@ -13,11 +13,6 @@
           <li><strong>Date</strong> - The date and time that the memo was posted.</li>
           <li><strong>Edit/Delete </strong>- Clicking edit will direct you to the memo editing page. Clicking delete will delete this memo from the database.</li>
       </ul>
-Order Memos By - This adjusts the default order of memos when viewing them on the phone interface or on the web interface.
-
-    * by Date - Memos will be ordered in reverse chronological order. (Newest memos shown first)
-    * by Sender - Memos will be ordered alphabetically based on who posted the memo.
-    * by Title - Memos will be ordered alphabetically based on the title
 	</div>
 
 <div id="main">
@@ -32,27 +27,17 @@ Order Memos By - This adjusts the default order of memos when viewing them on th
 	<div id="right_side">
 	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Memos options</div></h3>
 		<ul>
-		<!-- BEGIN: admin_broadcast -->
+			<!-- BEGIN: admin_broadcast -->
 			<li><a href="">Post new Broadcast memo</a></li>
-            	<div style="padding-left:20px;padding-bottom:15px;">
-					<input type="submit" name="submit_post" value="  Post  " />
-    	        </div>
-		<!-- END: admin_broadcast -->
+           	<div style="padding-left:20px;padding-bottom:15px;">
+			<input type="submit" name="submit_post" value="  Post  " />
+            </div>
+			<!-- END: admin_broadcast -->
 
 			<li><a href="">Post private memo</a></li>
-            	<div style="padding-left:20px;padding-bottom:15px;">
-					<input type="submit" name="submit_post_private" value="  Post  " />
-    	        </div>
-
-			<li><a href="">Order Memos in phone By:</a></li>
-			<div style="padding-left:20px;">
-			<select name="memo_ob">
-   		        <option {sel_sender} value="sender">Sender</option>
-          		<option {sel_date} value="date">Date</option>
-				<option {sel_title} value="title">Title</option>
-			</select>
-			  <input type="submit" name="submit_save" value="  Save  ">
-   			</div>
+           	<div style="padding-left:20px;padding-bottom:15px;">
+			<input type="submit" name="submit_post_private" value="  Post  " />
+			</div>
 		</ul>
 	</div>
     </form>

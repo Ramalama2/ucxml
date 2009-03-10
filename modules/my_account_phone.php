@@ -22,19 +22,30 @@ if (isset($_POST['action']))
 		if (isset($_POST['submit_save_phone']))
 		{
 			// Saving
+
 			$tmp_id_phone = defang_input($_POST['id_phone']);
 			$tmp_access_lvl = defang_input($_POST['access_lvl']);
+			$tmp_memo_ob = defang_input($_POST['memo_ob']);
 
-			$tmpUpdateSQL = "UPDATE phone SET
-				access_lvl = '$tmp_access_lvl'
-				WHERE id_phone ='$tmp_id_phone'";
-
-			if(mysql_query($tmpUpdateSQL, $db))
+	   		if (defang_input($_POST['ph_sec']) == "ph_sec")
 			{
-				header("Location: index.php?module=my_account_phone");
-            } else {
-				echo "Unable to edit phone.";
+				$tmp_ph_sec = "Yes";
+			} else {
+				$tmp_ph_sec = "No";
 			}
+
+			$tmpUpdateSQL = "UPDATE users
+							SET	memo_ob = '$tmp_memo_ob',
+	       						ph_sec = '$tmp_ph_sec'
+							WHERE id_user ='$tmp_id_user'";
+			mysql_query($tmpUpdateSQL, $db);
+
+			$tmpUpdateSQL2 = "UPDATE phone
+							SET	access_lvl = '$tmp_access_lvl'
+							WHERE id_phone ='$tmp_id_phone'";
+
+			mysql_query($tmpUpdateSQL2, $db);
+			header("Location: index.php?module=my_account_phone");
 
 		} else if (isset($_POST['submit_cancel_phone'])) {
 			// Cancel
@@ -52,17 +63,28 @@ if (isset($_POST['action']))
 } else {
 	// NO action
 	render_HeaderFooter("UCxml web Portal - Edit Phone Registrations");
-	output_edit_user($tmp_id_phone);
+	output_edit_user($tmp_id_phone, $tmp_id_user);
 	render_Footer();
 }
 
 //Create page and fill in known data
-function output_edit_user ($myID_phone)
+function output_edit_user ($myID_phone, $myID_user)
 {
 	include "language/lang.php";
 	global $db, $xtpl;
 	$xtpl=new XTemplate ("modules/templates/my_account_phone.html");
 	$xtpl->assign( 'LANG', $lang );
+
+
+   	$obprefSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
+	$obRES = mysql_query($obprefSQL, $db);
+	if ($gl = mysql_fetch_assoc($obRES))
+	{
+		$memo_ob = $gl['memo_ob'];
+	} else {
+		//sql error
+		$memo_ob = "date";
+	}
 
 	$theSQL = "SELECT id_phone, nick, number, MAC, access_lvl FROM phone WHERE id_phone='$myID_phone'";
 	$theRES = mysql_query($theSQL, $db);
@@ -92,6 +114,41 @@ function output_edit_user ($myID_phone)
 		}
 
 	}
+
+		$theSQL = "SELECT ph_sec FROM users WHERE id_user='$myID_user'";
+		$theRES = mysql_query($theSQL, $db);
+
+		if ($in = mysql_fetch_assoc($theRES))
+		{
+			if ($in['ph_sec'] == "Yes")
+			{
+				$xtpl->assign("ph_sec_check",'CHECKED'); //place check in box
+			}
+
+		 else {
+			//	echo "Unable to save preferences.";
+			}
+		}
+
+	   	$theSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
+		$theRES = mysql_query($theSQL, $db);
+		if ($in = mysql_fetch_assoc($theRES))
+		{
+			$xtpl->assign("memo_ob",$in['memo_ob']);
+
+			if ($in['memo_ob'] == "sender")
+			{
+				$xtpl->assign("sel_sender","selected");
+			} elseif ($in['memo_ob'] == "date") {
+				$xtpl->assign("sel_date","selected");
+			} else {
+				$xtpl->assign("sel_title","selected");
+			}
+		}
+	     else {
+			echo "Unable to save preferences.";
+		}
+
 	// Output
 	$xtpl->parse("main");
 	$xtpl->out("main");

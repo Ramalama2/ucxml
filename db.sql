@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `contacts` (
 --
 
 INSERT INTO `contacts` (`id_contact`, `display_name`, `member_of`, `lname`, `fname`, `nick`, `title`, `office_phone`, `home_phone`, `cell_phone`, `date`, `owner`, `custom_phone`, `custom_number`, `other_phone`) VALUES
+('0', 'Admin, Admin - Admin', 'B521', 'Adminovy', 'Adminic', 'Admin', 'Ing.', '0914', '', '', '2009-02-10 15:47:03', '0', 'Create Custom', '', ''),
 ('f0538239-592a7-64f48-158b-4991859e6a', 'VDJ, DJ - Skola', 'B521', 'VDJ', 'DJ', 'Skola', 'Ang.', '3444', '', '', '2009-02-10 15:47:03', '0', 'Create Custom', '', ''),
 ('a7d8d7a2-c722f-4caf7-a103-4991853a8d', 'Onovy, On - Skola', 'B512', 'Onovy', 'On', 'Skola', 'Doc', '', '', '', '2009-02-10 14:48:44', '0', 'Create Custom', '', '');
 -- --------------------------------------------------------
@@ -83,18 +84,17 @@ CREATE TABLE IF NOT EXISTS `phone` (
   `away_msg` varchar(100) NOT NULL DEFAULT '',
   `nick` varchar(20) NOT NULL DEFAULT '',
   `status` int(1) NOT NULL DEFAULT '0',
-  `access_lvl` varchar(12) DEFAULT '',
-  `preference` varchar(11) NOT NULL DEFAULT 'primary',
-  `ph_sec` char(3) NOT NULL DEFAULT 'yes'
+  `access_lvl` varchar(12) DEFAULT ''
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `phone`
 --
 
-INSERT INTO `phone` (`id_phone`, `MAC`, `date`, `number`, `away_msg`, `nick`, `status`, `access_lvl`, `preference`, `ph_sec`) VALUES
-('38ceaef5-376ed-098c2-4236-43b563060c', 'SEP00131A6FD5E5', '', '', '', 'User', 0, 'Unrestricted', 'primary', 'Yes'),
-('501bea4d-b0a5c-c69ef-d6c3-4991927a77', 'X3S00131A6FD5E5', '', '', '', 'User2', 0, 'Restricted', '', '');
+INSERT INTO `phone` (`id_phone`, `MAC`, `date`, `number`, `away_msg`, `nick`, `status`, `access_lvl`) VALUES
+('0', 'KDI324FDSIS', '', '0914', '', 'Admin', '0', 'Unrestricted'),
+('38ceaef5-376ed-098c2-4236-43b563060c', 'SEP00131A6FD5E5', '', '', '', 'User', 0, 'Unrestricted'),
+('501bea4d-b0a5c-c69ef-d6c3-4991927a77', 'X3S00131A6FD5E5', '', '', '', 'User2', 0, 'Restricted');
 
 -- --------------------------------------------------------
 
@@ -111,13 +111,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `av` varchar(3) NOT NULL DEFAULT '',
   `lang` varchar(2) NOT NULL DEFAULT 'en',
   `status_view` varchar(3) NOT NULL DEFAULT 'all',
-  `memo_ob` varchar(6) NOT NULL DEFAULT 'date'
+  `memo_ob` varchar(6) NOT NULL DEFAULT 'date',
+  `ph_sec` char(3) NOT NULL DEFAULT 'yes'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `account_type`, `av`, `lang`,`status_view`, `memo_ob`) VALUES
-('0', 'admin', 'a74ad8dfacd4f985eb3977517615ce25', '', 'Admin', '0', 'en', 'all', 'date'),
-('639e8ade-13225-cad00-ddeb-43b55e6719', 'joe', 'ee11cbb19052e40b07aac0ca060c23ee', 'joe1234@hostXYZ.com', 'User', '0', 'sk', 'all', 'date');
+INSERT INTO `users` (`id_user`, `username`, `password`, `email`, `account_type`, `av`, `lang`,`status_view`, `memo_ob`, `ph_sec`) VALUES
+('0', 'admin', 'a74ad8dfacd4f985eb3977517615ce25', '', 'Admin', '0', 'en', 'all', 'date', 'yes'),
+('639e8ade-13225-cad00-ddeb-43b55e6719', 'joe', 'ee11cbb19052e40b07aac0ca060c23ee', 'joe1234@hostXYZ.com', 'User', '0', 'sk', 'all', 'date', 'yes');

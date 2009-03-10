@@ -1,33 +1,23 @@
 <?php
 
 // Get Global Preferences
+// TODO: otestovat $tmp_id_user
+
 $secQuery = "SELECT
-phone.ph_sec AS ph_sec
-FROM phone
-WHERE phone.preference = 'primary'";
+users.ph_sec AS ph_sec,
+users.memo_ob AS memo_ob,
+FROM users
+WHERE users.id_user = '$tmp_id_user'";
 $thesecRES = mysql_query($secQuery, $db);
 
 if ($sy = mysql_fetch_assoc($thesecRES))
 {
 	//set global preferences
 	$ph_sec = $sy['ph_sec'];
+	$memo_ob = $sy['memo_ob'];
 } else {
 	//security defaults to 'yes'
 	$ph_sec = 'Yes';
-}
-
-//TODO: otestovat na phone
-//$tmp_memo_ob = defang_input($_POST['memo_ob']);
-$secQuery = "SELECT
-memos.memo_ob AS memo_ob
-FROM memos
-WHERE memos.id_user = '$tmp_id_user'";
-$thesecRES = mysql_query($secQuery, $db);
-
-if ($sy = mysql_fetch_assoc($thesecRES))
-{
-	//set global preferences
-	$memo_ob = $sy['memo_ob'];
 }
 
 if (isset($_GET['name']))

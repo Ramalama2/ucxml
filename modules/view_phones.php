@@ -1,36 +1,17 @@
 <?php
 /*
 	UCxml web Portal - View phones
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:	
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
 
-$myPref = "primary";
-
-if (isset($_POST['submit_save'])) {
-		// Saving
-		if (defang_input($_POST['ph_sec']) == "ph_sec")
-		{
-			$tmp_ph_sec = "Yes";
-		} else {
-			$tmp_ph_sec = "No";
-		}
-
-		$tmpUpdateSQL = "UPDATE phone SET
-			ph_sec = '$tmp_ph_sec'
-			WHERE preference = '$myPref'";
-
-		mysql_query($tmpUpdateSQL, $db);
-		header("Location: index.php?module=view_phones");
-}
-
-elseif (isset($_POST['submit_add']))
+if (isset($_POST['submit_add']))
 {
 	// add phone
 	$tmp_id_phone = create_guid($tmp_id_phone);
@@ -61,20 +42,6 @@ function output_view_phones ()
 	$xtpl=new XTemplate ("modules/templates/view_phones.html");
 	$xtpl->assign( 'LANG', $lang );
 
-	$theSQL = "SELECT * FROM phone WHERE preference = 'primary'";
-	$theRES = mysql_query($theSQL, $db);
-
-	if ($in = mysql_fetch_assoc($theRES))
-	{
-		if ($in['ph_sec'] == "Yes")
-		{
-			$xtpl->assign("ph_sec_check",'CHECKED'); //place check in box
-		}
-
-	 else {
-		//	echo "Unable to save preferences.";
-		}
-	}
 
 	//custum order by
 	if (isset($_GET['ob']))
@@ -118,9 +85,6 @@ function output_view_phones ()
 		$xtpl->parse("main.row");
 		$oddRow = !$oddRow;
 	}
-
-//Create page and fill in known data
-
 
 	// Output
 	$xtpl->parse("main");
