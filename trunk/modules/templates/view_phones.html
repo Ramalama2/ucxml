@@ -5,7 +5,10 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-phone-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-        <p>The <strong>PHONE REGISTRATION</strong> page will show you a list of all of the phones that have been registered. Phones are registered by their MAC address. The  page will also show you the phones that have attempted to enter the directory that are not registered. These phones will be labeled  as 'Unkown'.</p>
+        <p>The <strong>PHONE REGISTRATION</strong> page will show you a list of all of the phones
+		that have been registered. Phones are registered by their MAC address.
+		The  page will also show you the phones that have attempted to enter the directory that are not registered.
+		These phones will be labeled  as 'Unkown'.</p>
         <p>There is a 4 column table on the Phones screen.</p>
         <ul>
           <li><strong>MAC Address</strong> - Mac address (physical address) of the phone.</li>
@@ -13,31 +16,19 @@
           <li><strong>Number</strong>- The extension of the phone. </li>
           <li><strong>Access Level </strong> - The Access level of the phone, either public or private.</li>
         </ul>
-# If this option is checked, all phones will need to be registered in order to access the directory. If an unregistered phone (a phone that has not been added to the Phone Registrations page using its MAC address) attempts to view the directory, it will be shown an accessed denied screen. The phone will also display its MAC address at the bottom of the screen, this is entire address needs to be added to the Phone Registrations page.
-# If this option is not checked, unregistered phones (a phone that has not been added to the Phone Registrations page using its MAC address) will have access to objects at the public Access level, but access to the private objects will depend on the Enable Object Security Preference.
 	</div>
-	
+
 <div id="main">
      <form action="" method="post" id="form1"  style="padding-left:20px">
 	<div id="right_side">
 <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Phones Options</div></h3>
-	    <ul>	
+	    <ul>
 		<li><a href="">Add new phone</a></li>
             <div style="padding-left:20px;padding-bottom:15px;">
             <input type="submit" name="submit_add" value="  Add  "></div>
-		
-		<li><a href="">Enable Phone Security</a></li>
-            <div style="padding-left:20px;">
-        <input name="ph_sec" type="checkbox" value="ph_sec" {ph_sec_check} >           
-        <input type="submit" name="submit_save" value="  Save  ">
-        <input type="hidden" name="baseauth" value="{baseauth}">
-        <input type="hidden" name="action" value="edit">
-		<p>Phone security prevents unregistered phones from viewing the directory. If phone
-        security is disabled, all unregistered phones will have access to objects 
-        marked 'Public'. Choose how to order the memos posted to the phone.</p></div>
-	    </ul>
+		</ul>
 	</div>
-     </form>  		
+     </form>
 
 <div id="left_side">
 

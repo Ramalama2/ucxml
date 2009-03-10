@@ -25,11 +25,11 @@ function validate_edit_memo()
 	}
 	else return true;
   }
- 
+
 // -->
 </script>
 <body>
-<div id="prec2">		
+<div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-memos-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
 <p>There is a 5 forms collected when creating/editing a memo...</p>
@@ -39,11 +39,10 @@ function validate_edit_memo()
           <li><strong>Message</strong> - Text that will be displayed in the body of the memo.</li>
           <li><strong>Sender</strong> - The username of the person who posted this memo.</li>
           <li><strong>Access</strong> - The Access level of this memo.</li>
-        
+
     </ul>
     </div>
 
-	<div id="main">
                 <form name="form1" method="post" action="">
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Memos options</div></h3>
@@ -62,7 +61,7 @@ function validate_edit_memo()
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 		</div>
-            
+
             <li><a href="">Delete  Memos:</a></li>
                   <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
                   <input type="hidden" name="id_memo" value="{id_memo}">
@@ -99,7 +98,6 @@ function validate_edit_memo()
 	</div>
 	</form>
 	</div>
-</div>
 </div>
 </body>
 <!-- END: main -->

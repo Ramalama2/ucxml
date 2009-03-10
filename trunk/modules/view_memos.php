@@ -11,20 +11,8 @@
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);
-if (isset($_POST['submit_save']))
-{
-	// Saving
-		$tmp_memo_ob = defang_input($_POST['memo_ob']);
-		$tmpUpdateSQL =
-			"UPDATE users
-			SET	memo_ob = '$tmp_memo_ob'
-			WHERE id_user ='$tmp_id_user'";
-		mysql_query($tmpUpdateSQL, $db);
 
-		header("Location: index.php?module=view_memos");
-}
-
-elseif (isset($_POST['submit_post']))
+if (isset($_POST['submit_post']))
 {
 	//add new memo
 	$tmp_id_memo = create_guid($tmp_id_memo);
@@ -161,26 +149,6 @@ function output_view_memos($myID_user)
 			$result = mysql_query($sql);
 		}
 
-	}
-
-
-   	$theSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
-	$theRES = mysql_query($theSQL, $db);
-	if ($in = mysql_fetch_assoc($theRES))
-	{
-		$xtpl->assign("memo_ob",$in['memo_ob']);
-
-		if ($in['memo_ob'] == "sender")
-		{
-			$xtpl->assign("sel_sender","selected");
-		} elseif ($in['memo_ob'] == "date") {
-			$xtpl->assign("sel_date","selected");
-		} else {
-			$xtpl->assign("sel_title","selected");
-		}
-	}
-     else {
-		echo "Unable to save preferences.";
 	}
 
 	// Output
