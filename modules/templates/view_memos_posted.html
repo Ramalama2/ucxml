@@ -43,7 +43,7 @@
     </form>
 
 <div id="left_side">
-    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Received Memos table</div></h3>
+    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Posted Memos table</div></h3>
 
 <table width="560" bgcolor="#F6F6F6" >
 	<tr bgcolor="#DFDFDF" >
@@ -57,8 +57,8 @@
 
   <!-- BEGIN: row_send -->
 	<tr>
-		<td bgcolor="{bg}">{title}</td>
-		<td bgcolor="{bg}">{to}</td>
+		<td bgcolor="{bg}"><a href="index.php?module=view_memo_posted&id_memo={id_memo}" rel="facebox">{title}</a></td>
+		<td bgcolor="{bg}">{receiver}</td>
 		<td bgcolor="{bg}">{date}</td>
 		<td bgcolor="{bg}">{msg}</td>
 		<td bgcolor="{bg}">{access}</td>

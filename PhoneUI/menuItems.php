@@ -27,9 +27,9 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 	require_once "templates/img_sec_breach.php";
 
 } elseif (isset($_GET['ur'])) {
-	//Specific contact has been selected (style was seperate)
-	$urID = defang_input($_GET['ur']);
-	$browseQuery = "SELECT 
+	//Specific contact has been selected (seperate style)
+	$urID_contact = defang_input($_GET['ur']);
+	$browseQuery = "SELECT
 		contacts.id_contact AS id_contact,
 		contacts.lname AS lname,
 		contacts.fname AS fname,
@@ -43,7 +43,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		contacts.title AS title
 		FROM contacts
 		WHERE contacts.id_contact = '$urID_contact'";
-	
+
 	$theContactRES = mysql_query($browseQuery, $db);
 
 	if ($in = mysql_fetch_assoc($theContactRES))
@@ -56,14 +56,14 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		} else {
 			//show without dash, 1 or less exist
 			$tmpNick = $in['title'].$in['nick'];
-		}	
-		
+		}
+
 		$xtpl=new XTemplate ("templates/contact_detail.xml");
 		$xtpl->assign("tmpTitle",$tmpTitle);
 		$xtpl->assign("nick",$tmpNick);
-		
-		$name = '';//$name is blank when inside a contact
-		
+
+		$name = ''; //$name is blank when inside a contact
+
 		//Display phone numbers under current contact
 		if (trim($in['office_phone']) != "")
 		{
@@ -75,7 +75,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		}
 		if (trim($in['home_phone']) != "")
 		{
-			$curphone = parse_phone($in['home_phone']);		
+			$curphone = parse_phone($in['home_phone']);
 			$number = return_dial($curphone);
 			$xtpl->assign("type",'Home');
 			$xtpl->assign("number",$number);
@@ -83,7 +83,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		}
 		if (trim($in['cell_phone']) != "")
 		{
-			$curphone = parse_phone($in['cell_phone']);		
+			$curphone = parse_phone($in['cell_phone']);
 			$number = return_dial($curphone);
 			$xtpl->assign("type",'Cell');
 			$xtpl->assign("number",$number);
@@ -91,7 +91,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		}
 		if (trim($in['custom_number']) != "")
 		{
-			$curphone = parse_phone($in['custom_number']);		
+			$curphone = parse_phone($in['custom_number']);
 			$number = return_dial($curphone);
 			$xtpl->assign("type",$in['custom_phone']);
 			$xtpl->assign("number",$number);
@@ -99,7 +99,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		}
 		if (trim($in['other_phone']) != "")
 		{
-			$curphone = parse_phone($in['other_phone']);		
+			$curphone = parse_phone($in['other_phone']);
 			$number = return_dial($curphone);
 			$xtpl->assign("type",'Other');
 			$xtpl->assign("number",$number);
@@ -112,8 +112,8 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 } else {
 
 }
-	
-//	
+
+//
 //
 // Functions
 //
@@ -122,11 +122,11 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 function list_contacts ($member_cat,$obID,$MAC)
 {
 /*
-	This function lists the contacts in specifed a category
-	$per_page is set to limit the number contacts to each page.
-	A count query is used to count how many contacts will be displayed.  If number of contacts is greater than 0
-	then the title information and ID for each contact is fetched.
-	if total contacts == 0, then display prompt to add contacts
+	This function lists the contacts in specifed category:
+		-$per_page is set to limit the number contacts to each page.
+		-a count query is used to count how many contacts will be displayed.
+		 If number of contacts is greater than 0 then the title information and ID for each contact is fetched.
+		 If total contacts == 0, then display prompt to add contacts
 	*/
 	global $db;
 	global $URLBase;
@@ -235,7 +235,7 @@ function parse_phone ($in_phone)
 {
 	//remove extraneous characters from phone number
 	$chk_phone = trim($in_phone);
-	$chkExp = "(\-)|(\.)|(\()|(\))|(\ )";
+	$chkExp = "(\-)|(\()|(\))|(\ )";
 	$out_phone = trim(eregi_replace($chkExp, "", $chk_phone));
 	return $out_phone;
 }

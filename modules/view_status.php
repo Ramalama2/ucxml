@@ -13,11 +13,11 @@ if (isset($_POST['save_view']))
 	// Saving
 	$tmp_status_view = defang_input($_POST['status_view']);
 	$tmpUpdateSQL = "UPDATE users
-					SET	status_view = '$tmp_status_view'
+					SET status_view = '$tmp_status_view'
 					WHERE id_user = '$tmp_id_user'";
 	mysql_query($tmpUpdateSQL, $db);
 
-	header("Location: index.php?module=view_status");
+	header("Location: index.php?module=view_status&status_view=$tmp_status_view");
 
 } else {
 	//display contacts
@@ -42,159 +42,149 @@ function output_view_status ($myID_user)
 	$checkRES = mysql_query($checkSQL, $db);
 	if ($in = mysql_fetch_assoc($checkRES))
 		{
-			if( $in['status_view'] )
-			{
-				$_SESSION['status_view'] = $in['status_view'];
-			}
-//          		$xtpl->assign("status_view",$in['status_view']);
-
        		if ($in['status_view'] == "all")
 			{
 				$xtpl->assign("sel_all", "selected");
-				$xtpl->assign("sel_in", "");
-				$xtpl->assign("sel_out", "");
 			}
 	        elseif ($in['status_view'] == "in")
 			{
-				$xtpl->assign("sel_all", "");
 				$xtpl->assign("sel_in", "selected");
-				$xtpl->assign("sel_out", "");
 			}
 	        else
 			{
-				$xtpl->assign("sel_all", "");
-				$xtpl->assign("sel_in", "");
 				$xtpl->assign("sel_out", "selected");
 			}
-
 	    }
 
-	$obprefSQL = "SELECT status_view FROM users WHERE id_user='$myID_user'";
-	$obRES = mysql_query($obprefSQL, $db);
-	if ($gl = mysql_fetch_assoc($obRES))
-	{
-		$status_view = $gl['status_view'];
-	} else {
-		//sql error
-		$status_view = "all";
-	}
 
+        $obprefSQL = "SELECT status_view FROM users WHERE id_user = '$tmp_id_user'";
+        $obRES = mysql_query($obprefSQL, $db);
+        if ($gl = mysql_fetch_assoc($obRES))
+        {
+                $status_view = $gl['status_view'];
+        } else {
+                //sql error
+                $status_view = "all";
+        }
 
           //custom order by
 	if (isset($_GET['ob']))
 	{
-		if ($_GET['ob'] == "ob_ln")
+		if ($_GET['ob'] == "ob_n")
 		{
-			$ob = "lname";
+			$ob = "nick";
 		} elseif ($_GET['ob'] == "ob_status") {
 			$ob = "status";
-		} elseif ($_GET['ob'] == "ob_away_msg") {
-			$ob = "away_msg";
+		} elseif ($_GET['ob'] == "ob_access_lvl") {
+			$ob = "access_lvl";
 		}
 	} else {
-	$ob = "lname";
+	$ob = "nick";
 	}
 
-       if (isset($_GET['status_view']))
-	   {
-       		$status_view = defang_input($_GET['status_view']);
+/*        if (isset($_GET['ur']))
+                {
+                $urMAC = defang_input($_GET['ur']);
+                show_status($MAC,$urMAC);
 
-			if ($in['status_view'] == "all")
-			{
-			//user wants to view everyones' status
-				$loc_sql = "";
-				$xtpl->assign("sel_all",'selected');
+                } elseif (isset($_GET['view_my_status'])) {
 
-			} elseif ($in['status_view'] == "out") {
-				//user wants to view people unavailable, status
-				$loc_sql = "WHERE phone.status = 0 AND phone.access_lvl != 'unknown'";
-				$xtpl->assign("sel_out",'selected');
+                show_status($MAC,$MAC);
+                }
+*/
+          if (isset($_GET['status_view'])) {
 
-			} elseif ($in['status_view'] == "in") {
-				//user wants to view people in the available, status
-				$loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
-				$xtpl->assign("sel_in",'selected');
-				$xtpl->assign("in",$status_view);
-			}
+                        $status_view = defang_input($_GET['status_view']);
+
+                        if ($status_view == 'all')
+                        {
+                                  //user wants to view everyones' status
+                                $loc_sql = "WHERE phone.access_lvl != 'unknown'";
+                                $xtpl->assign("sel_all","selected");
+                                $xtpl->assign("sel_in","");
+                                $xtpl->assign("sel_out","");
+                        }
+						elseif ($status_view == 'in') {
+                                //user wants to view people in the available, status
+                                $loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
+                                $xtpl->assign("sel_all","");
+                                $xtpl->assign("sel_in","selected");
+                                $xtpl->assign("sel_out","");
+                        }
+						elseif ($status_view == 'out') {
+                                //user wants to view people unavailable, status
+                                $loc_sql = "WHERE phone.status = 0 AND phone.access_lvl != 'unknown'";
+                                $xtpl->assign("sel_all","");
+                                $xtpl->assign("sel_in","");
+								$xtpl->assign("sel_out","selected");
+                        }
+
+
+                        $xtpl->parse("main.column");//show columns
+
+                        $theSQL = "SELECT id_phone,access_lvl,nick,away_msg,status FROM phone $loc_sql ";
+                        $theRES = mysql_query($theSQL, $db);
+
+                        $oddRow = true;
+                        while ($in = mysql_fetch_assoc($theRES))
+                        {
+                                //Generate data rows
+                                if ($oddRow)
+                                {
+                                        $xtpl->assign("bg","#EFEFEF");
+                                } else {
+                                        $xtpl->assign("bg","#DFDFDF");
+                                }
+                                $xtpl->assign("id_phone",$in['id_phone']);
+                                $xtpl->assign("status",$in['status']);
+                                $xtpl->assign("nick",$in['nick']);
+                                $xtpl->assign("away_msg",$in['away_msg']);
+                                $xtpl->assign("access_lvl",$in['access_lvl']);
+
+                                $xtpl->parse("main.row");
+                                $oddRow = !$oddRow;
+                        }
+
+                        // Output
+                        $xtpl->parse("main");
+                        $xtpl->out("main");
 
         }
-			$xtpl->parse("main.column");//show columns
+        elseif (isset($_GET['my_status'])) {
+                //User has requested to change their status
+                if ($registered == "TRUE")
+                {
+                        $xtpl=new XTemplate ("templates/my_status.xml");
 
-			$theSQL = "SELECT id_phone,status,nick,away_msg,access_lvl FROM phone $loc_sql";
-			$theRES = mysql_query($theSQL, $db);
+                        $statusqry = "SELECT phone.status AS status FROM phone WHERE MAC = '$MAC'";
+                        $theCountRES = mysql_query($statusqry, $db);
 
-			$oddRow = true;
-			while ($in = mysql_fetch_assoc($theRES))
-			{
-				//Generate data rows
-				if ($oddRow)
-				{
-					$xtpl->assign("bg","#EFEFEF");
-				} else {
-					$xtpl->assign("bg","#DFDFDF");
-				}
-				$xtpl->assign("id_phone",$in['id_phone']);
-				$xtpl->assign("status",$in['status']);
-				$xtpl->assign("nick");
-				$xtpl->assign("away_msg",$in['away_msg']);
-				$xtpl->assign("access_lvl",$in['access_lvl']);
+                        //Fetch phone availablility
+                        if ($in = mysql_fetch_assoc($theCountRES))
+                        {
+                                if ($in['status'] == '1')
+                                {
+                                        $xtpl->assign("available",'*');
+                                        $xtpl->assign("unavailable",'');
+                                } else {
+                                        $xtpl->assign("available",'');
+                                        $xtpl->assign("unavailable",'*');
+                                }
+                        }
+                        //show prompt to select in office or out of office
+                        $xtpl->assign("MAC",$MAC);
+                        $xtpl->assign("url_base",$URLBase);
+                        $xtpl->parse("main");
+                        $xtpl->out("main");
+                } else {
+                        //User must have a registered MAC to set a status, display error page
+                        require_once "templates/img_sec_breach.php";
+                }
+        } else {
+        $xtpl->parse("main");
+        $xtpl->out("main");
+        }
 
-				$xtpl->parse("main.row");
-				$oddRow = !$oddRow;
-
-			}
-      // Output
-			$xtpl->parse("main");
-			$xtpl->out("main");
-
-
-/*  	if (isset($_GET['ur']))
-		{
-		$urMAC = defang_input($_GET['ur']);
-		show_status($MAC,$urMAC);
-
-		} elseif (isset($_GET['view_my_status'])) {
-
-		show_status($MAC,$MAC);
-		}
-*/
-}
-function my_status()
-{
-	if (isset($_GET['my_status'])) {
-		//User has requested to change their status
-		if ($registered == "TRUE")
-		{
-			$xtpl=new XTemplate ("templates/my_status.xml");
-
-			$statusqry = "SELECT phone.status AS status FROM phone WHERE MAC = '$MAC'";
-			$theCountRES = mysql_query($statusqry, $db);
-
-			//Fetch phone availablility
-			if ($in = mysql_fetch_assoc($theCountRES))
-			{
-				if ($in['status'] == '1')
-				{
-					$xtpl->assign("available",'*');
-					$xtpl->assign("unavailable",'');
-				} else {
-					$xtpl->assign("available",'');
-					$xtpl->assign("unavailable",'*');
-				}
-			}
-			//show prompt to select in office or out of office
-			$xtpl->assign("MAC",$MAC);
-			$xtpl->assign("url_base",$URLBase);
-			$xtpl->parse("main");
-			$xtpl->out("main");
-		} else {
-			//User must have a registered MAC to set a status, display error page
-			require_once "templates/img_sec_breach.php";
-		}
-	} else {
-	$xtpl->parse("main");
-	$xtpl->out("main");
-	}
 }
 
 function show_status ($MAC,$urMAC)

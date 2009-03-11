@@ -84,17 +84,18 @@ CREATE TABLE IF NOT EXISTS `phone` (
   `away_msg` varchar(100) NOT NULL DEFAULT '',
   `nick` varchar(20) NOT NULL DEFAULT '',
   `status` int(1) NOT NULL DEFAULT '0',
-  `access_lvl` varchar(12) DEFAULT ''
+  `access_lvl` varchar(12) DEFAULT '',
+  `refresh` int(11) DEFAULT '120'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `phone`
 --
 
-INSERT INTO `phone` (`id_phone`, `MAC`, `date`, `number`, `away_msg`, `nick`, `status`, `access_lvl`) VALUES
-('0', 'KDI324FDSIS', '', '0914', '', 'Admin', '0', 'Unrestricted'),
-('38ceaef5-376ed-098c2-4236-43b563060c', 'SEP00131A6FD5E5', '', '', '', 'User', 0, 'Unrestricted'),
-('501bea4d-b0a5c-c69ef-d6c3-4991927a77', 'X3S00131A6FD5E5', '', '', '', 'User2', 0, 'Restricted');
+INSERT INTO `phone` (`id_phone`, `MAC`, `date`, `number`, `away_msg`, `nick`, `status`, `access_lvl`, `refresh`) VALUES
+('0', 'KDI324FDSIS', '', '0914', '', 'Admin', '0', 'Unrestricted','120'),
+('38ceaef5-376ed-098c2-4236-43b563060c', 'SEP00131A6FD5E5', '', '', '', 'User', 0, 'Unrestricted','120'),
+('501bea4d-b0a5c-c69ef-d6c3-4991927a77', 'X3S00131A6FD5E5', '', '', '', 'User2', 0, 'Restricted', '120');
 
 -- --------------------------------------------------------
 

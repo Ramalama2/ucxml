@@ -6,26 +6,15 @@
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
       <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
-        <p>Information collected when editing your account... </p>
+        <p>Information collected when editing your phone... </p>
         <blockquote>
           <ul>
-            <li><strong>Username</strong> - User's login name for this web interface</li>
-            <li><strong>Assign Password</strong> - Desired password for user login</li>
-            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
-            <li><strong>Email</strong> - User's email address</li>
           </ul>
           <p># If this option is checked, all phones will need to be registered in order to access the directory.
-If an unregistered phone (a phone that has not been added to the Phone Registrations page using its MAC address)
-attempts to view the directory, it will be shown an accessed denied screen.
-The phone will also display its MAC address at the bottom of the screen, this is entire address needs to be added to the Phone Registrations page.
-# If this option is not checked, unregistered phones (a phone that has not been added to the Phone Registrations page
-using its MAC address) will have access to objects at the public Access level, but access to the private objects will
-depend on the Enable Object Security Preference.
 Phone security prevents unregistered phones from viewing the directory. If phone
 		security is disabled, all unregistered phones will have access to objects
 		marked 'Public'.</p>
 <p>	Order Memos By - This adjusts the default order of memos when viewing them on the phone interface or on the web interface.
-
     * by Date - Memos will be ordered in reverse chronological order. (Newest memos shown first)
     * by Sender - Memos will be ordered alphabetically based on who posted the memo.
     * by Title - Memos will be ordered alphabetically based on the title</p>
@@ -84,6 +73,15 @@ Phone security prevents unregistered phones from viewing the directory. If phone
 			<option {selected_restricted}>Restricted</option>
 			<option {selected_unrestricted}>Unrestricted</option>
 	        </select> * </td>
+	</tr>
+
+	<tr>
+		<td><strong>Set refresh: </strong></td>
+		<td><select name="refresh" size="1">
+			<option {sel_60} value="60">60</option>
+			<option {sel_120} value="120">120</option>
+			<option {sel_480} value="480">480</option>
+			</select> seconds </td>
 	</tr>
 
 	<tr>

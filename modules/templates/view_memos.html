@@ -13,7 +13,8 @@
           <li><strong>Date</strong> - The date and time that the memo was posted.</li>
           <li><strong>Edit/Delete </strong>- Clicking edit will direct you to the memo editing page. Clicking delete will delete this memo from the database.</li>
       </ul>
-	</div>
+</div>
+
 
 <div id="main">
 	<ul id="menu">
@@ -43,7 +44,7 @@
     </form>
 
 <div id="left_side">
-    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Posted Memos table</div></h3>
+    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Received Memos table</div></h3>
 
 <table width="560" bgcolor="#F6F6F6" >
 	<tr bgcolor="#DFDFDF" >
@@ -57,7 +58,7 @@
 
   <!-- BEGIN: row_received -->
 	<tr>
-		<td bgcolor="{bg}">{title}</td>
+		<td bgcolor="{bg}"><a href="index.php?module=view_memo&id_memo={id_memo}" rel="facebox">{title}</a></td>
 		<td bgcolor="{bg}">{from}</td>
 		<td bgcolor="{bg}">{date}</td>
 		<td bgcolor="{bg}">{msg}</td>
@@ -66,11 +67,14 @@
 	</tr>
   <!-- END: row_received -->
   </table>
+
+
 </div>
 
 </div>
 </div>
 </div>
 </div>
+
 </body>
 <!-- END: main -->

@@ -11,6 +11,7 @@
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);
+$tmp_my_nick = defang_input($_SESSION['user_name']);
 
 if (isset($_POST['submit_post']))
 {
@@ -59,7 +60,7 @@ if (isset($_POST['submit_post']))
 } else {
 	//display memo listings
 	render_HeaderFooter("UCxml web Portal - Memo View");
-	output_view_memos($tmp_id_user);
+	output_view_memos($tmp_id_user, $tmp_my_nick);
 	render_Footer();
 }
 
@@ -67,7 +68,7 @@ if (isset($_POST['submit_post']))
 //  FUNCTIONS
 //
 
-function output_view_memos($myID_user)
+function output_view_memos($myID_user, $myNick)
 {
 	include "language/lang.php";
 	global $db;
@@ -114,7 +115,7 @@ function output_view_memos($myID_user)
 		$xtpl -> parse ("main.admin_broadcast");
 	}
 
-	$theSQL = "SELECT id_memo,title,access,receiver,date,msg FROM memos ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,access,receiver,date,msg FROM memos WHERE sender = '$myNick' ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -134,7 +135,7 @@ function output_view_memos($myID_user)
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("date",$displaydate);
 		$xtpl->assign("access",$in['access']);
-		$xtpl->assign("to",$in['receiver']);
+		$xtpl->assign("receiver",$in['receiver']);
 		$xtpl->assign("msg",$in['msg']);
 
 		$xtpl->parse("main.row_send");

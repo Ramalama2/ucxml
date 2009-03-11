@@ -11,6 +11,7 @@
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);
+$tmp_my_nick = defang_input($_SESSION['user_name']);
 
 if (isset($_POST['submit_post']))
 {
@@ -59,7 +60,7 @@ if (isset($_POST['submit_post']))
 } else {
 	//display memo listings
 	render_HeaderFooter("UCxml web Portal - Memo View");
-	output_view_memos($tmp_id_user);
+	output_view_memos($tmp_id_user, $tmp_my_nick);
 	render_Footer();
 }
 
@@ -67,7 +68,7 @@ if (isset($_POST['submit_post']))
 //  FUNCTIONS
 //
 
-function output_view_memos($myID_user)
+function output_view_memos($myID_user, $myNick)
 {
 	include "language/lang.php";
 	global $db;
@@ -95,8 +96,6 @@ function output_view_memos($myID_user)
 			$ob = "access";
 		} elseif ($_GET['ob'] == "ob_sender") {
 			$ob = "sender";
-   		} elseif ($_GET['ob'] == "ob_msg") {
-			$ob = "msg";
 		}
 	} else {
 		if ($memo_ob == "Date")
@@ -114,7 +113,7 @@ function output_view_memos($myID_user)
 			$xtpl -> parse ("main.admin_broadcast");
 		}
 
-	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos WHERE receiver = '$myNick' OR receiver = '' ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -148,7 +147,6 @@ function output_view_memos($myID_user)
 			$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
 			$result = mysql_query($sql);
 		}
-
 	}
 
 	// Output

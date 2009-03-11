@@ -51,8 +51,8 @@ function output_view_phones ()
 			$ob = "MAC";
 		} elseif ($_GET['ob'] == "ob_access_lvl") {
 			$ob = "access_lvl";
-		} elseif ($_GET['ob'] == "ob_ln") {
-			$ob = "lname";
+		} elseif ($_GET['ob'] == "ob_n") {
+			$ob = "nick";
 		} elseif ($_GET['ob'] == "ob_num") {
 			$ob = "number";
 		} else {
@@ -60,6 +60,21 @@ function output_view_phones ()
 		}
 	} else {
 	$ob = "MAC";
+	}
+
+//must query twice because edit_user from edit_user_phone OR edit_user_contact is canceling without new==true
+//not ideal solution
+	$theSQL = "SELECT id_phone,MAC,nick,number,access_lvl FROM phone";
+	$theRES = mysql_query($theSQL, $db);
+	while ($in = mysql_fetch_assoc($theRES))
+	{
+       if ($in['MAC'] == '' && $in['nick'] == '' && $in['number'] == '' && $in['access_lvl'] == '')
+		{
+			//contacts has no information, delete the entry
+			$tmp_delete_id_phone = $in['id_phone'];
+			$sql = "DELETE FROM phone WHERE id_phone='$tmp_delete_id_phone'";
+			$result = mysql_query($sql);
+		}
 	}
 
 	// Content

@@ -91,6 +91,21 @@ function output_view_contacts ()
 	$ob = "lname";
 	}
 
+//must query twice because edit_user from edit_user_phone OR edit_user_contact is canceling without new==true
+//not ideal solution
+	$theSQL = "SELECT id_contact,fname,lname,nick,title FROM contacts";
+	$theRES = mysql_query($theSQL, $db);
+	while ($in = mysql_fetch_assoc($theRES))
+	{
+       if ($in['fname'] == '' && $in['lname'] == '' && $in['nick'] == '' && $in['title'] == '')
+		{
+			//contacts has no information, delete the entry
+			$tmp_delete_id_contact = $in['id_contact'];
+			$sql = "DELETE FROM contacts WHERE id_contact='$tmp_delete_id_contact'";
+			$result = mysql_query($sql);
+		}
+	}
+
               if ($_SESSION['account_type'] == 'Admin')
 			{
 				$xtpl -> parse ("main.column.admin_edit_del");

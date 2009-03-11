@@ -15,7 +15,7 @@ if (isset($_POST['submit_add']))
 {
 	// add user
 	$tmp_id_user = create_guid($tmp_id_user);
-    $tmp_owner = $_SESSION['user_id'];
+	$tmp_owner = $_SESSION['user_id'];
 
 	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('$tmp_id_user')";
 	mysql_query("INSERT INTO contacts (id_contact,owner) VALUES ('".$tmp_id_user."','".$tmp_owner."')");
@@ -23,7 +23,6 @@ if (isset($_POST['submit_add']))
 
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
-
 	// OK, show editor
 		header("Location: index.php?module=edit_user&id_user=$tmp_id_user&new=true");
 	} else {
@@ -65,13 +64,28 @@ function output_view_users ()
 	$ob = "username";
 	}
 
+//must query twice because edit_user from edit_user_phone OR edit_user_contact is canceling without new==true
+//not ideal solution
+	$theSQL = "SELECT id_user,username,email,account_type FROM users";
+	$theRES = mysql_query($theSQL, $db);
+	while ($in = mysql_fetch_assoc($theRES))
+	{
+	       if ($in['username'] == '' && $in['email'] == '' && $in['account_type'] == '')
+		{
+			//contacts has no information, delete the entry
+			$tmp_delete_id_user = $in['id_user'];
+			$sql = "DELETE FROM users WHERE id_user='$tmp_delete_id_user'";
+			$result = mysql_query($sql);
+		}
+	}
 
 	$theSQL = "SELECT id_user,username,email,account_type FROM users ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
 	{
-		//Generate data rows
+
+	//Generate data rows
 		if ($oddRow)
 		{
 			$xtpl->assign("bg","#EFEFEF");
@@ -82,7 +96,9 @@ function output_view_users ()
 		$xtpl->assign("username",$in['username']);
 		$xtpl->assign("email",$in['email']);
 		$xtpl->assign("account_type",$in['account_type']);
-		if ($_SESSION['user_id'] == $in['id_user'] || $in['id_user'] == '0')
+
+
+		if ($_SESSION['status_view'] = $in['status_view'] || $in['id_user'] == '0')
 		{
 			$xtpl->assign("delete","");
 		} else {
@@ -91,6 +107,7 @@ function output_view_users ()
 
 		$xtpl->parse("main.row");
 		$oddRow = !$oddRow;
+
 	}
 
 	// Output

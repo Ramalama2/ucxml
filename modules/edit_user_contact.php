@@ -12,6 +12,7 @@
 
 
 $tmp_id_contact = defang_input($_GET['id_user']);
+$tmp_id_user = defang_input($_GET['id_user']);
 
 if (isset($_POST['action']))
 {

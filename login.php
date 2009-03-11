@@ -30,7 +30,6 @@ if (isset($_GET['module']) && $_POST['username'] == "")
 	}
 }
 
-
 // Check Login
 if(isset($_POST['Login']))
 {
@@ -38,7 +37,7 @@ if(isset($_POST['Login']))
 	$username = defang_input($_POST['username']);
 	$password = defang_input($_POST['password']);
 	$crypt_pass = md5($password);
-	$checkSQL = "SELECT id_user,username,account_type,av,lang FROM users WHERE username='$username' AND password='$crypt_pass'";
+	$checkSQL = "SELECT id_user,username,account_type,av,lang,status_view FROM users WHERE username='$username' AND password='$crypt_pass'";
 	$checkRES = mysql_query($checkSQL, $db);
 
 	if ($in = mysql_fetch_assoc($checkRES))
@@ -47,6 +46,7 @@ if(isset($_POST['Login']))
 		$_SESSION['user_name'] = $in['username'];
 		$_SESSION['account_type'] = $in['account_type'];
 		$_SESSION['lang'] = $in['lang'];
+		$_SESSION['status_view'] = $in['status_view'];
 
 		if( $in['av'] )
 		{
@@ -62,13 +62,14 @@ if(isset($_POST['Login']))
 	}
 }
 
-
-if ($installed == 'false')
+/*if ($installed == 'false')
 {
 	//not installed
 } else {
 	$installed == 'true';
 }
+*/
+
 if (defang_input($_GET['newuser']) == "true")
 {
 	$errMsg = "It recommended that you change your password after logging in";
