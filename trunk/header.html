@@ -7,6 +7,17 @@
 	<meta name="keywords" content="{page_keyword}" />
 	<link rel="stylesheet" type="text/css" href="style/style.css" media="screen" />
  	<link rel="stylesheet" type="text/css" href="style/tabs.css" media="screen" />
+	<script src="style/jquery-1.2.2-pack.js" type="text/javascript" ></script>
+
+	<link rel="stylesheet" type="text/css" href="style/facebox/facebox.css" media="screen"/>
+	<script src="style/facebox/facebox.js" type="text/javascript" ></script>
+
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+    $('a[rel*=facebox]').facebox() 
+    })
+</script>
 
 </head>
 
@@ -26,8 +37,8 @@
 	</div>
 
            	<div id="avatar">
-		<img height="50" src="images/avatars/{current_av}" title="Your avatar" alt="" />
-<img height="50" src="{default_av}" title="Default avatar" alt="" />
+		<img height="40" src="images/avatars/{current_av}" title="Your avatar" alt="" />
+<img height="40" src="{default_av}" title="Default avatar" alt="" />
 
 		    </div>
 
@@ -36,7 +47,7 @@
 
 	<div id="submenu" align="center" class="smallgraytext">
 		<a href="index.php">Home</a>
-              | <a href="index.php?module=view_status">Status</a>
+              | <a href="index.php?module=view_status&status_view={status_view}">Status</a>
               | <a href="index.php?module=view_memos">Memos</a>
               | <a href="index.php?module=view_contacts">Contacts</a>
 

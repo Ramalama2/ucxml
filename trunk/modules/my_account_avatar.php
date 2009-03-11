@@ -48,6 +48,7 @@ function output_edit_user ($myID_user, $errMsg)
 	if( $errMsg )
 	{
 		$xtpl->assign("error_msg",$errMsg);
+	 	$xtpl->parse("main.error");
 	}
 
 	$theSQL = "SELECT id_user,av FROM users WHERE id_user='$myID_user'";
@@ -59,7 +60,7 @@ function output_edit_user ($myID_user, $errMsg)
 
 		// if the user does not have an avatar, echo the default avatar
 		// if the user has an avatar echo the path to it (whether it is just uploaded, or is already saved)
-		$xtpl->assign("current_av",$_SESSION['ucp_av_ext']? 'index.php?tmpimg&amp;'.'.'. $_SESSION['ucp_av_ext'] : $target . ($_SESSION['av']? $_SESSION['user_id'] .'.'. $in['av'] : 'default.gif'));
+		$xtpl->assign("current_av",$_SESSION['ucp_av_ext']? 'index.php?tmpimg&amp;'.'.'. $_SESSION['ucp_av_ext'] : $target . ($_SESSION['av']? $_SESSION['user_id'] .'.'. $in['av'] : 'default.png'));
 		$xtpl->assign("default_av",$_SESSION['ucp_av_ext']? ' (unsaved)' : '');
 
 	// if the user has an avatar, or just uploaded one
@@ -70,8 +71,6 @@ function output_edit_user ($myID_user, $errMsg)
 		}
 
 	}
-
-
 	// Output
 	$xtpl->parse("main");
 	$xtpl->out("main");
@@ -165,7 +164,7 @@ function avatar_submit()
 			// if getimagesize fails, it was not a valid image
 			else
 			{
-				$errMsg = 'The file you supplied for avatar (location or file upload) was invalid.';
+				$errMsg = 'The file you supplied for avatar was invalid.';
 			}
 		}
     }

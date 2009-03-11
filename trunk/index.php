@@ -31,6 +31,9 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "view_contacts") {
 			require_once "modules/view_contacts.php";
 
+		} elseif ($ModuleName == "view_contact") {
+			require_once "modules/view_contact.php";
+
 		} elseif ($ModuleName == "edit_contact") {
 			require_once "modules/edit_contact.php";
 
@@ -43,8 +46,14 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "view_memos"){
 			require_once "modules/view_memos.php";
 
+		} elseif ($ModuleName == "view_memo"){
+			require_once "modules/view_memo.php";
+
 		} elseif ($ModuleName == "view_memos_posted"){
 			require_once "modules/view_memos_posted.php";
+
+		} elseif ($ModuleName == "view_memo_posted"){
+			require_once "modules/view_memo_posted.php";
 
 		} elseif ($ModuleName == "post_memo"){
 			require_once "modules/post_memo.php";
@@ -154,7 +163,7 @@ function render_HeaderFooter ($mytitle)
 	$xtpl->assign( 'LANG', $lang );
 
 	// if the user has a custom avatar, show their avatar, else show default
-	$default_av="images/avatars/default.gif";
+	$default_av="images/avatars/default.png";
 
 	if( $_SESSION['av'] )
 	{
@@ -169,6 +178,7 @@ function render_HeaderFooter ($mytitle)
 	$xtpl->assign("current",$_SESSION['user_name']);
 	$xtpl->assign("user_id",$_SESSION['user_id']);
 
+	$xtpl->assign("status_view",$_SESSION['status_view']);
 
 	if ($_SESSION['account_type'] == 'Admin')
 	{

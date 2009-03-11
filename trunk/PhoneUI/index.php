@@ -9,16 +9,16 @@ require_once "lib/headers.php";
 
 if ($ph_sec == 'Yes' && $registered == 'FALSE')
 {
-	//Security to stop unregistered users from going any further if 'Phone Security' is on.  
+	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";
-	
+
 	//check to see if mac is already stored in database
 	$macQuery = "SELECT
-	count(phone.id) as total
+	count(phone.id_phone) as total
 	FROM phone
 	WHERE phone.MAC = '$MAC'";
 	$themacRES = mysql_query($macQuery, $db);
-	
+
 	if ($nm = mysql_fetch_assoc($themacRES))
 	{
 		if ($nm['total'] == '0')
@@ -27,9 +27,9 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 			MAC is not in database, store for reference (even though it is not a valid MAC)
 			add MAC address to database, but do not give privledges, label as unknown
 			*/
-			$tmp_id = create_guid($tmp_id);
-			$tmpInitSQL = "INSERT INTO phone (id,MAC,access_lvl) VALUES ('$tmp_id','$MAC','unknown')";
-			
+			$tmp_id_phone = create_guid($tmp_id_phone);
+			$tmpInitSQL = "INSERT INTO phone (id_phone,MAC,access_lvl) VALUES ('$tmp_id_phone','$MAC','unknown')";
+
 			if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 			{
 				// OK added

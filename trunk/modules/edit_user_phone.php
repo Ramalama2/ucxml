@@ -10,9 +10,9 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
-
 //Checks if id is known, stores in variable
 $tmp_id_phone = defang_input($_GET['id_user']);
+$tmp_id_user = defang_input($_GET['id_user']);
 
 if (isset($_POST['action']))
 {

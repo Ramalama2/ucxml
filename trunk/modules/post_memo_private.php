@@ -1,7 +1,7 @@
 <?php
 /*
 	UCxml web Portal - Edit memos (IM)
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
@@ -93,19 +93,18 @@ function output_edit_memo ($myID_memo)
 {
 
 	include "language/lang.php";
-
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/post_memo_private.html");
 	$xtpl->assign( 'LANG', $lang );
 
-	$theSQL = "SELECT number FROM phone";
+	$theSQL = "SELECT nick FROM phone";
 	$theRES = mysql_query($theSQL, $db);
 	while ($row = mysql_fetch_row($theRES))
 	{
 		foreach ($row as $value)
 		{
 		$xtpl->assign ("receiver", $value);
-  		$xtpl->parse('main.type');
+  		$xtpl->parse('main.TO');
 		}
 	}
 

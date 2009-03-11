@@ -35,7 +35,6 @@
 	color : #f00;
 }
 
-
 body.section-1 #menu li#nav-1 a,
 body.section-2 #menu li#nav-2 a,
 body.section-3 #menu li#nav-3 a,
@@ -45,7 +44,6 @@ body.section-5 #menu li#nav-5 a {
 	border-bottom : 1px solid #fff;
 	color : #000;
 }
-
 
  #menu ul a:hover {
 	color : #f00 !important;
@@ -57,5 +55,5 @@ body.section-5 #menu li#nav-5 a {
 	border-top : none;
 	clear : both;
 	margin : 0px;
-	padding : 15px;
+	padding : 10px;
 }
