@@ -97,8 +97,7 @@ function output_view_users ()
 		$xtpl->assign("email",$in['email']);
 		$xtpl->assign("account_type",$in['account_type']);
 
-
-		if ($_SESSION['status_view'] = $in['status_view'] || $in['id_user'] == '0')
+		if ($in['id_user'] == '0')
 		{
 			$xtpl->assign("delete","");
 		} else {

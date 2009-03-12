@@ -57,7 +57,7 @@ function output_view_status ($myID_user)
 	    }
 
 
-        $obprefSQL = "SELECT status_view FROM users WHERE id_user = '$tmp_id_user'";
+        $obprefSQL = "SELECT status_view FROM users WHERE id_user = '$myID_user'";
         $obRES = mysql_query($obprefSQL, $db);
         if ($gl = mysql_fetch_assoc($obRES))
         {
@@ -122,7 +122,7 @@ function output_view_status ($myID_user)
 
                         $xtpl->parse("main.column");//show columns
 
-                        $theSQL = "SELECT id_phone,access_lvl,nick,away_msg,status FROM phone $loc_sql ";
+                        $theSQL = "SELECT id_phone,access_lvl,nick,away_msg,status FROM phone $loc_sql";
                         $theRES = mysql_query($theSQL, $db);
 
                         $oddRow = true;

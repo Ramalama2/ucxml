@@ -114,7 +114,7 @@ function output_view_contacts ()
 		$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
 
-		$theSQL = "SELECT id_contact,fname,lname,nick,title,member_of FROM contacts $loc_sql ORDER BY $ob";
+		$theSQL = "SELECT id_contact,fname,lname,nick,title,member_of FROM contacts ORDER BY $ob";
 		$theRES = mysql_query($theSQL, $db);
 		$oddRow = true;
 		while ($in = mysql_fetch_assoc($theRES))
@@ -132,10 +132,6 @@ function output_view_contacts ()
 			$xtpl->assign("lname",$in['lname']);
 			$xtpl->assign("nick",$in['nick']);
 			$xtpl->assign("title",$in['title']);
-			$xtpl->assign("office_phone",$in['office_phone']);
-			$xtpl->assign("home_phone",$in['home_phone']);
-			$xtpl->assign("cell_phone",$in['cell_phone']);
-			$xtpl->assign("other_phone",$in['other_phone']);
 			$xtpl->assign("member_of",$in['member_of']);
 
 			if ($_SESSION['account_type'] == 'Admin')
