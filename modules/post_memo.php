@@ -17,11 +17,11 @@ if (isset($_GET['id_memo']))
 	$tmp_id_memo = defang_input($_GET['id_memo']);
 }
 
-if (isset($_POST['action']) || $_GET['submit_delete'] == yes)
+if (isset($_POST['action']))
 {
 	//User wants to save, cancel, or delete memo
 	$myAction = defang_input($_POST['action']);
-	if ($myAction == "edit" || $_GET['submit_delete'] == yes)
+	if ($myAction == "edit" || $_GET['submit_delete'] == 'yes')
 	{
 		if (isset($_POST['submit_save']))
 		{

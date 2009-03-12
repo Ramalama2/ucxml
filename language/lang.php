@@ -1,10 +1,9 @@
 <?php
 
-if ($_SESSION['lang'] == "en") {
-	require "language/en.php";
+if (isset($_SESSION['lang']) && !preg_match('/\.\./', $_SESSION['lang'])) {
+	require ("language/{$_SESSION['lang']}.php");
 } else {
-	$_SESSION['lang'] = "sk";
-	require "language/sk.php";
+	$_SESSION['lang'] = $default_lang;
+	require ("language/$default_lang.php");
 }
-
 ?>

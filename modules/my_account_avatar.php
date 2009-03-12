@@ -12,6 +12,7 @@
 
 //Checks if id is known, stores in variable
 $tmp_id_user = defang_input($_SESSION['user_id']);
+global $errMsg;
 
 if (isset($_POST['action']))
 {
@@ -56,7 +57,10 @@ function output_edit_user ($myID_user, $errMsg)
     if ($in = mysql_fetch_assoc($theRES))
 	{
 		$xtpl->assign("id_user",$in['id_user']);
-		$xtpl->assign("av",$in['av']);
+		if( $in['av'] )
+		{
+			$_SESSION['av'] = $in['av'];
+		}
 
 		// if the user does not have an avatar, echo the default avatar
 		// if the user has an avatar echo the path to it (whether it is just uploaded, or is already saved)
@@ -83,16 +87,6 @@ function avatar_submit()
 
 	$target = "images/avatars/";
     $tmp_id_user = $_SESSION['user_id'];
-	$checkSQL = "SELECT av FROM users WHERE id_user = '$tmp_id_user'";
-	$checkRES = mysql_query($checkSQL, $db);
-
-	if ($in = mysql_fetch_assoc($checkRES))
-	{
-		if( $in['av'] )
-		{
-			$_SESSION['av'] = $in['av'];
-		}
-    }
 
 	// get the required $_POST data
 	$delete = (bool)$_POST['av_delete'];

@@ -165,7 +165,7 @@ function render_HeaderFooter ($mytitle)
 	// if the user has a custom avatar, show their avatar, else show default
 	$default_av="images/avatars/default.png";
 
-	if( $_SESSION['av'] )
+	if( isset($_SESSION['av']) )
 	{
 		$xtpl->assign("current_av",$_SESSION['user_id'].'.'.$_SESSION['av']);
 	}

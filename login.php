@@ -17,19 +17,7 @@ require_once "lib/mysql.php";
 require_once "lib/utils.php";
 require_once "lib/xtpl/xtemplate.class.php";
 
-
-// Log Out
-if (isset($_GET['module']) && $_POST['username'] == "")
-{
-	$ModuleName = defang_input($_GET['module']);
-	if ($ModuleName == "logout")
-	{
-		session_destroy();
-		session_unset();
-		$logout = "You have been successfully logged out!";
-	}
-}
-
+global $errMsg;
 // Check Login
 if(isset($_POST['Login']))
 {
@@ -62,6 +50,18 @@ if(isset($_POST['Login']))
 	}
 }
 
+// Log Out
+if (isset($_GET['module']) && $_POST['username'] == "")
+{
+	$ModuleName = defang_input($_GET['module']);
+	if ($ModuleName == "logout")
+	{
+		session_destroy();
+		session_unset();
+		$logout = "You have been successfully logged out!";
+	}
+}
+
 /*if ($installed == 'false')
 {
 	//not installed
@@ -70,11 +70,11 @@ if(isset($_POST['Login']))
 }
 */
 
-if (defang_input($_GET['newuser']) == "true")
+/*if (defang_input($_GET['newuser']) == "true")
 {
 	$errMsg = "It recommended that you change your password after logging in";
 }
-
+*/
 // Produce the login page
 output_login_page($errMsg,$logout,$installed);
 

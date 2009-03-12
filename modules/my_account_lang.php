@@ -65,13 +65,14 @@ if (isset($_POST['action']))
 //Create page and fill in known data
 function output_edit_user ($myID_user)
 {
+
 	include "language/lang.php";
 	global $db, $xtpl;
 	$target = "images/avatars/";
 	$xtpl=new XTemplate ("modules/templates/my_account_lang.html");
 	$xtpl->assign( 'LANG', $lang );
 
-   	$obprefSQL = "SELECT lang FROM users WHERE id_user='$tmp_id_user'";
+   	$obprefSQL = "SELECT lang FROM users WHERE id_user='$myID_user'";
 	$obRES = mysql_query($obprefSQL, $db);
 	if ($gl = mysql_fetch_assoc($obRES))
 	{
