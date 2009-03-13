@@ -60,15 +60,17 @@ CREATE TABLE IF NOT EXISTS `memos` (
   `receiver` varchar(20) NOT NULL DEFAULT '',
   `title` varchar(30) NOT NULL DEFAULT '',
   `read` tinyint(4) NOT NULL DEFAULT '0',
-  `new` tinyint(4) NOT NULL DEFAULT '1'
+  `new` tinyint(4) NOT NULL DEFAULT '1',
+  `del_sender` tinyint(4) NOT NULL DEFAULT '0',
+  `del_receiver` tinyint(4) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `memos`
 --
 
-INSERT INTO `memos` (`id_memo`, `msg`, `date`, `access`, `sender`, `receiver`, `title`, `read`, `new`) VALUES
-('1ab418cf-c9af9-82e24-4a1b-4990988748', ':)', 1234213051, '', 'admin', '', 'Spam', '0', '1');
+INSERT INTO `memos` (`id_memo`, `msg`, `date`, `access`, `sender`, `receiver`, `title`, `read`, `new`, `del_sender`, `del_sender`) VALUES
+('1ab418cf-c9af9-82e24-4a1b-4990988748', ':)', 1234213051, '', 'admin', '', 'Spam', '0', '1', '0', '0');
 
 -- --------------------------------------------------------
 

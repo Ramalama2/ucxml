@@ -1,6 +1,6 @@
 <!-- BEGIN: main -->
 
-<body class="section-1">
+<body class="section-3">
 
 <div id="prec2">
 <div class="help">
@@ -11,6 +11,8 @@
           <li><strong>Title</strong> - Text that will be displayed on the phone to represent the memo.</li>
           <li><strong>Sender</strong> - The username of the person who posted this memo.</li>
           <li><strong>Date</strong> - The date and time that the memo was posted.</li>
+          <li><strong>Edit/Delete </strong>- Clicking edit will direct you to the memo editing page. Clicking delete will delete this memo from the database.</li>
+
       </ul>
 </div>
 
@@ -34,26 +36,23 @@
 			<input type="submit" name="submit_post" value="  Post  " />
             </div>
 			<!-- END: admin_broadcast -->
-
-			<li><a href="">Post private memo</a></li>
-           	<div style="padding-left:20px;padding-bottom:15px;">
-			<input type="submit" name="submit_post_private" value="  Post  " />
-			</div>
 		</ul>
 	</div>
     </form>
 
 <div id="left_side">
-    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Received Memos table</div></h3>
+    <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Received Broadcast Memos table</div></h3>
 
 <table width="560" bgcolor="#F6F6F6" >
 	<tr bgcolor="#DFDFDF" >
-		<td align="center" width="135"><strong>Title</strong></td>
-		<td align="center" width="136"><a href="index.php?module=view_memos&amp;ob=ob_sender"><strong>Sender</strong></a></td>
-		<td align="center" width="122"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>Date</strong></a></td>
-		<td align="center" width="122"><strong>Message</strong></td>
+		<td align="center" width="115"><strong>Title</strong></td>
+		<td align="center" width="106"><a href="index.php?module=view_memos&amp;ob=ob_sender"><strong>Sender</strong></a></td>
+		<td align="center" width="142"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>Date</strong></a></td>
+		<td align="center" width="132"><strong>Message</strong></td>
 		<td align="center" width="74"><a href="index.php?module=view_memos&amp;ob=ob_access"><strong>Access</strong></a></td>
-		<td width="35">&nbsp;&nbsp;</td>
+		<!-- BEGIN: admin_edit_del -->
+	    <td width="75">&nbsp;&nbsp;</td>
+		<!-- END: admin_edit_del -->
 	</tr>
 
   <!-- BEGIN: row_received -->
@@ -63,7 +62,10 @@
 		<td bgcolor="{bg}">{date}</td>
 		<td bgcolor="{bg}">{msg}</td>
 		<td bgcolor="{bg}">{access}</td>
-		<td bgcolor="{bg}"><a href="index.php?module=post_memo&amp;id_memo={id_memo}&amp;delete_memo_receiver=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
+<!-- BEGIN: admin_edit_del -->
+	<td bgcolor="{bg}"><a href="index.php?module=post_memo&id_memo={id_memo}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a>
+        | <a href="index.php?module=post_memo&id_memo={id_memo}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
+<!-- END: admin_edit_del -->
 	</tr>
   <!-- END: row_received -->
   </table>

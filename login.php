@@ -25,7 +25,8 @@ if(isset($_POST['Login']))
 	$username = defang_input($_POST['username']);
 	$password = defang_input($_POST['password']);
 	$crypt_pass = md5($password);
-	$checkSQL = "SELECT id_user,username,account_type,av,lang,status_view FROM users WHERE username='$username' AND password='$crypt_pass'";
+	$checkSQL = "SELECT id_user,username,account_type,av,lang,status_view FROM users
+				WHERE username='$username' AND password='$crypt_pass' ";
 	$checkRES = mysql_query($checkSQL, $db);
 
 	if ($in = mysql_fetch_assoc($checkRES))
@@ -38,10 +39,11 @@ if(isset($_POST['Login']))
 
 		if( $in['av'] )
 		{
-			$_SESSION['av'] = $in['av'];
+        	$_SESSION['av'] = $in['av'];
 		}
 
 		header("Location: index.php?module=menu");
+
 	} else {
 		//fail to login
 		session_destroy();
@@ -62,19 +64,19 @@ if (isset($_GET['module']) && $_POST['username'] == "")
 	}
 }
 
-/*if ($installed == 'false')
+if ($installed == 'false')
 {
 	//not installed
 } else {
 	$installed == 'true';
 }
-*/
 
-/*if (defang_input($_GET['newuser']) == "true")
+
+if (defang_input($_GET['newuser']) == "true")
 {
 	$errMsg = "It recommended that you change your password after logging in";
 }
-*/
+
 // Produce the login page
 output_login_page($errMsg,$logout,$installed);
 
@@ -95,7 +97,7 @@ function output_login_page ($errMsg,$logout,$installed)
 		$xtpl->assign("error_msg",$errMsg);
 		$xtpl->assign("logout",$logout);
 
-	}
+    }
 	$xtpl->parse("main");
 	$xtpl->out("main");
 }
