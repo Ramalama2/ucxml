@@ -31,7 +31,7 @@ if (isset($_POST['submit_post']))
 			WHERE id_memo ='$tmp_id_memo'";
 		mysql_query($tmpUpdateSQL, $db);
 		// show editor
-		header("Location: index.php?module=post_memo&id_memo=$tmp_id_memo&new=true");
+		header("Location: index.php?module=post_memo_broadcast&id_memo=$tmp_id_memo&new=true");
 	}
 }
     elseif (isset($_POST['submit_post_private']))
@@ -109,9 +109,10 @@ function output_view_memos($myID_user, $myNick)
 	}
 
     if ($_SESSION['account_type'] == 'Admin')
-		{
-			$xtpl -> parse ("main.admin_broadcast");
-		}
+	{
+		$xtpl -> parse ("main.admin_broadcast");
+		$xtpl -> parse ("main.admin_edit_del");
+	}
 
 	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos WHERE receiver = '' ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
@@ -136,11 +137,9 @@ function output_view_memos($myID_user, $myNick)
 		$xtpl->assign("from",$in['sender']);
 		$xtpl->assign("msg",$in['msg']);
 
-            if ($_SESSION['account_type'] == 'Admin')
+		if ($_SESSION['account_type'] == 'Admin')
 		{
 			$xtpl -> parse ("main.row_received.admin_edit_del");
-
-				$xtpl -> parse ("main.admin_edit_del");
 		}
 
 		$xtpl->parse("main.row_received");

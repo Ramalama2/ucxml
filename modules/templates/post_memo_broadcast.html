@@ -26,7 +26,6 @@ function validate_edit_memo()
 	else return true;
   }
 
-
 // -->
 </script>
 <div id="prec2">
@@ -49,21 +48,23 @@ function validate_edit_memo()
 	    <ul>
 		    <li><a href="">Save a created  memo</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
-		<input type="hidden" name="id_memo" value="{id_memo}">
+			  <input type="hidden" name="id_memo" value="{id_memo}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
               <input type="submit" name="submit_save" onClick="return validate_edit_memo()" value="  Save  ">
 		</div>
 
             <li><a href="">Cancel Memos:</a></li>
-				<div style="padding-left:20px;padding-bottom:15px;"><input type="submit" name="submit_cancel" value=" Cancel ">
+				<div style="padding-left:20px;padding-bottom:15px;">
+				  <input type="submit" name="submit_cancel" value=" Cancel ">
                   <input type="hidden" name="id_memo" value="{id_memo}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 		</div>
 
             <li><a href="">Delete  Memos:</a></li>
-                  <div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
+                  <div style="padding-left:20px;">
+				  <input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
                   <input type="hidden" name="id_memo" value="{id_memo}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">

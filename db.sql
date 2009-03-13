@@ -69,8 +69,30 @@ CREATE TABLE IF NOT EXISTS `memos` (
 -- Dumping data for table `memos`
 --
 
-INSERT INTO `memos` (`id_memo`, `msg`, `date`, `access`, `sender`, `receiver`, `title`, `read`, `new`, `del_sender`, `del_sender`) VALUES
+INSERT INTO `memos` (`id_memo`, `msg`, `date`, `access`, `sender`, `receiver`, `title`, `read`, `new`, `del_sender`, `del_receiver`) VALUES
 ('1ab418cf-c9af9-82e24-4a1b-4990988748', ':)', 1234213051, '', 'admin', '', 'Spam', '0', '1', '0', '0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `memos_read`
+--
+
+CREATE TABLE IF NOT EXISTS `memos_read` (
+  `id_memo_read` varchar(36) NOT NULL DEFAULT '',
+  `id_memo` varchar(36) NOT NULL DEFAULT '',
+  `sender` varchar(20) NOT NULL DEFAULT '',
+  `receiver` varchar(20) NOT NULL DEFAULT '',
+  `read` tinyint(4) NOT NULL DEFAULT '0',
+  `new` tinyint(4) NOT NULL DEFAULT '1'
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `memos`
+--
+
+INSERT INTO `memos_read` (`id_memo_read`, `id_memo`, `sender`, `receiver`, `read` ) VALUES
+('487aff66-a26c9-59ff3-13fe-49b92b0da2', '1ab418cf-c9af9-82e24-4a1b-4990988748', 'admin', '', '0');
 
 -- --------------------------------------------------------
 
