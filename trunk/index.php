@@ -11,7 +11,6 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
-
 session_start();
 require_once "lib/utils.php";
 require_once "lib/mysql.php";
@@ -51,6 +50,9 @@ if (isset($_SESSION['user_id']))
 
 		} elseif ($ModuleName == "view_memos_posted"){
 			require_once "modules/view_memos_posted.php";
+
+		} elseif ($ModuleName == "view_memos_broadcast"){
+			require_once "modules/view_memos_broadcast.php";
 
 		} elseif ($ModuleName == "view_memo_posted"){
 			require_once "modules/view_memo_posted.php";
@@ -158,13 +160,13 @@ require_once "lib/xtra_java.php";
 //function to bring header and navigation bar
 function render_HeaderFooter ($mytitle)
 {
+	global $db;
 	include "language/lang.php";
 	$xtpl=new XTemplate ("header.html");
 	$xtpl->assign( 'LANG', $lang );
-
-	// if the user has a custom avatar, show their avatar, else show default
 	$default_av="images/avatars/default.png";
 
+	// if the user has a custom avatar, show their avatar, else show default avatar
 	if( isset($_SESSION['av']) )
 	{
 		$xtpl->assign("current_av",$_SESSION['user_id'].'.'.$_SESSION['av']);
@@ -174,16 +176,34 @@ function render_HeaderFooter ($mytitle)
 		$xtpl->assign("default_av",$default_av);
 	}
 
+    $tmp_my_nick = defang_input($_SESSION['user_name']);
+	// if the user have a new memo, show the count
+
+		$checkSQL2 ="SELECT count(*) AS newmemo FROM memos
+					WHERE memos.receiver='$tmp_my_nick' /* OR memos.receiver=''*/ AND memos.read = '0' AND memos.new = '1'";
+    	$checkRES2 = mysql_query($checkSQL2, $db);
+
+		if($in2 = mysql_fetch_assoc($checkRES2))
+		{
+	   		$newmemo = $in2['newmemo'];
+		}
+
+		if ($newmemo > '0')
+		{
+	        $xtpl->assign("memo_count",$newmemo);
+   			$xtpl->parse("main.new_memo");
+		}
+
 	$xtpl->assign("page_title",$mytitle);
 	$xtpl->assign("current",$_SESSION['user_name']);
 	$xtpl->assign("user_id",$_SESSION['user_id']);
-
 	$xtpl->assign("status_view",$_SESSION['status_view']);
 
 	if ($_SESSION['account_type'] == 'Admin')
 	{
 		$xtpl->parse("main.admin_section");
 	}
+
 	$xtpl->parse("main");
 	$xtpl->out("main");
 }

@@ -16,12 +16,13 @@ if (isset($_GET['id_memo']))
 {
 	$tmp_id_memo = defang_input($_GET['id_memo']);
 }
+$tmp_sender = defang_input($_SESSION['user_name']);
 
-if (isset($_POST['action']))
+if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['delete_memo_sender']) || isset($_GET['read_memo']))
 {
 	//User wants to save, cancel, or delete memo
 	$myAction = defang_input($_POST['action']);
-	if ($myAction == "edit" || $_GET['submit_delete'] == 'yes')
+	if ($myAction == "edit" || $_GET['submit_delete'] == 'yes' || $_GET['delete_memo_sender'] == 'yes' || $_GET['read_memo'] == 'yes')
 	{
 		if (isset($_POST['submit_save']))
 		{
@@ -41,7 +42,7 @@ if (isset($_POST['action']))
 
 			if (mysql_query($tmpUpdateSQL, $db))
 			{
-				header("Location: index.php?module=view_memos");
+				header("Location: index.php?module=view_memos_posted");
 			} else {
 				echo "Unable to save memo.";
 			}
@@ -52,17 +53,29 @@ if (isset($_POST['action']))
 			{
 				delete_memo($tmp_id_memo);
 			}
-			header("Location: index.php?module=view_memos");
+			header("Location: index.php?module=view_memos_posted");
 
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 				// Deleting
 				if ($tmp_id_memo != '0') //prevent user from deleting main container
 				{
-					delete_memo($tmp_id_memo);
-					header("Location: index.php?module=view_memos");
+					delete_view_memo($tmp_id_memo);
+					header("Location: index.php?module=view_memos_posted");
 				} else {
 					header("Location: index.php?module=delete_error");
 				}
+		} else if (isset($_POST['delete_memo_sender']) || $_GET['delete_memo_sender'] == 'yes') {
+				// Deleting
+			$tmpUpdateSQL = "UPDATE memos SET memos.del_sender ='1' WHERE memos.sender='$tmp_sender' AND memos.id_memo ='$tmp_id_memo'";
+			if (mysql_query($tmpUpdateSQL, $db))
+			{
+				header("Location: index.php?module=view_memos_posted");
+			}
+
+		}elseif ($_GET['read_memo'] == 'yes')
+		{
+				output_view_memo($tmp_id_memo);
+
 		} else {
 			// Action, but no valid submit button.
 			header("Location: index.php?module=view_memos");
@@ -136,4 +149,32 @@ function output_edit_memo ($myID_memo)
 	$xtpl->parse("main");
 	$xtpl->out("main");
 }
+
+function output_view_memo ($myID_memo)
+{
+	include "language/lang.php";
+
+	global $db;
+	$xtpl=new XTemplate ("modules/templates/post_memo_private.html");
+
+	$xtpl->assign( 'LANG', $lang );
+
+	$theSQL = "SELECT * FROM memos WHERE id_memo='$myID_memo'";
+	$theRES = mysql_query($theSQL, $db);
+	if ($in = mysql_fetch_assoc($theRES))
+	{
+		$tmp_unixtime = $in['date'];
+		$displaydate = date("l, F d, Y h:i" ,$tmp_unixtime);
+
+		$xtpl->assign("id_memo",$in['id_memo']);
+		$xtpl->assign("date",$displaydate);
+		$xtpl->assign("title",$in['title']);
+		$xtpl->assign("msg",$in['msg']);
+		$xtpl->assign("to",$in['receiver']);
+	}
+	// Output
+	$xtpl->parse ("view_memo");
+	$xtpl->out("view_memo");
+}
+
 ?>

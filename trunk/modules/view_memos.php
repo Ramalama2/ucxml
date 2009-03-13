@@ -113,7 +113,7 @@ function output_view_memos($myID_user, $myNick)
 			$xtpl -> parse ("main.admin_broadcast");
 		}
 
-	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos WHERE receiver = '$myNick' OR receiver = '' ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos WHERE receiver = '$myNick' AND del_receiver = '0' ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))

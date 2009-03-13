@@ -33,7 +33,10 @@
         <div id="login">
 		<h2>Logged in as:  {current}</h2>
 	      <a href="index.php?module=my_account&user_id={user_id}">My Account</a> |
-	      <a href="login.php?module=logout">Log out</a>
+	      <a href="login.php?module=logout">Log out</a><br/>
+		  <!-- BEGIN: new_memo -->
+		  <a href="index.php?module=view_memos">Messages:</a> [ {memo_count} ]
+		  <!-- END: new_memo -->
 	</div>
 
            	<div id="avatar">

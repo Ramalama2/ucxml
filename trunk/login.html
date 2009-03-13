@@ -26,10 +26,10 @@
 </head>
 
 <body onload = "focusLogin()">
- 
+
 <script LANGUAGE="JavaScript">
 <!--
-function focusLogin() 
+function focusLogin()
 {
 document.forms[0].username.focus();
 }
@@ -38,20 +38,20 @@ function validate_login()
   {
 	ok=1;
 	errors = "";
-   
-   if(document.forms[0].password.value == "") 
-   	{ 
+
+   if(document.forms[0].password.value == "")
+   	{
 		errors += " - Password must be entered.\n";
 		ok=0;
 		document.forms[0].password.focus();
 	}
-    if(document.forms[0].username.value == "") 
-   	{ 
+    if(document.forms[0].username.value == "")
+   	{
 		errors += " - Username must be entered.\n";
 		ok=0;
 		document.forms[0].username.focus();
 	}
-    
+
 	if(ok == 0)
 	{
 		alert(errors);
@@ -84,27 +84,26 @@ function validate_login()
 	<div align="center"><font color="#fff">{error_msg}{newuser}{logout}</font><br>
 			        <!-- BEGIN: install -->
                       Your database has yet to be configured. First create a MySQL database and then try to install and configure your database and data.
-
 			        <!-- END: install -->
 		        </div>
 
 			  <div style="margin:0 auto;"><table border="1" align="center" class="border" valign="center">
-			    <tr> 
-			      <td width="320">			        
+			    <tr>
+			      <td width="320">
 			        <!-- BEGIN: installed -->
 			        <table align="center">
-			          <tr> 
+			          <tr>
 			            <td><div align="right"><strong>Username:</strong></div></td>
 			            <td> <input type="text" name="username"> </td>
 		              </tr>
-			          <tr> 
+			          <tr>
 			            <td><div align="right"><strong>Password:</strong></div></td>
 			            <td> <input type="password" name="password"> </td>
 		              </tr>
 		            </table>
 			        <div align="center">
-		
- 
+
+
 			          <input type="submit" name="Login" value="Login" onClick="return validate_login()">
 			          <!-- END: installed -->
 		            </div>

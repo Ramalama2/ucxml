@@ -72,7 +72,7 @@ function output_view_memos($myID_user, $myNick)
 {
 	include "language/lang.php";
 	global $db;
-	$xtpl=new XTemplate ("modules/templates/view_memos_posted.html");
+	$xtpl=new XTemplate ("modules/templates/view_memos_broadcast.html");
 	$xtpl->assign( 'LANG', $lang );
 
 	$obprefSQL = "SELECT memo_ob FROM users WHERE id_user='$myID_user'";
@@ -94,10 +94,8 @@ function output_view_memos($myID_user, $myNick)
 			$ob = "title";
 		} elseif ($_GET['ob'] == "ob_access") {
 			$ob = "access";
-		} elseif ($_GET['ob'] == "ob_receiver") {
-			$ob = "receiver";
-   		} elseif ($_GET['ob'] == "ob_msg") {
-			$ob = "msg";
+		} elseif ($_GET['ob'] == "ob_sender") {
+			$ob = "sender";
 		}
 	} else {
 		if ($memo_ob == "Date")
@@ -110,12 +108,12 @@ function output_view_memos($myID_user, $myNick)
 		}
 	}
 
-	if ($_SESSION['account_type'] == 'Admin')
-	{
-		$xtpl -> parse ("main.admin_broadcast");
-	}
+    if ($_SESSION['account_type'] == 'Admin')
+		{
+			$xtpl -> parse ("main.admin_broadcast");
+		}
 
-	$theSQL = "SELECT id_memo,title,access,receiver,date,msg FROM memos WHERE sender = '$myNick' AND del_sender = '0' ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos WHERE receiver = '' ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -135,20 +133,28 @@ function output_view_memos($myID_user, $myNick)
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("date",$displaydate);
 		$xtpl->assign("access",$in['access']);
-		$xtpl->assign("receiver",$in['receiver']);
+		$xtpl->assign("from",$in['sender']);
 		$xtpl->assign("msg",$in['msg']);
 
-		$xtpl->parse("main.row_send");
+            if ($_SESSION['account_type'] == 'Admin')
+		{
+			$xtpl -> parse ("main.row_received.admin_edit_del");
+
+				$xtpl -> parse ("main.admin_edit_del");
+		}
+
+		$xtpl->parse("main.row_received");
 		//alternate bg color
 		$oddRow = !$oddRow;
 
-        if ($in['title'] == '' && $in['msg'] == '' && $in['access'] == '')
-	{
-		//contacts has no information, delete the entry
-		$tmp_delete_id_memo = $in['id_memo'];
-		$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
-		$result = mysql_query($sql);
-	}
+	    if ($in['title'] == '' && $in['msg'] == '' && $in['access'] == '')
+		{
+			//contacts has no information, delete the entry
+			$tmp_delete_id_memo = $in['id_memo'];
+			$sql = "DELETE FROM memos WHERE id_memo='$tmp_delete_id_memo'";
+			$result = mysql_query($sql);
+		}
+
 
 	}
 
