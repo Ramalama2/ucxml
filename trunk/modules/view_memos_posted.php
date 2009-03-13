@@ -31,7 +31,7 @@ if (isset($_POST['submit_post']))
 			WHERE id_memo ='$tmp_id_memo'";
 		mysql_query($tmpUpdateSQL, $db);
 		// show editor
-		header("Location: index.php?module=post_memo&id_memo=$tmp_id_memo&new=true");
+		header("Location: index.php?module=post_memo_broadcast&id_memo=$tmp_id_memo&new=true");
 	}
 }
     elseif (isset($_POST['submit_post_private']))

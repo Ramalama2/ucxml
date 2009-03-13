@@ -30,9 +30,6 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "view_contacts") {
 			require_once "modules/view_contacts.php";
 
-		} elseif ($ModuleName == "view_contact") {
-			require_once "modules/view_contact.php";
-
 		} elseif ($ModuleName == "edit_contact") {
 			require_once "modules/edit_contact.php";
 
@@ -45,20 +42,17 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "view_memos"){
 			require_once "modules/view_memos.php";
 
-		} elseif ($ModuleName == "view_memo"){
-			require_once "modules/view_memo.php";
-
 		} elseif ($ModuleName == "view_memos_posted"){
 			require_once "modules/view_memos_posted.php";
 
 		} elseif ($ModuleName == "view_memos_broadcast"){
 			require_once "modules/view_memos_broadcast.php";
 
-		} elseif ($ModuleName == "view_memo_posted"){
-			require_once "modules/view_memo_posted.php";
-
 		} elseif ($ModuleName == "post_memo"){
 			require_once "modules/post_memo.php";
+
+		} elseif ($ModuleName == "post_memo_broadcast"){
+			require_once "modules/post_memo_broadcast.php";
 
 		} elseif ($ModuleName == "post_memo_private"){
 			require_once "modules/post_memo_private.php";
@@ -179,9 +173,17 @@ function render_HeaderFooter ($mytitle)
     $tmp_my_nick = defang_input($_SESSION['user_name']);
 	// if the user have a new memo, show the count
 
+    if ($_SESSION['account_type'] == 'Admin')
+	{
+        $checkSQL2 ="SELECT count(*) AS newmemo FROM memos
+					WHERE memos.receiver='$tmp_my_nick' AND memos.read = '0' AND memos.new = '1'";
+	}
+	else
+	{
 		$checkSQL2 ="SELECT count(*) AS newmemo FROM memos
-					WHERE memos.receiver='$tmp_my_nick' /* OR memos.receiver=''*/ AND memos.read = '0' AND memos.new = '1'";
-    	$checkRES2 = mysql_query($checkSQL2, $db);
+					WHERE memos.receiver IN ('$tmp_my_nick','') AND memos.read = '0' AND memos.new = '1'";
+	}
+		$checkRES2 = mysql_query($checkSQL2, $db);
 
 		if($in2 = mysql_fetch_assoc($checkRES2))
 		{

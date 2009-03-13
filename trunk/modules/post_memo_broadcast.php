@@ -19,11 +19,11 @@ if (isset($_GET['id_memo']))
 
 $tmp_receiver = defang_input($_SESSION['user_name']);
 
-if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['delete_memo_receiver']) || isset($_GET['read_memo']))
+if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['read_memo_broadcast']))
 {
 	//User wants to save, cancel, or delete memo
 	$myAction = defang_input($_POST['action']);
-	if ($myAction == "edit" || $_GET['submit_delete'] == 'yes' || $_GET['delete_memo_receiver'] == 'yes' || $_GET['read_memo'] == 'yes')
+	if ($myAction == "edit" || $_GET['submit_delete'] == 'yes' || $_GET['read_memo_broadcast'] =='yes')
 	{
 		if (isset($_POST['submit_save']))
 		{
@@ -41,7 +41,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['del
 
 			if (mysql_query($tmpUpdateSQL, $db))
 			{
-				header("Location: index.php?module=view_memos");
+				header("Location: index.php?module=view_memos_broadcast");
 			} else {
 				echo "Unable to save memo.";
 			}
@@ -52,42 +52,68 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['del
 			{
 				delete_memo($tmp_id_memo);
 			}
-			header("Location: index.php?module=view_memos");
+			header("Location: index.php?module=view_memos_broadcast");
 
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 				// Deleting
 				if ($tmp_id_memo != '0') //prevent user from deleting main container
 				{
 					delete_view_memo($tmp_id_memo);
-					header("Location: index.php?module=view_memos");
+					header("Location: index.php?module=view_memos_broadcast");
 				} else {
 					header("Location: index.php?module=delete_error");
 				}
 
-   		} else if (isset($_POST['delete_memo_receiver']) || $_GET['delete_memo_receiver'] == 'yes') {
-				// Deleting
-			$tmpUpdateSQL = "UPDATE memos SET memos.del_receiver ='1' WHERE memos.receiver='$tmp_receiver' AND memos.id_memo ='$tmp_id_memo'";
-			if (mysql_query($tmpUpdateSQL, $db))
-			{
-				header("Location: index.php?module=view_memos");
-			}
-
-		}elseif (isset($_POST['read_memo']) || $_GET['read_memo'] == 'yes')
+		}elseif (isset($_POST['read_memo_broadcast']) || $_GET['read_memo_broadcast'] == 'yes' )
 		{
-			// Saving
-			$tmpUpdateSQL = "UPDATE memos SET memos.read ='1' WHERE memos.receiver='$tmp_receiver' AND memos.id_memo ='$tmp_id_memo'";
-			if (mysql_query($tmpUpdateSQL, $db))
+	        $theSQL = "SELECT * FROM memos_read";
+			$theRES = mysql_query($theSQL, $db);
+			if ($row = mysql_fetch_row($theRES) == 0)
 			{
-				output_view_memo($tmp_id_memo);
-			}
+				$tmp_id_memo_read = create_guid($tmp_id_memo_read);
+				$tmpInitRES = "INSERT INTO memos_read (id_memo_read, id_memo)
+								VALUES ('$tmp_id_memo_read', '$tmp_id_memo')";
+
+	           	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
+				{
+//					$tmp_receiver = $_SESSION['user_name'];
+
+					$tmpUpdateSQL = "UPDATE memos_read SET
+									receiver = '$tmp_receiver',
+									read = '1'
+									WHERE id_memo ='$tmp_id_memo'";
+
+					if (mysql_query($tmpUpdateSQL, $db))
+					{
+						echo "ok";
+//						output_view_memo($tmp_id_memo);
+					}
+					else
+					{
+						echo "error";
+					}
+				}
+			}else
+			{
+                if ($in['read'] == "1")
+				{
+                   	output_view_memo($tmp_id_memo);
+				}
+				else
+				{
+					echo "error";
+				}
+
+		  	}
+
 
 		} else {
 			// Action, but no valid submit button.
-			header("Location: index.php?module=view_memos");
+			header("Location: index.php?module=view_memos_broadcast2");
 		}
 	} else {
 		// Bad action
-		header("Location: index.php?module=view_memos");
+		header("Location: index.php?module=view_memos_broadcast");
 	}
 } else {
 	// No action
@@ -114,7 +140,7 @@ function output_edit_memo ($myID_memo)
 	include "language/lang.php";
 
 	global $db;
-	$xtpl=new XTemplate ("modules/templates/post_memo.html");
+	$xtpl=new XTemplate ("modules/templates/post_memo_broadcast.html");
 	$xtpl->assign( 'LANG', $lang );
 
 	$theSQL = "SELECT * FROM memos WHERE id_memo='$myID_memo'";
@@ -150,7 +176,7 @@ function output_view_memo ($myID_memo)
 	include "language/lang.php";
 
 	global $db;
-	$xtpl=new XTemplate ("modules/templates/post_memo.html");
+	$xtpl=new XTemplate ("modules/templates/post_memo_broadcast.html");
 
 	$xtpl->assign( 'LANG', $lang );
 
