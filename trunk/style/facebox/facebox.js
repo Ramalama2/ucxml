@@ -63,7 +63,7 @@
               <div class="content"> \
               </div> \
               <div class="footer"> \
-                <a href="#" class="close"> \
+                <a href="javascript:void(0);" onclick="cancel_link()" class="close"> \
                   <img src="'+this.close_image+'" title="close" class="close_image" /> \
                 </a> \
               </div> \
@@ -189,9 +189,9 @@
       xScroll = document.documentElement.scrollLeft;
     } else if (document.body) {// all other Explorers
       yScroll = document.body.scrollTop;
-      xScroll = document.body.scrollLeft;	
+      xScroll = document.body.scrollLeft;
     }
-    return new Array(xScroll,yScroll) 
+    return new Array(xScroll,yScroll)
   }
 
   // adapter from getPageSize() by quirksmode.com
@@ -203,7 +203,7 @@
       windowHeight = document.documentElement.clientHeight;
     } else if (document.body) { // other Explorers
       windowHeight = document.body.clientHeight;
-    }	
+    }
     return windowHeight
   }
 })(jQuery);
