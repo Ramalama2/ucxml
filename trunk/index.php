@@ -27,6 +27,9 @@ if (isset($_SESSION['user_id']))
 		if ($ModuleName == "menu"){
 			require_once "modules/menu.php";
 
+		} elseif ($ModuleName == "chat") {
+			require_once "modules/chat/index.php";
+
 		} elseif ($ModuleName == "view_contacts") {
 			require_once "modules/view_contacts.php";
 
@@ -175,17 +178,25 @@ function render_HeaderFooter ($mytitle)
 
     if ($_SESSION['account_type'] == 'Admin')
 	{
-        $checkSQL2 ="SELECT count(*) AS newmemo FROM memos
+        $checkSQL ="SELECT count(*) AS newmemo FROM memos
 					WHERE memos.receiver='$tmp_my_nick' AND memos.read = '0' AND memos.new = '1'";
 	}
 	else
 	{
-		$checkSQL2 ="SELECT count(*) AS newmemo FROM memos
-					WHERE memos.receiver IN ('$tmp_my_nick','') AND memos.read = '0' AND memos.new = '1'";
+		$checkSQL ="SELECT count(*), 
+   					CASE
+					WHEN (memos.receiver = '' AND memos.id_memo = memos_read.id_memo
+						 AND memos_read.receiver = '$tmp_my_nick')
+					THEN 0 ELSE 1
+					END AS newmemo
+					FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
+					WHERE memos.receiver IN ('$tmp_my_nick','')";
 	}
-		$checkRES2 = mysql_query($checkSQL2, $db);
 
-		if($in2 = mysql_fetch_assoc($checkRES2))
+
+		$checkRES = mysql_query($checkSQL, $db);
+
+		if($in2 = mysql_fetch_assoc($checkRES))
 		{
 	   		$newmemo = $in2['newmemo'];
 		}
