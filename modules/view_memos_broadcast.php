@@ -17,6 +17,7 @@ if (isset($_POST['submit_post']))
 {
 	//add new memo
 	$tmp_id_memo = create_guid($tmp_id_memo);
+	$tmp_id_memo_read = create_guid($tmp_id_memo_read);
 	$tmpInitSQL = "INSERT INTO memos (id_memo) VALUES ('$tmp_id_memo')";
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
@@ -30,6 +31,7 @@ if (isset($_POST['submit_post']))
 			sender = '$tmp_from'
 			WHERE id_memo ='$tmp_id_memo'";
 		mysql_query($tmpUpdateSQL, $db);
+
 		// show editor
 		header("Location: index.php?module=post_memo_broadcast&id_memo=$tmp_id_memo&new=true");
 	}

@@ -13,28 +13,7 @@
 $tmp_id_user = defang_input($_SESSION['user_id']);
 $tmp_my_nick = defang_input($_SESSION['user_name']);
 
-if (isset($_POST['submit_post']))
-{
-	//add new memo
-	$tmp_id_memo = create_guid($tmp_id_memo);
-	$tmpInitSQL = "INSERT INTO memos (id_memo) VALUES ('$tmp_id_memo')";
-	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
-	{
-	//memo has been created
-		$tmp_date = time();
-		$tmp_from = $_SESSION['user_name'];
-
-		$tmpUpdateSQL =
-			"UPDATE memos SET
-			date = '$tmp_date',
-			sender = '$tmp_from'
-			WHERE id_memo ='$tmp_id_memo'";
-		mysql_query($tmpUpdateSQL, $db);
-		// show editor
-		header("Location: index.php?module=post_memo_broadcast&id_memo=$tmp_id_memo&new=true");
-	}
-}
-    elseif (isset($_POST['submit_post_private']))
+if (isset($_POST['submit_post_private']))
 	{
 	//add new memo
 	$tmp_id_memo = create_guid($tmp_id_memo);
@@ -108,10 +87,6 @@ function output_view_memos($myID_user, $myNick)
 		}
 	}
 
-    if ($_SESSION['account_type'] == 'Admin')
-		{
-			$xtpl -> parse ("main.admin_broadcast");
-		}
 
 	$theSQL = "SELECT id_memo,title,access,sender,date,msg FROM memos WHERE receiver = '$myNick' AND del_receiver = '0' ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
