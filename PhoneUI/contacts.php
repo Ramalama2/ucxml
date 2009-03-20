@@ -1,29 +1,28 @@
 <?php
 /*
 	UCxml PhoneUI - browse menu items
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:		
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
-
 
 require_once "../lib/xtpl/xtemplate.class.php";
 require_once "../lib/utils.php";
 require_once "../lib/mysql.php";
 
-
 require_once "lib/urlbase.php";
 require_once "lib/security.php";//grab mac address info, along with global preferences
 require_once "lib/headers.php";
-
+require_once "lib/refresh.php";
 
 if ($ph_sec == 'Yes' && $registered == 'FALSE')
 {
-	//Security to stop unregistered users from going any further if 'Phone Security' is on.  XML images cannot be templated with XTPL.
+	//Security to stop unregistered users from going any further if 'Phone Security' is on.
+	//XML images cannot be templated with XTPL.
 	require_once "templates/img_sec_breach.php";
 
 } elseif (isset($_GET['ur'])) {

@@ -3,13 +3,13 @@
 
 	Zoli Toth, FEI TUKE
 
-	Unified Communications solution in open source - UCxml
+	Unified Communications solution with Open Source applications - UCxml
 
 */
 
-body { 
+body {
 padding: 0; margin: 0; 	font: .74em Arial, sans-serif; line-height: 1.5em; background: #fff url(../images/top.jpg) repeat-x top; color: #454545; }
-	
+
 a { color: #DA3B3B; }
 a:hover { color: #DA3B3B; text-decoration: underline}
 p {	margin: 5px 0; }
@@ -59,16 +59,16 @@ hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0;
 	#wrap ul { padding: 5px 0; }
 	#wrap li { line-height: 26px; background: #F6F6F6 url(../images/li-line.gif) no-repeat bottom left; list-style: none; }
 
-		
+
 /* main area */
 #main { }
 
 #right_side { float: right; width: 180px; border: 1px solid #DCDCDC; background: #F6F6F6; padding: 5px 10px 5px 10px; margin-bottom: 10px }
-#right_side ul { padding: 3px 0 8px 0 } 
+#right_side ul { padding: 3px 0 8px 0 }
 #right_side li { line-height: 18px; background: #F6F6F6 url(../images/cat-li.gif) no-repeat left; list-style: none; padding-left: 20px; }
 #right_side a { background: #F6F6F6; text-decoration:  none }
 #right_side h3 { color: #404040; font:  bold 1.2em Arial, Sans-Serif; }
-	
+
 #left_side { background: #F6F6F6; margin-bottom: 10px; width: 550px; border: 1px solid #DCDCDC;  }
 #left_side td { font: 0.9em Arial, Helvetica, sans-serif;}
 #left_side a { text-decoration: none; font: 0.9em Arial, Helvetica, sans-serif;}
@@ -83,9 +83,13 @@ hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0;
 	#left_side ul { list-style-position: inside; margin-left: 2px }
 	#left_side ul li { list-style-type: square; margin-left: 15px;  }
 	#left_side ul ul li { list-style: none; margin-left: 10px; list-style-type: lower-alpha; list-style-position: inside }
-	
+
+#view_item { 
+  }
+
+
 /* The footer */
-#footer { clear: both; width: 800px; border-top: 1px solid #DCDCDC; margin: 0 auto; margin-top: 10px; color: #777; 
+#footer { clear: both; width: 800px; border-top: 1px solid #DCDCDC; margin: 0 auto; margin-top: 10px; color: #777;
 background: #fff }
 #footer .right  { float: right; text-align: right; background: #FFF; }
 #footer a { text-decoration: none; background: #FFF }

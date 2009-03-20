@@ -1,26 +1,23 @@
 <?php
 /*
 	UCxml PhoneUI - status
-	
+
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
 
-	original idea:		
+	original idea:
 	Joe Hopkins <joe@csma.biz>
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
-
-
 
 require_once "../lib/xtpl/xtemplate.class.php";
 require_once "../lib/utils.php";
 require_once "../lib/mysql.php";
 
-
 require_once "lib/urlbase.php";
 require_once "lib/security.php";//grab mac address info, along with global preferences
 require_once "lib/headers.php";
-
+require_once "lib/refresh.php";
 
 if ($ph_sec == 'Yes' && $registered == 'FALSE')
 {
@@ -55,9 +52,9 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 			//user wants to view everyones' status
 			$loc_sql = "WHERE phone.access_lvl != 'unknown'";
 		}
-		
+
 		$per_page = 31;//number of phones displayed on each page
-			
+
 		if (isset($_GET['start']))
 		{
 			$start = defang_input($_GET['start']);
@@ -119,9 +116,9 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 			} else {
 				$tmp_star = '';
 			}
-			
+
 			$tmpTitle = $in2['lname'].",".$in2['fname']." (". $in2['number'].")".$tmp_star;
-			
+
 			
 			$title = substr($tmpTitle,0,27);
 			
@@ -147,7 +144,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 			$xtpl->assign("others_status",$others_status);
 			$xtpl->assign("start",$start);
 			$xtpl->parse("main.contact_more");
-		}	
+		}
 		
 		if ($others_status == 'in')
 		{
@@ -180,7 +177,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		
 	} elseif (isset($_GET['custom_msg'])) {
 		
-		//Get user's location and custom message 
+		//Get user's location and custom message
 		$tmp_assign_msg = defang_input($_GET['custom_msg']);
 		$tmp_location = defang_input($_GET['location']);
 		$tmp_date = time();
@@ -189,7 +186,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 		$tmpUpdateSQL = "UPDATE phone SET
 			status = '$tmp_location',
 			date = '$tmp_date',
-			away_msg = '$tmp_assign_msg'		
+			away_msg = '$tmp_assign_msg'
 			WHERE MAC ='$MAC'";
 			
 			mysql_query($tmpUpdateSQL, $db);

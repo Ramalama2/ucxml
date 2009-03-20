@@ -42,7 +42,7 @@ function validate_edit_memo()
 
     </ul>
     </div>
-
+</div>
                 <form name="form1" method="post" action="">
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Memos options</div></h3>
@@ -98,15 +98,20 @@ function validate_edit_memo()
 	</div>
 	</form>
 	</div>
-</div>
 
 <!-- END: main -->
 
 <!-- BEGIN: view_memo -->
-<div >
-	  <p>This Memo is from <strong>{from}</strong> posted: <strong>{date}</strong></p>
+<div>
+	<div style="border-bottom: solid #ccc 1px;">
+	<img src="{av}" title="Current Avatar" {default_av} alt="avatar">
+		This Memo is from <strong>{from}</strong>
+       <div style="float: right;">
+	   posted: <strong>{date}</strong>
+	</div>
 
-		<table width="560" bgcolor="#F6F6F6" >
+	</div>
+		<table width="400" bgcolor="#F6F6F6" >
 		<tr>
 		  <td width="91">Title:</td>
 		  <td><strong>{title}</strong></td>
@@ -118,5 +123,6 @@ function validate_edit_memo()
 		</tr>
 
 		</table>
+
 </div>
 <!-- END: view_memo -->

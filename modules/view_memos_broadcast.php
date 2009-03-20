@@ -4,10 +4,6 @@
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
-
-	original idea:
-	Joe Hopkins <joe@csma.biz>
-	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);

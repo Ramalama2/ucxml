@@ -115,6 +115,16 @@ function validate_edit_memo()
 <!-- BEGIN: view_memo -->
 <div >
 	  <p>This Memo is for <strong>{to}</strong> posted: <strong>{date}</strong></p>
+<div id="avatar">
+   		  <!-- BEGIN: current_av -->
+		<img height="40" src="images/avatars/{current_av}" title="Sender avatar" alt="" />
+   		  <!-- END: current_av -->
+
+   		  <!-- BEGIN: default_av -->
+		<img height="40" src="{default_av}" title="Sender avatar" alt="" />
+		  <!-- END: default_av -->
+
+		    </div>
 
 		<table width="560" bgcolor="#F6F6F6" >
 		<tr>

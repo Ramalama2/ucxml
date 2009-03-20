@@ -161,16 +161,12 @@ function render_HeaderFooter ($mytitle)
 	include "language/lang.php";
 	$xtpl=new XTemplate ("header.html");
 	$xtpl->assign( 'LANG', $lang );
-	$default_av="images/avatars/default.png";
+	$target = "images/avatars/";
 
 	// if the user has a custom avatar, show their avatar, else show default avatar
-	if( isset($_SESSION['av']) )
+	if($_SESSION['av'])
 	{
-		$xtpl->assign("current_av",$_SESSION['user_id'].'.'.$_SESSION['av']);
-	}
-	else{
-		$xtpl->parse("main.default_av");
-		$xtpl->assign("default_av",$default_av);
+		$xtpl->assign("av", $target . ($_SESSION['av']? $_SESSION['user_id'] .'.'. $_SESSION['av'] : 'default.png'));
 	}
 
     $tmp_my_nick = defang_input($_SESSION['user_name']);
@@ -183,7 +179,7 @@ function render_HeaderFooter ($mytitle)
 	}
 	else
 	{
-		$checkSQL ="SELECT count(*), 
+		$checkSQL ="SELECT count(*),
    					CASE
 					WHEN (memos.receiver = '' AND memos.id_memo = memos_read.id_memo
 						 AND memos_read.receiver = '$tmp_my_nick')

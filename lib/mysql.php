@@ -9,6 +9,6 @@
 	
 	
 	$db = mysql_connect('localhost', 'root', 'root');
-	mysql_select_db('openxml', $db);
+	mysql_select_db('ucxml', $db);
 	/////////////////////////////////////////////////////////////////////////////////////////
 	?>
