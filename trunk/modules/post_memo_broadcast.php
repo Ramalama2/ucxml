@@ -4,10 +4,6 @@
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
-
-	original idea:
-	Joe Hopkins <joe@csma.biz>
-	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
 
@@ -15,9 +11,9 @@
 if (isset($_GET['id_memo']))
 {
 	$tmp_id_memo = defang_input($_GET['id_memo']);
+	$tmp_receiver = defang_input($_SESSION['user_name']);
 }
 
-$tmp_receiver = defang_input($_SESSION['user_name']);
 
 if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['read_memo_broadcast']))
 {
@@ -58,7 +54,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['rea
 				// Deleting
 				if ($tmp_id_memo != '0') //prevent user from deleting main container
 				{
-					delete_view_memo($tmp_id_memo);
+					delete_memo($tmp_id_memo);
 					header("Location: index.php?module=view_memos_broadcast");
 				} else {
 					header("Location: index.php?module=delete_error");
@@ -66,50 +62,50 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['rea
 
 		}elseif (isset($_POST['read_memo_broadcast']) || $_GET['read_memo_broadcast'] == 'yes' )
 		{
-	        $theSQL = "SELECT * FROM memos_read";
-			$theRES = mysql_query($theSQL, $db);
-			if ($row = mysql_fetch_row($theRES) == 0)
+
+  			if ($_SESSION['account_type'] == "Admin")
 			{
-				$tmp_id_memo_read = create_guid($tmp_id_memo_read);
-				$tmpInitRES = "INSERT INTO memos_read (id_memo_read, id_memo)
-								VALUES ('$tmp_id_memo_read', '$tmp_id_memo')";
-
-	           	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
+				output_view_memo($tmp_id_memo);
+			}
+            else
+			{
+				$theSQL = "SELECT memos_read.receiver FROM memos_read WHERE memos_read.receiver != '' AND memos_read.id_memo = '$tmp_id_memo'";
+				$theRES = mysql_query($theSQL, $db);
+				if ($in = mysql_fetch_assoc($theRES))
 				{
-//					$tmp_receiver = $_SESSION['user_name'];
-
-					$tmpUpdateSQL = "UPDATE memos_read SET
-									receiver = '$tmp_receiver',
-									read = '1'
-									WHERE id_memo ='$tmp_id_memo'";
-
-					if (mysql_query($tmpUpdateSQL, $db))
+	                if ($in['receiver'] == $tmp_receiver)
 					{
-						echo "ok";
-//						output_view_memo($tmp_id_memo);
+						output_view_memo($tmp_id_memo);
 					}
 					else
 					{
-						echo "error";
+	            	$tmp_id_memo_read = create_guid($tmp_id_memo_read);
+					$tmpInitSQL = "INSERT INTO memos_read (id_memo_read, id_memo)
+									VALUES ('$tmp_id_memo_read', '$tmp_id_memo')";
+
+		           	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
+					{
+						$tmpUpdateSQL = "UPDATE memos_read SET
+										memos_read.receiver = '$tmp_receiver',
+	                            		memos_read.read = '1',
+										memos_read.new = '0'
+										WHERE id_memo_read ='$tmp_id_memo_read'";
+
+						if (mysql_query($tmpUpdateSQL, $db))
+						{
+							output_view_memo($tmp_id_memo);
+						}
+						else
+						{
+							echo "error";
+						}
 					}
-				}
-			}else
-			{
-                if ($in['read'] == "1")
-				{
-                   	output_view_memo($tmp_id_memo);
-				}
-				else
-				{
-					echo "error";
-				}
-
-		  	}
-
-
+	              	}
+                }
+			}
 		} else {
 			// Action, but no valid submit button.
-			header("Location: index.php?module=view_memos_broadcast2");
+			header("Location: index.php?module=view_memos_broadcast");
 		}
 	} else {
 		// Bad action
@@ -130,6 +126,9 @@ function delete_memo ($tmp_id_memo)
 {
 	$sql = "DELETE FROM memos WHERE id_memo='$tmp_id_memo'";
 	$result = mysql_query($sql);
+
+   	$sql2 = "DELETE FROM memos_read WHERE id_memo='$tmp_id_memo'";
+	$result2 = mysql_query($sql2);
 }
 
 
@@ -138,7 +137,6 @@ function output_edit_memo ($myID_memo)
 {
 
 	include "language/lang.php";
-
 	global $db;
 	$xtpl=new XTemplate ("modules/templates/post_memo_broadcast.html");
 	$xtpl->assign( 'LANG', $lang );
@@ -186,6 +184,7 @@ function output_view_memo ($myID_memo)
 	{
 		$tmp_unixtime = $in['date'];
 		$displaydate = date("l, F d, Y h:i" ,$tmp_unixtime);
+		$sender_av = $in['sender'];
 
 		$xtpl->assign("id_memo",$in['id_memo']);
 		$xtpl->assign("date",$displaydate);
@@ -193,6 +192,24 @@ function output_view_memo ($myID_memo)
 		$xtpl->assign("msg",$in['msg']);
 		$xtpl->assign("from",$in['sender']);
 	}
+
+	$theSQL2 = "SELECT id_user,av FROM users WHERE username='$sender_av'";
+	$theRES2 = mysql_query($theSQL2, $db);
+	if ($in = mysql_fetch_assoc($theRES2))
+	{
+	     $default_av="images/avatars/default.png";
+
+		// if the user has a custom avatar, show their avatar, else show default avatar
+		if($in['av'])
+		{
+			$xtpl->assign("av",$in['id_user'].'.'.$in['av']);
+			$xtpl->parse("main.current_av");
+		}
+		else{
+			$xtpl->assign("default_av",$default_av);
+			$xtpl->parse("main.default_av");
+		}	}
+
 	// Output
 	$xtpl->parse ("view_memo");
 	$xtpl->out("view_memo");

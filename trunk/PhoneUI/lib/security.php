@@ -1,13 +1,13 @@
 <?php
 
 // Get Global Preferences
-// TODO: otestovat $tmp_id_user
+// otestovat
 
 $secQuery = "SELECT
 users.ph_sec AS ph_sec,
-users.memo_ob AS memo_ob,
-FROM users
-WHERE users.id_user = '$tmp_id_user'";
+users.memo_ob AS memo_ob
+FROM users LEFT JOIN phone ON users.id_user = phone.id_phone
+WHERE phone.MAC = '$MAC'";
 $thesecRES = mysql_query($secQuery, $db);
 
 if ($sy = mysql_fetch_assoc($thesecRES))
@@ -28,7 +28,9 @@ if (isset($_GET['name']))
 	// SQL to check MAC
 	$macQuery = "SELECT
 	phone.id_phone AS phone_id_phone,
-	phone.access_lvl AS access_lvl
+	phone.access_lvl AS access_lvl,
+	phone.nick AS nick
+	phone.refresh AS refresh
 	FROM phone
 	WHERE phone.MAC = '$MAC'
 	AND phone.access_lvl != 'unknown'";
@@ -36,11 +38,14 @@ if (isset($_GET['name']))
 
 	if ($mc = mysql_fetch_assoc($themacRES))
 	{
+
 		if ($mc['access_lvl'] != "")
 		{
 			//MAC was found as a registered phone
 			$registered = 'TRUE';
 			$access_lvl = $mc['access_lvl'];
+			$my_nick = $mc['nick'];
+			$refresh = $mc['refresh'];
 		} else {
 			//Access Level of MAC was not defined
 			$registered = 'FALSE';

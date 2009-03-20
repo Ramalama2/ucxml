@@ -17,13 +17,19 @@ require_once "../lib/mysql.php";
 require_once "lib/urlbase.php";
 require_once "lib/security.php";//grab mac address info, along with global preferences
 require_once "lib/headers.php";
-
-
+require_once "lib/refresh.php";
 
 if ($ph_sec == 'Yes' && $registered == 'FALSE')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";
+
+} elseif (!$_GET['mem']) {
+
+	if(checkMemo())	// check if we have new memo
+	{
+	   newMemo();
+	}
 
 } elseif (isset($_GET['mem'])) {
 	// We are selecting a memo
@@ -75,6 +81,7 @@ function list_memos ($MAC,$registered)
 	global $db;
 	global $URLBase;
 	global $access_lvl;
+	global $my_nick;
 	global $memo_ob;
 
 	$per_page = 27;//number of memos displayed on each page
@@ -203,7 +210,7 @@ function list_memos ($MAC,$registered)
 		$order_title[2] = 'Title';
 		$number = 3;
 		$x = 0;
-
+		while ($x < $number) {
 			$xtpl->assign("title",$order_title[$x]);
 			$xtpl->assign("ob",$order_title[$x]);
 			$xtpl->assign("url_base",$URLBase);
@@ -221,4 +228,42 @@ function list_memos ($MAC,$registered)
 		require_once "templates/img_empty_cont.php";
 	}
 }
+
+// check if exists new memo in db with my username */
+function checkMemo()
+{
+	global $db;
+	$countQuery2 = "SELECT count(*),
+   					CASE
+					WHEN (memos.receiver = '' AND memos.id_memo = memos_read.id_memo
+						 AND memos_read.receiver = '$my_nick')
+					THEN 0 ELSE 1
+					END AS newmemo
+					FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
+					WHERE memos.receiver IN ('$my_nick','') AND memos.new=1";
+
+	$tmpUpdateSQL = "UPDATE memos SET
+					memos.new ='0'
+					WHERE memos.receiver='$my_nick' AND memos.id_memo ='$tmp_id_memo'";
+
+	$updateQuery = "UPDATE memos_read SET
+					memos_read.receiver = '$my_nick',
+					memos_read.new = '0'
+					WHERE id_memo_read ='$tmp_id_memo_read'";
+
+		$checkRES = mysql_query($countQuery2, $db);
+//	return $browseQuery[0]['newmemo'];
+}
+
+/* Prehraje zvuk a urobi navigaciu na stranku SMSkar_a */
+function newMemo()
+{
+	// prehrat zvuk a presmerovat na URL obrazovky SMSiek
+	SetRefresh(1 /* time */, $URLBase."?show=1&readsms=1" /* DST page */ );
+	header("Content-Type: audio/basic");
+	readfile("sound.raw");
+//	$this->db->Close();
+	exit(0);
+}
+
 ?>

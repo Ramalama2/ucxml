@@ -4,10 +4,6 @@
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
-
-	original idea:
-	Joe Hopkins <joe@csma.biz>
-	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
 
@@ -127,6 +123,7 @@ function output_edit_memo ($myID_memo)
 	{
 		$tmp_unixtime = $in['date'];
 		$displaydate = date("l, F d, Y h:i" ,$tmp_unixtime);
+		$sender_av = $in['sender'];
 
 		$xtpl->assign("id_memo",$in['id_memo']);
 		$xtpl->assign("date",$displaydate);
@@ -172,6 +169,24 @@ function output_view_memo ($myID_memo)
 		$xtpl->assign("msg",$in['msg']);
 		$xtpl->assign("to",$in['receiver']);
 	}
+
+	$theSQL2 = "SELECT id_user,av FROM users WHERE username='$sender_av'";
+	$theRES2 = mysql_query($theSQL2, $db);
+	if ($in = mysql_fetch_assoc($theRES2))
+	{
+	     $default_av="images/avatars/default.png";
+
+		// if the user has a custom avatar, show their avatar, else show default avatar
+		if($in['av'])
+		{
+			$xtpl->assign("av",$in['id_user'].'.'.$in['av']);
+			$xtpl->parse("main.current_av");
+		}
+		else{
+			$xtpl->assign("default_av",$default_av);
+			$xtpl->parse("main.default_av");
+		}	}
+
 	// Output
 	$xtpl->parse ("view_memo");
 	$xtpl->out("view_memo");
