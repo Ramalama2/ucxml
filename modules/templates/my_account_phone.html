@@ -33,7 +33,7 @@ Phone security prevents unregistered phones from viewing the directory. If phone
 </ul>
 
 <div id="contents">
-	<form name="form1" method="post" action="">
+	<form id="form1" method="post" action="">
 	<div id="right_side">
 	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
 	    <ul>
@@ -47,7 +47,7 @@ Phone security prevents unregistered phones from viewing the directory. If phone
 
 			<li><a href="#">Cancel registration:</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
-				<input type="submit" name="submit_cancel_phone" value=" Cancel ">
+				<input type="submit" class="cancel" name="submit_cancel_phone" value=" Cancel ">
 				<input type="hidden" name="id_phone" value="{id_phone}">
 				<input type="hidden" name="baseauth" value="{baseauth}">
 				<input type="hidden" name="action" value="edit">

@@ -1,34 +1,6 @@
 <!-- BEGIN: main -->
 
-<script LANGUAGE="JavaScript">
-<!--
-function validate_edit_memo()
-  {
-	ok=1;
-	errors = "";
-	if(document.forms[0].msg.value == "") 
-   	{ 
-		errors += " - Message must be entered.\n";
-		ok=0;
-		document.forms[0].msg.focus();
-	}
-	if(document.forms[0].title.value == "") 
-   	{ 
-		errors += " - Title must be entered.\n";
-		ok=0;
-		document.forms[0].title.focus();
-	}
-	if(ok == 0)
-	{
-		alert(errors);
-		return false;
-	}
-	else return true;
-  }
- 
-// -->
-</script>
-<div id="prec2">		
+<div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-memos-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
 <p>There is a 5 forms collected when creating/editing a memo...</p>
@@ -42,7 +14,8 @@ function validate_edit_memo()
     </div>
 
 	<div id="main">
-                <form name="form1" method="post" action="">
+
+	 <form id="Form" method="post" action="">
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Memos options</div></h3>
 	    <ul>
@@ -51,18 +24,20 @@ function validate_edit_memo()
 		<input type="hidden" name="id_memo" value="{id_memo}">
 		<input type="hidden" name="baseauth" value="{baseauth}">
 		<input type="hidden" name="action" value="edit">
-		<input type="submit" name="submit_save" onClick="return validate_edit_memo()" value="  Save  ">
+		<input type="submit" name="submit_save" value="  Save  ">
 		</div>
 
 		<li><a href="">Cancel Memos:</a></li>
-		<div style="padding-left:20px;padding-bottom:15px;"><input type="submit" name="submit_cancel" value=" Cancel ">
+		<div style="padding-left:20px;padding-bottom:15px;">
+		<input type="submit" class="cancel" name="submit_cancel" value=" Cancel ">
 		<input type="hidden" name="id_memo" value="{id_memo}">
 		<input type="hidden" name="baseauth" value="{baseauth}">
 		<input type="hidden" name="action" value="edit">
 		</div>
 
 		<li><a href="">Delete  Memos:</a></li>
-		<div style="padding-left:20px;"><input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
+		<div style="padding-left:20px;">
+		<input type="submit" class="cancel" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
                   <input type="hidden" name="id_memo" value="{id_memo}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
@@ -74,26 +49,27 @@ function validate_edit_memo()
 	<div id="left_side">
 	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Memos</div></h3>
 		<table width="560" bgcolor="#F6F6F6" >
-			<p>This Memo created by <strong>{from}</strong> at: <strong>{date}</strong></p>
+		<p>This Memo created by <strong>{from}</strong> at: <strong>{date}</strong></p>
+		<p><strong>All fields are required!</strong></p>
 
 		<tr>
-		  <td width="91"><strong>Receiver:</strong></td>
-		  <td><select name ="receiver" size="1">
-			<option>- TO -</option>
+		  <td width="91"><label for="receiver"><strong>Receiver:</strong></label></td>
+		  <td><select id="receiver" class="required" name ="receiver" size="1">
+			<option value="">- TO -</option>
 			<!-- BEGIN: TO -->
 			<option>{receiver}</option>
 			<!-- END: TO -->
-		      </select> *</td>
+		      </select> </td>
 		</tr>
 
 		<tr>
-		  <td width="91"><strong>Title:</strong></td>
-		  <td><input type="text" name="title" size="30" maxlength="50" value="{title}">	*</td>
+		  <td width="91"><label for ="title"><strong>Title:</strong></label></td>
+		  <td><input id="title" class="required" type="text" name="title" size="30" maxlength="30" value="{title}">	</td>
 		</tr>
 
 		<tr>
-		  <td><strong>Message:</strong></td>
-		  <td><textarea name="msg" value="msg">{msg}</textarea></td>
+		  <td><label for ="msg"><strong>Message:</strong></label></td>
+		  <td><textarea id="msg" class="required" name="msg" value="msg">{msg}</textarea></td>
 		</tr>
 
 		<tr>
@@ -101,7 +77,7 @@ function validate_edit_memo()
 		  <td><select name="access" size="1">
 			<option>{access}</option>
 			<option>{var_access}</option>
-		      </select> *</td>
+		      </select> </td>
 		</tr>
 		</table>
 	</div>
@@ -115,17 +91,9 @@ function validate_edit_memo()
 <!-- BEGIN: view_memo -->
 <div >
 	  <p>This Memo is for <strong>{to}</strong> posted: <strong>{date}</strong></p>
-<div id="avatar">
-   		  <!-- BEGIN: current_av -->
-		<img height="40" src="images/avatars/{current_av}" title="Sender avatar" alt="" />
-   		  <!-- END: current_av -->
-
-   		  <!-- BEGIN: default_av -->
-		<img height="40" src="{default_av}" title="Sender avatar" alt="" />
-		  <!-- END: default_av -->
-
-		    </div>
-
+	<div id="avatar">
+	<img src="{av}" title="Current Avatar" alt="avatar">
+	</div>
 		<table width="560" bgcolor="#F6F6F6" >
 		<tr>
 		  <td width="91">Title:</td>

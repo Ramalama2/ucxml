@@ -77,9 +77,10 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['vie
 				other_phone='$tmp_other_phone'
 				WHERE id_contact='$tmp_id_contact'";
 
-				mysql_query($tmpUpdateSQL, $db);
+			mysql_query($tmpUpdateSQL, $db);
 
 			header("Location: index.php?module=view_contacts");
+		
 
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
 			// Deleting
@@ -113,6 +114,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['vie
 	render_HeaderFooter("UCxml web Portal - Editing");
 	output_edit_contact($tmp_id_contact);
 	render_Footer();
+
 }
 
 function delete_contact ($tmp_id_contact)
@@ -126,7 +128,6 @@ function output_edit_contact ($myID_contact)
 {
 
 	include "language/lang.php";
-
 	global $db, $xtpl;
 
 	$xtpl=new XTemplate ("modules/templates/edit_contact.html");

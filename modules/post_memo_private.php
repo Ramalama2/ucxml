@@ -174,18 +174,14 @@ function output_view_memo ($myID_memo)
 	$theRES2 = mysql_query($theSQL2, $db);
 	if ($in = mysql_fetch_assoc($theRES2))
 	{
-	     $default_av="images/avatars/default.png";
+	     $target="images/avatars/";
 
 		// if the user has a custom avatar, show their avatar, else show default avatar
 		if($in['av'])
 		{
-			$xtpl->assign("av",$in['id_user'].'.'.$in['av']);
-			$xtpl->parse("main.current_av");
+       		$xtpl->assign("av", $target . ($in['av']? $in['id_user'] .'.'. $in['av'] : 'default.png'));
 		}
-		else{
-			$xtpl->assign("default_av",$default_av);
-			$xtpl->parse("main.default_av");
-		}	}
+}
 
 	// Output
 	$xtpl->parse ("view_memo");
