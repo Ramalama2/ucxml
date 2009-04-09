@@ -7,6 +7,7 @@
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);
+$tmp_username = defang_input($_SESSION['user_name']);
 
 if (isset($_POST['save_view']))
 {
@@ -82,17 +83,7 @@ function output_view_status ($myID_user)
 	$ob = "nick";
 	}
 
-/*        if (isset($_GET['ur']))
-                {
-                $urMAC = defang_input($_GET['ur']);
-                show_status($MAC,$urMAC);
-
-                } elseif (isset($_GET['view_my_status'])) {
-
-                show_status($MAC,$MAC);
-                }
-*/
-          if (isset($_GET['status_view'])) {
+/*          if (isset($_GET['status_view'])) {
 
                         $status_view = defang_input($_GET['status_view']);
 
@@ -119,135 +110,70 @@ function output_view_status ($myID_user)
 								$xtpl->assign("sel_out","selected");
                         }
 
+  */
+				$xtpl->parse("main.column");//show columns
 
-                        $xtpl->parse("main.column");//show columns
+				if(($sock=fsockopen("xxx.xxx.xxx.xxx",3306,$errorno,$errorstr,60)))
+				{
+					$db2 = mysql_connect("xxx.xxx.xxx.xxx","watcher","presence");
+					mysql_select_db("opensips",$db2);
 
-                        $theSQL = "SELECT id_phone,access_lvl,nick,away_msg,status FROM phone $loc_sql";
-                        $theRES = mysql_query($theSQL, $db);
+				$theSQL = "SELECT username,body FROM presentity";
+				$theRES = mysql_query($theSQL, $db2);
 
-                        $oddRow = true;
-                        while ($in = mysql_fetch_assoc($theRES))
-                        {
-                                //Generate data rows
-                                if ($oddRow)
-                                {
-                                        $xtpl->assign("bg","#EFEFEF");
-                                } else {
-                                        $xtpl->assign("bg","#DFDFDF");
-                                }
-                                $xtpl->assign("id_phone",$in['id_phone']);
-                                $xtpl->assign("status",$in['status']);
-                                $xtpl->assign("nick",$in['nick']);
-                                $xtpl->assign("away_msg",$in['away_msg']);
-                                $xtpl->assign("access_lvl",$in['access_lvl']);
+				$oddRow = true;
+            	while($in=mysql_fetch_object($theSQL))
+				{
+                    if ($oddRow)
+                    {
+                            $xtpl->assign("bg","#EFEFEF");
+                    } else {
+                            $xtpl->assign("bg","#DFDFDF");
+                    }
 
-                                $xtpl->parse("main.row");
-                                $oddRow = !$oddRow;
-                        }
+					$time = date("Y/m/d H:i:s");
+                    $xtpl->assign ("time" $time);
 
-                        // Output
-                        $xtpl->parse("main");
-                        $xtpl->out("main");
+					$xml = simplexml_load_string($in['body']);
+					if($xml->tuple->status->basic=="open")
+					{
+						$xtpl->assign ("username", $in['username']);
+						$xtpl->assign ("status", $in2['.$xml->tuple->im:im.']);
+						$xtpl->assign ("note", $in['.$xml->tuple->note.']);
+					}
+					$xtpl->assign ("body", $in['body']);
 
-        }
-        elseif (isset($_GET['my_status'])) {
-                //User has requested to change their status
-                if ($registered == "TRUE")
-                {
-                        $xtpl=new XTemplate ("templates/my_status.xml");
+					$xtpl->parse("main.row");
+					$oddRow = !$oddRow;
 
-                        $statusqry = "SELECT phone.status AS status FROM phone WHERE MAC = '$MAC'";
-                        $theCountRES = mysql_query($statusqry, $db);
+				}
 
-                        //Fetch phone availablility
-                        if ($in = mysql_fetch_assoc($theCountRES))
-                        {
-                                if ($in['status'] == '1')
-                                {
-                                        $xtpl->assign("available",'*');
-                                        $xtpl->assign("unavailable",'');
-                                } else {
-                                        $xtpl->assign("available",'');
-                                        $xtpl->assign("unavailable",'*');
-                                }
-                        }
-                        //show prompt to select in office or out of office
-                        $xtpl->assign("MAC",$MAC);
-                        $xtpl->assign("url_base",$URLBase);
-                        $xtpl->parse("main");
-                        $xtpl->out("main");
-                } else {
-                        //User must have a registered MAC to set a status, display error page
-                        require_once "templates/img_sec_breach.php";
-                }
-        } else {
-        $xtpl->parse("main");
-        $xtpl->out("main");
-        }
+				$theSQL2 = "SELECT username,body FROM presentity WHERE username='$tmp_username'";
+				$theRES2 = mysql_query($theSQL2, $db2);
 
+            	while($in2=mysql_fetch_object($theSQL2))
+				{
+
+					$xml = simplexml_load_string($in2['body']);
+					if($xml->tuple->status->basic=="open")
+					{
+						$xtpl->assign ("my_username", $in2['username']);
+						$xtpl->assign ("my_status", $in2['.$xml->tuple->im:im.']);
+						$xtpl->assign ("my_note", $in2['.$xml->tuple->note.']);
+					}
+				}
+
+                     // Output
+                    $xtpl->parse("main");
+                    $xtpl->out("main");
+
+				mysql_close($db2);
+				fclose($sock);
+				}
+		else
+		{
+			echo "Servre seems Down";
+		}
 }
-
-function show_status ($MAC,$urMAC)
-{
-
-	include "language/lang.php";
-	global $db;
-	global $URLBase;
-
-	$browseQuery = "SELECT
-		phone.number AS number,
-		phone.fname AS fname,
-		phone.lname AS lname,
-		phone.away_msg AS away_msg,
-		phone.date AS date,
-		phone.status AS status
-		FROM phone
-		WHERE phone.MAC = '$urMAC'";
-
-		$theContactRES = mysql_query($browseQuery, $db);
-
-	if ($in = mysql_fetch_assoc($theContactRES))
-	{
-		//Assign user msg info to the screen
-		$tmp_unixtime = $in2['date'];
-		$displaydate = date("n/d g:ia" ,$tmp_unixtime);
-
-        $xtpl=new XTemplate ("templates/status_detail.xml");
-
-		if ($MAC == $urMAC)
-		{
-			$xtpl=new XTemplate ("templates/view_my_status.xml");
-			$xtpl->assign("url_base",$URLBase);
-			$xtpl->assign("MAC",$MAC);
-			$tmp_display = $in['away_msg'];
-			$xtpl->assign("msg",$tmp_display);
-		}
-		else {
-			$xtpl=new XTemplate ("templates/status_detail.xml");
-			$xtpl->assign("msg",$in['lname'].",".$in['fname']);
-		}
-
-		$tmp_display = $in['away_msg'];
-
-		$tmp_location = $in['status'];
-
-		if ($tmp_location == '1')
-		{
-			$display_away = "Available since ".$displaydate;
-			$tmp_your = "Available";
-		} elseif ($tmp_location == '0') {
-			$display_away = "Unavailable since ".$displaydate;
-			$tmp_your = "Unavailable";
-		} else {
-			$display_away = "Availability Unknown since ".$displaydate;
-			$tmp_your = "Status Unknown";
-		}
-
-		$xtpl->assign("prompt",$tmp_display);
-		$xtpl->assign("tmpyour",$tmp_your);
-		$xtpl->assign("tmpTitle",$display_away);
-		$xtpl->parse("main");
-		$xtpl->out("main");
-	}
 }
 ?>

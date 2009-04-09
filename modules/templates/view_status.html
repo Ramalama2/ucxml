@@ -23,9 +23,9 @@ You can also view the status of other people.</p>
 	<div id="right_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Status Options</div></h3>
 	    <ul>
-		<li><a href="">Save my edited status</a></li>
+		<li><a href="">Change my status</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
-			<input type="submit" name="submit_add" value="  Save  ">
+			<input type="submit" src="facebox" name="submit_add" value="  Save  ">
             		</div>
 		<li><a href=""> View users status</a></li>
 			<div style="padding-left:20px;">
@@ -45,26 +45,12 @@ You can also view the status of other people.</p>
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">My Status</div></h3>
 	<table width="560" bgcolor="#F6F6F6" border="1px">
 		<tr>
-          <td width="144">My status{my_status}</td>
-       	  <td width="144">My away msg{my_away_msg}</td>
-		  <td width="144">Since {datetime}</td>
+          <td width="144">My username{my_username}</td>
+       	  <td width="144">My status{my_status}</td>
+		  <td width="144">My away msg {my_note}</td>
 		</tr>
 	</table>
 <p></p>
-	<table width="560">
-		<tr>
-        	<td width="144">
-        	<div style="padding-left:20px;">
-			<select name="my_status" size="1">
-	          <option style="color: #00CC00" {selected_in} value="in">Available</option>
-        	  <option style="color: #9F9F9F;" {selected_out} value="out">Unavailable</option>
-			</select>
-			</div></td>
-	        <td><strong>Status msg: </strong></td>
-        	<td><input type="text" name="fname" size="40" maxlength="50" value="{my_status_msg}"> *</td>
-
-		</tr>
-	</table>
 	</div>
 
 <!-- ///my status -->
@@ -78,16 +64,14 @@ You can also view the status of other people.</p>
 	    <td align="center" width="107"><a href="index.php?module=view_status&ob=ob_n"><strong>Username</strong></a></td>
 	    <td align="center" width="35"><a href="index.php?module=view_status&ob=ob_status"><strong>Status</strong></a></td>
 	    <td align="center" width="224"><strong>Status msg</strong></td>
-	    <td align="center" width="94"><a href="index.php?module=view_status&ob=ob_access_lvl"><strong>Access Level</strong></a></td>
       </tr>
   <!-- END: column -->
 
   <!-- BEGIN: row -->
 	  <tr>
-	    <td bgcolor="{bg}">{nick}</td>
+	    <td bgcolor="{bg}">{username}</td>
 	    <td bgcolor="{bg}">{status}</td>
-	    <td bgcolor="{bg}">{away_msg}</td>
-	    <td bgcolor="{bg}">{access_lvl}</td>
+	    <td bgcolor="{bg}">{note}</td>
 	  </tr>
   <!-- END: row -->
   </table></div>
