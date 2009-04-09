@@ -1,0 +1,40 @@
+<!-- BEGIN: change_status -->
+<form method="post" action="./sendSipMsg.php">
+<div>
+
+	<div style="border-bottom: solid #ccc 1px;">
+	<p>Change my Status (<strong>{username}</strong>)</p>
+	<p>to server {Server_Address} on {Server_Port} port</p>
+	</div>
+
+		<table width="400" bgcolor="#F6F6F6" >
+		<tr>
+		  <td width="91">Username:</td>
+		  <td><input type="text" name="USER_ID" value="{user_id}"></td>
+		</tr>
+
+		<tr>
+		<td>Status:</td>
+        <td><select name="status" size="1">
+            <option {available}>Available</option>
+            <option {away}>Away</option>
+	        <option {busy}>Busy</option>
+            <option {unavailable}>Unavailable</option>
+          </select>
+        </td>
+		</tr>
+
+		<tr>
+		  <td>Status Message:</td>
+		  <td><input type="text" name="note" value="{my_note}"></td>
+		</tr>
+
+		</table>
+
+	<input type="submit" name="save" value="save">
+    <input type="hidden" name="CSeq" value="getCSeg()">
+</div>
+
+</form>
+
+<!-- END: change_status -->
