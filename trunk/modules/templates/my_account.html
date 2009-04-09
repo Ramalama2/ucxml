@@ -10,35 +10,6 @@ function clear_textbox()
 		document.forms[0].password1.value = "";
 	}
 }
-function validate_edit_user()
-  {
-	ok=1;
-	errors = "";
-	if(document.forms[0].username.value == "")
-	{
-		errors += " - Username must be entered.\n";
-		ok=0;
-		document.forms[0].username.focus();
-	}
-	if(document.forms[0].password0.value == "" || document.forms[0].password1.value == "" || document.forms[0].password0.value == "{fake_password}")
-	{
-		errors += " - Blank passwords not supported.\n";
-		ok=0;
-		document.forms[0].password0.focus();
-	}
-	if(document.forms[0].password0.value != document.forms[0].password1.value)
-	{
-		errors += " - Passwords supplied do not match.\n";
-		ok=0;
-		document.forms[0].password0.focus();
-	}
-	if(ok == 0)
-	{
-		alert(errors);
-		return false;
-	}
-	else return true;
-  }
 
 // -->
 </script>
@@ -70,7 +41,7 @@ function validate_edit_user()
 </ul>
 
 <div id="contents">
-      <form name="form1" method="post" action="">
+      <form id="Form" method="post" action="">
 	  <div id="right_side">
 	    <h3>
 	      <div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">My Account Options</div></h3>
@@ -80,12 +51,12 @@ function validate_edit_user()
 		<input type="hidden" name="id_user" value="{id_user}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
-              <input type="submit" name="submit_save_account" onClick="return validate_edit_user()" value="  Save  ">
+              <input type="submit" name="submit_save_account" value="  Save  ">
 		</div>
 
             <li><a href="#">Cancel changes:</a></li>
 			<div style="padding-left:20px;">
-			<input type="submit" name="submit_cancel_account" value=" Cancel ">
+			<input type="submit" class="cancel" name="submit_cancel_account" value=" Cancel ">
             <input type="hidden" name="id_user" value="{id_user}">
             <input type="hidden" name="baseauth" value="{baseauth}">
             <input type="hidden" name="action" value="edit">
@@ -98,9 +69,9 @@ function validate_edit_user()
 			<h3>
 			  <div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit My Account</div></h3>
 	    <table width="550" bgcolor="#F6F6F6" >
-			 <td width="118"><strong>Username:</strong></td>
-        <td width="420"><input type="text" name="username" size="30" maxlength="50" value="{username}">
-          * </td>
+			 <td width="118"><label for="username"><strong>Username:</strong></label></td>
+        <td width="420"><input id="username" class="required" type="text" name="username" size="30" maxlength="30" value="{username}">
+           </td>
           <tr>
       <td width="200"></td>
       <td>
@@ -110,14 +81,14 @@ function validate_edit_user()
       </td>
     </tr>
       <tr>
-        <td><strong>Assign Password: </strong></td>
-        <td><input type="password" name="password0" onFocus="clear_textbox();" size="30" maxlength="50" value="{fake_password}">
-        *</td>
+        <td><label for="password0"><strong>Assign Password: </strong></label></td>
+        <td><input id="password0" class="required" type="password" name="password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
+        </td>
       </tr>
       <tr>
-        <td><strong>Repeat Password:</strong></td>
-        <td><input type="password" name="password1" onFocus="clear_textbox();" size="30" maxlength="50" value="{fake_password}">
-        *</td>
+        <td><label for="password1"><strong>Repeat Password:</strong></label></td>
+        <td><input id="password1" type="password" name="password1" class="required" equalTo="#password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
+        </td>
       </tr>
       <tr>
         <td><strong>E-mail:</strong></td>

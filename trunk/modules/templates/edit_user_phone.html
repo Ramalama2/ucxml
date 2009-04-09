@@ -39,7 +39,7 @@
 
 			<li><a href="#">Cancel registration:</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
-				<input type="submit" name="submit_cancel_phone" value=" Cancel ">
+				<input type="submit" class="cancel" name="submit_cancel_phone" value=" Cancel ">
 				<input type="hidden" name="id_phone" value="{id_phone}">
 				<input type="hidden" name="baseauth" value="{baseauth}">
 				<input type="hidden" name="action" value="edit">
@@ -51,14 +51,14 @@
 <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Phone Registration</div></h3>
 	<table width="560" bgcolor="#F6F6F6" >
 	<p>Phone used by:  <strong>{nick}</strong></p>
-		<tr>
-        	<td width="118"><strong>MAC Address:</strong></td>
-	        <td width="420"><input type="text" name="MAC" size="30" maxlength="50" value="{MAC}"> * </td>
-		</tr>
+      <tr>
+        <td><label for ="MAC"><strong>MAC address (required): </strong></label></td>
+        <td><input id ="MAC" class="required" type="text" name="MAC" size="20" value="{MAC}"></td>
+      </tr>
 
 		<tr>
-			<td><strong>Number:</strong></td>
-			<td><input type="text" name="number" size="30" maxlength="50" value="{number}"></td>
+	        <td><label for ="number"><strong>Phone Number (required): </strong></label></td>
+	        <td><input id ="number" class="required number" type="text" name="number" size="20" value="{number}"></td>
 		</tr>
 
 		<tr>

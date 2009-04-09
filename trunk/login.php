@@ -36,7 +36,10 @@ if(isset($_POST['Login']))
 		$_SESSION['account_type'] = $in['account_type'];
 		$_SESSION['lang'] = $in['lang'];
 		$_SESSION['status_view'] = $in['status_view'];
-       	$_SESSION['av'] = $in['av'];
+		if ($in['av'])
+		{
+	       	$_SESSION['av'] = $in['av'];
+		}
 
 		header("Location: index.php?module=menu");
 
