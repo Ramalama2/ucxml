@@ -46,10 +46,10 @@ hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0;
 	#wrap #pic #slogan { padding: 15px 30px 10px 30px;}
 	#wrap #pic #slogan a {text-decoration: none;}
 
-#wrap #user { float: right; height: 260px; width: 510px; margin-right: 70px;overflow: hidden; border: dashed 1px #dadada; padding: 5px 10px 10px 10px; text-align:left;}
-#wrap #admin { float: right; height: 200px; width: 510px; overflow: hidden; border: dashed 1px #dadada; margin-right:70px; padding: 5px 10px 10px 10px; text-align:left; margin-bottom: 10px;}
+#wrap #user { float: right; height: 290px; width: 510px; margin-right: 70px;overflow: hidden; border: dashed 1px #dadada; padding: 5px 10px 10px 10px; text-align:left;}
+#wrap #admin { float: right; height: 115px; width: 510px; overflow: hidden; border: dashed 1px #dadada; margin-right:70px; padding: 5px 10px 10px 10px; text-align:left; margin-bottom: 10px;}
 
-#wrap #menu_user { padding: 0; margin:0; margin-left:30px; margin-bottom: 250px; }
+#wrap #menu_user { padding: 0; margin:0; margin-left:30px; margin-bottom: 280px; }
 #wrap #menu_admin { padding: 0; margin:0; margin-left:30px; }
 
 	#wrap a {padding-left: 25px; font:  1.2em Arial, Sans-Serif; text-decoration: none; background: #F6F6F6 url(../images/lm-li.gif) no-repeat left;}
