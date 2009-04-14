@@ -83,34 +83,35 @@ function output_view_status ($myID_user)
 	$ob = "nick";
 	}
 
-/*          if (isset($_GET['status_view'])) {
+		if (isset($_GET['status_view']))
+		{
 
-                        $status_view = defang_input($_GET['status_view']);
+			$status_view = defang_input($_GET['status_view']);
+			if ($status_view == 'all')
+            {
+                  //user wants to view everyones' status
+                $loc_sql = "";
+                $xtpl->assign("sel_all","selected");
+                $xtpl->assign("sel_in","");
+                $xtpl->assign("sel_out","");
+			}
+			elseif ($status_view == 'in')
+			{
+                //user wants to view people in the available, status
+                $loc_sql = "WHERE $xml->tuple->note = 'available'";
+                $xtpl->assign("sel_all","");
+                $xtpl->assign("sel_in","selected");
+                $xtpl->assign("sel_out","");
+			}
+			elseif ($status_view == 'out')
+			{
+                //user wants to view people unavailable, status
+                $loc_sql = "WHERE $xml->tuple->note = 'unavailable'";
+                $xtpl->assign("sel_all","");
+                $xtpl->assign("sel_in","");
+				$xtpl->assign("sel_out","selected");
+	        }
 
-                        if ($status_view == 'all')
-                        {
-                                  //user wants to view everyones' status
-                                $loc_sql = "WHERE phone.access_lvl != 'unknown'";
-                                $xtpl->assign("sel_all","selected");
-                                $xtpl->assign("sel_in","");
-                                $xtpl->assign("sel_out","");
-                        }
-						elseif ($status_view == 'in') {
-                                //user wants to view people in the available, status
-                                $loc_sql = "WHERE phone.status = 1 AND phone.access_lvl != 'unknown'";
-                                $xtpl->assign("sel_all","");
-                                $xtpl->assign("sel_in","selected");
-                                $xtpl->assign("sel_out","");
-                        }
-						elseif ($status_view == 'out') {
-                                //user wants to view people unavailable, status
-                                $loc_sql = "WHERE phone.status = 0 AND phone.access_lvl != 'unknown'";
-                                $xtpl->assign("sel_all","");
-                                $xtpl->assign("sel_in","");
-								$xtpl->assign("sel_out","selected");
-                        }
-
-  */
 				$xtpl->parse("main.column");//show columns
 
 				if(($sock=fsockopen("xxx.xxx.xxx.xxx",3306,$errorno,$errorstr,60)))
@@ -118,7 +119,7 @@ function output_view_status ($myID_user)
 					$db2 = mysql_connect("xxx.xxx.xxx.xxx","watcher","presence");
 					mysql_select_db("opensips",$db2);
 
-				$theSQL = "SELECT username,body FROM presentity";
+				$theSQL = "SELECT username,body FROM presentity $loc_sql";
 				$theRES = mysql_query($theSQL, $db2);
 
 				$oddRow = true;
@@ -132,7 +133,7 @@ function output_view_status ($myID_user)
                     }
 
 					$time = date("Y/m/d H:i:s");
-                    $xtpl->assign ("time" $time);
+                    $xtpl->assign ("time", $time);
 
 					$xml = simplexml_load_string($in['body']);
 					if($xml->tuple->status->basic=="open")
@@ -174,6 +175,6 @@ function output_view_status ($myID_user)
 		{
 			echo "Servre seems Down";
 		}
-}
+	}
 }
 ?>
