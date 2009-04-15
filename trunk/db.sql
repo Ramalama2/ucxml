@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `memos` (
   `id_memo` varchar(36) NOT NULL DEFAULT '',
   `msg` blob NOT NULL,
   `date` int(11) NOT NULL DEFAULT '0',
-  `access` varchar(20) NOT NULL DEFAULT '',
   `sender` varchar(20) NOT NULL DEFAULT '',
   `receiver` varchar(20) NOT NULL DEFAULT '',
   `title` varchar(30) NOT NULL DEFAULT '',
@@ -69,8 +68,8 @@ CREATE TABLE IF NOT EXISTS `memos` (
 -- Dumping data for table `memos`
 --
 
-INSERT INTO `memos` (`id_memo`, `msg`, `date`, `access`, `sender`, `receiver`, `title`, `read`, `new`, `del_sender`, `del_receiver`) VALUES
-('1ab418cf-c9af9-82e24-4a1b-4990988748', ':)', 1234213051, '', 'admin', '', 'Spam', '0', '1', '0', '0');
+INSERT INTO `memos` (`id_memo`, `msg`, `date`, `sender`, `receiver`, `title`, `read`, `new`, `del_sender`, `del_receiver`) VALUES
+('1ab418cf-c9af9-82e24-4a1b-4990988748', ':)', 1234213051, 'admin', '', 'Spam', '0', '1', '0', '0');
 
 -- --------------------------------------------------------
 

@@ -67,8 +67,6 @@ function output_view_memos($myID_user, $myNick)
 			$ob = "date DESC";
 		} elseif ($_GET['ob'] == "ob_title") {
 			$ob = "title";
-		} elseif ($_GET['ob'] == "ob_access") {
-			$ob = "access";
 		} elseif ($_GET['ob'] == "ob_receiver") {
 			$ob = "receiver";
    		} elseif ($_GET['ob'] == "ob_msg") {
@@ -86,7 +84,7 @@ function output_view_memos($myID_user, $myNick)
 	}
 
 
-	$theSQL = "SELECT id_memo,title,access,receiver,date,msg FROM memos WHERE sender = '$myNick' AND del_sender = '0' ORDER BY $ob";
+	$theSQL = "SELECT id_memo,title,receiver,date,msg FROM memos WHERE sender = '$myNick' AND del_sender = '0' ORDER BY $ob";
 	$theRES = mysql_query($theSQL, $db);
 	$oddRow = true;
 	while ($in = mysql_fetch_assoc($theRES))
@@ -105,7 +103,6 @@ function output_view_memos($myID_user, $myNick)
 		$xtpl->assign("id_memo",$in['id_memo']);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("date",$displaydate);
-		$xtpl->assign("access",$in['access']);
 		$xtpl->assign("receiver",$in['receiver']);
 		$xtpl->assign("msg",$in['msg']);
 
@@ -113,7 +110,7 @@ function output_view_memos($myID_user, $myNick)
 		//alternate bg color
 		$oddRow = !$oddRow;
 
-        if ($in['title'] == '' && $in['msg'] == '' && $in['access'] == '')
+        if ($in['title'] == '' && $in['msg'] == '')
 	{
 		//contacts has no information, delete the entry
 		$tmp_delete_id_memo = $in['id_memo'];

@@ -26,13 +26,11 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['rea
 			// Saving
 			$tmp_id_memo = defang_input($_POST['id_memo']);
 			$tmp_title = defang_input($_POST['title']);
-			$tmp_access = defang_input($_POST['access']);
 			$tmp_msg = defang_input($_POST['msg']);
 
 			$tmpUpdateSQL = "UPDATE memos SET
 				title = '$tmp_title',
-				msg = '$tmp_msg',
-				access = '$tmp_access'
+				msg = '$tmp_msg'
 				WHERE id_memo ='$tmp_id_memo'";
 
 			if (mysql_query($tmpUpdateSQL, $db))
@@ -154,15 +152,6 @@ function output_edit_memo ($myID_memo)
 		$xtpl->assign("msg",$in['msg']);
 		$xtpl->assign("from",$in['sender']);
 
-		if ($in['access'] == "Private")
-		{
-			$xtpl->assign("access","Private");
-			$xtpl->assign("var_access","Public");
-
-		} else {
-			$xtpl->assign("access","Public");
-			$xtpl->assign("var_access","Private");
-		}
 	}
 	// Output
 	$xtpl->parse("main");
