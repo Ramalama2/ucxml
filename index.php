@@ -164,10 +164,7 @@ function render_HeaderFooter ($mytitle)
 	$target = "images/avatars/";
 
 	// if the user has a custom avatar, show their avatar, else show default avatar
-	if($_SESSION['av'])
-	{
-		$xtpl->assign("av", $target . ($_SESSION['av']? $_SESSION['user_id'] .'.'. $_SESSION['av'] : 'default.png'));
-	}
+	$xtpl->assign("av", $target . ($_SESSION['av']? $_SESSION['user_id'] .'.'. $_SESSION['av'] : 'default.png'));
 
     $tmp_my_nick = defang_input($_SESSION['user_name']);
 	// if the user have a new memo, show the count
@@ -175,20 +172,20 @@ function render_HeaderFooter ($mytitle)
     if ($_SESSION['account_type'] == 'Admin')
 	{
         $checkSQL ="SELECT count(*) AS newmemo FROM memos
-					WHERE memos.receiver='$tmp_my_nick' AND memos.read = '0' AND memos.new = '1'";
+		WHERE memos.receiver='$tmp_my_nick' AND memos.read = '0' AND memos.new = '1'";
 	}
+
 	else
 	{
 		$checkSQL ="SELECT count(*),
-   					CASE
-					WHEN (memos.receiver = '' AND memos.id_memo = memos_read.id_memo
-						 AND memos_read.receiver = '$tmp_my_nick')
-					THEN 0 ELSE 1
-					END AS newmemo
-					FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
-					WHERE memos.receiver IN ('$tmp_my_nick','')";
+   			CASE
+			WHEN (memos.receiver = '' AND memos.id_memo = memos_read.id_memo
+			 AND memos_read.receiver = '$tmp_my_nick')
+			THEN 0 ELSE 1
+			END AS newmemo
+			FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
+			WHERE memos.receiver IN ('$tmp_my_nick','')";
 	}
-
 
 		$checkRES = mysql_query($checkSQL, $db);
 

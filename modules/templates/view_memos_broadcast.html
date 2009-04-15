@@ -51,13 +51,12 @@ window.location.reload()
 <div id="left_side">
     <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Received Broadcast Memos table</div></h3>
 
-<table width="560" bgcolor="#F6F6F6" >
+<table width="550" bgcolor="#F6F6F6" >
 	<tr bgcolor="#DFDFDF" >
 		<td align="center" width="115"><strong>Title</strong></td>
 		<td align="center" width="106"><a href="index.php?module=view_memos&amp;ob=ob_sender"><strong>Sender</strong></a></td>
 		<td align="center" width="122"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>Date</strong></a></td>
 		<td align="center" width="132"><strong>Message</strong></td>
-		<td align="center" width="74"><a href="index.php?module=view_memos&amp;ob=ob_access"><strong>Access</strong></a></td>
 		<!-- BEGIN: admin_edit_del -->
 	    <td width="75">&nbsp;&nbsp;</td>
 		<!-- END: admin_edit_del -->
@@ -69,7 +68,6 @@ window.location.reload()
 		<td bgcolor="{bg}">{from}</td>
 		<td bgcolor="{bg}">{date}</td>
 		<td bgcolor="{bg}">{msg}</td>
-		<td bgcolor="{bg}">{access}</td>
 <!-- BEGIN: admin_edit_del -->
 	<td bgcolor="{bg}"><a href="index.php?module=post_memo_broadcast&id_memo={id_memo}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a>
         | <a href="index.php?module=post_memo_broadcast&id_memo={id_memo}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
