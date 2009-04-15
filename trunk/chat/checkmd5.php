@@ -1188,42 +1188,12 @@ if (md5(file_get_contents("./style/logo_88x31.gif")) == "31849457de6b49f143990b8
   $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/logo_88x31.gif</span>\n";
 else
   $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/logo_88x31.gif (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/header.css")) == "3d13fad671f9ef243cdbf6b9e0a6964f")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/header.css</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/header.css (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/valid-css.png")) == "b5938c9e5e648c723b1497e5d69966a5")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/valid-css.png</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/valid-css.png (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/content.css")) == "c3b6f1cbab0da6a197ff23383c4abbe8")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/content.css</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/content.css (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/generic.css")) == "bde40b3db3ce695768205bad3cbde2c5")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/generic.css</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/generic.css (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/footer.css")) == "d0c28acb83127a74c6c3799f92bf09dd")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/footer.css</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/footer.css (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/bulle.png")) == "f468b6e0232854662337f9a7ec406602")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/bulle.png</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/bulle.png (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/bulle.gif")) == "5cb30b1cef1eace5198957e8d84cca56")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/bulle.gif</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/bulle.gif (please replace this file by a correct one)</span>\n";
+
+
 if (md5(file_get_contents("./style/check_off.png")) == "3f62eed2a47fdc9457870c7b93300035")
   $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/check_off.png</span>\n";
 else
   $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/check_off.png (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/menu.css")) == "5611ea5f902618fc3a1d888324c1e53a")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/menu.css</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/menu.css (please replace this file by a correct one)</span>\n";
 if (md5(file_get_contents("./style/show.js")) == "68fde759190b3d58950b452f2a2cd85c")
   $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/show.js</span>\n";
 else
@@ -1232,10 +1202,6 @@ if (md5(file_get_contents("./style/check_on.png")) == "3565962cde4d541c51409d64d
   $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/check_on.png</span>\n";
 else
   $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/check_on.png (please replace this file by a correct one)</span>\n";
-if (md5(file_get_contents("./style/valid-xhtml.png")) == "0b778cd2933aca8d9301836ffb30a515")
-  $files_ok[] = "<span style=\"color:#3A3\">ok - ./style/valid-xhtml.png</span>\n";
-else
-  $files_ko[] = "<span style=\"color:#F33\">corrupted - ./style/valid-xhtml.png (please replace this file by a correct one)</span>\n";
 if (md5(file_get_contents("./lib/csstidy-1.2/template1.tpl")) == "a36d1408995bdc517171e06fc8d3d9b5")
   $files_ok[] = "<span style=\"color:#3A3\">ok - ./lib/csstidy-1.2/template1.tpl</span>\n";
 else
