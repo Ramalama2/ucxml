@@ -4,13 +4,13 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
-        <p>Information collected when uploading your account avatar. </p>
+      <p>{LANG.USER_DESCRIPTION}</p>
+      <p>{LANG.USER_TAB_AVATAR_DESCRIPTION}</p>
         <blockquote>
           <ul>
-            <li> - Max file size is 30 Kb</li>
-            <li> - Supported image types are jpg, png or gif</li>
-            <li> - Max image dimensions for avatar is 100x100 px</li>
+            <li> - {LANG.USER_TAB_AVATAR_DESCRIPTION_SIZE}</li>
+            <li> - {LANG.USER_TAB_AVATAR_DESCRIPTION_SUPPORT}</li>
+            <li> - {LANG.USER_TAB_AVATAR_DESCRIPTION_DIM}</li>
           </ul>
         </blockquote>
     </div>
@@ -18,23 +18,23 @@
 
 <div id="main">
 	<ul id="menu">
-  <li id="nav-1"><a href="index.php?module=my_account">My Account</a></li>
-  <li id="nav-2"><a href="index.php?module=my_account_lang">Language</a></li>
-  <li id="nav-3"><a href="index.php?module=my_account_avatar">Avatar</a></li>
-  <li id="nav-4"><a href="index.php?module=my_account_contact">Contact Info</a></li>
-  <li id="nav-5"><a href="index.php?module=my_account_phone">Phone Info</a></li>
+  <li id="nav-1"><a href="index.php?module=my_account">{LANG.USER_TAB_ACCOUNT}</a></li>
+  <li id="nav-2"><a href="index.php?module=my_account_lang">{LANG.USER_TAB_LANG}</a></li>
+  <li id="nav-3"><a href="index.php?module=my_account_avatar">{LANG.USER_TAB_AVATAR}</a></li>
+  <li id="nav-4"><a href="index.php?module=my_account_contact">{LANG.USER_TAB_CONTACT}</a></li>
+  <li id="nav-5"><a href="index.php?module=my_account_phone">{LANG.USER_TAB_PHONE}</a></li>
 </ul>
 
 <div id="contents">
 	<form name="form1" method="post" action="" enctype="multipart/form-data">
 	  <div id="right_side">
 	    <h3>
-	      <div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">My Avatar</div></h3>
+	      <div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.USER_TAB_AVATAR_OPTIONS}</div></h3>
 	    <ul>
-		    <li><a href="#">Save My Avatar</a></li>
+		    <li><a href="#">{LANG.USER_SAVE_AVATAR}</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
               <input type="hidden" name="action" value="edit">
-			  <input type="submit" name="submit_av" value="Save Changes" >
+			  <input type="submit" name="submit_av" value="{LANG.SAVE}" >
 		</div>
 
         	<div align="center">
@@ -44,10 +44,8 @@
 	    </ul>
 	  </div>
 
-
-
 	<div id="left_side">
-	<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit My Custom Avatar</div></h3>
+	<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.USER_TAB_AVATAR_EDIT}</div></h3>
 
 	<!-- BEGIN: error -->
 	<div style="border: 1px solid #DCDCDC; margin: 10px; padding-left: 10px; line-height: 22px;">
@@ -55,11 +53,11 @@
 	</div>
 	<!-- END: error -->
 
-	<div><p><label for="ucp_av_file"><strong>File:  </strong></label>
-	<input type="file" name="av_file" id="ucp_av_file" ></p>
+	<div><p><label for="ucp_av_file"><strong>{LANG.USER_TAB_AVATAR_FILE}: </strong></label>
+	<input type="file" name="av_file" id="ucp_av_file" value="{LANG.USER_TAB_AVATAR_CHOOSE}"></p>
 
    	<p><input type="checkbox" name="av_delete" value="1" id="ucp_av_delete" onclick="if(this.checked){if( document.getElementById('ucp_av_file').value.length ){return false;}}"{delete} >
-	<label for="ucp_av_delete" style="width: auto;">Delete Avatar</label></p>
+	<label for="ucp_av_delete" style="width: auto;">{LANG.USER_TAB_AVATAR_DELETE}</label></p>
 	</div>
 
 	</div>

@@ -17,17 +17,17 @@ function clear_textbox()
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-        <p>Information collected when adding/editing web user information... </p>
+        <p>{LANG.SITE_EDIT_DESCRIPTION_2}</p>
         <blockquote>
           <ul>
-            <li><strong>Username</strong> - User's login name for this web interface</li>
-            <li><strong>Assign Password</strong> - Desired password for user login</li>
-            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
-            <li><strong>Email</strong> - User's email address</li>
-            <li><strong>Account Type</strong> - Assigns Account privileges for this web login.
+            <li><strong>{LANG.SITE_USER}</strong> - {LANG.SITE_DESCRIPTION_USER}</li>
+            <li><strong>{LANG.SITE_PASSWD0}</strong> - {LANG.SITE_DESCRIPTION_PASSWD0}</li>
+            <li><strong>{LANG.SITE_PASSWD1}</strong> - {LANG.SITE_DESCRIPTION_PASSWD1}</li>
+            <li><strong>{LANG.SITE_EMAIL}</strong> - {LANG.SITE_DESCRIPTION_EMAIL}</li>
+            <li><strong>{LANG.SITE_ACCOUNTTYPE}</strong> - {LANG.SITE_DESCRIPTION_ACCOUNTTYPE}
               <ul>
-                <li><em>Admin</em> - Account has access to all parts of web interface.</li>
-                <li><em>User </em>- Account has limited </li>
+                <li><em>{LANG.SITE_ACCOUNTTYPE_ADMIN}</em> - {LANG.SITE_DESCRIPTION_ACCOUNTTYPE_ADMIN}</li>
+                <li><em>{LANG.SITE_ACCOUNTTYPE_USER}</em> - {LANG.SITE_DESCRIPTION_ACCOUNTTYPE_USER}</li>
               </ul>
             </li>
           </ul>
@@ -36,68 +36,75 @@ function clear_textbox()
 
 <div id="main">
 	<ul id="menu">
-  <li id="nav-1"><a href="index.php?module=edit_user&id_user={id_user}">User Account</a></li>
-  <li id="nav-2"><a href="index.php?module=edit_user_phone&id_user={id_user}">User Phone Info</a></li>
-  <li id="nav-3"><a href="index.php?module=edit_user_contact&id_user={id_user}">User Contact Info</a></li>
+  <li id="nav-1"><a href="index.php?module=edit_user&id_user={id_user}">{LANG.SITE_TAB_ACCOUNT}</a></li>
+  <li id="nav-2"><a href="index.php?module=edit_user_phone&id_user={id_user}">{LANG.SITE_TAB_PHONE}</a></li>
+  <li id="nav-3"><a href="index.php?module=edit_user_contact&id_user={id_user}">{LANG.SITE_TAB_CONTACT}</a></li>
 </ul>
 
 <div id="contents">
       <form id="Form" method="post" action="">
 	  <div id="right_side">
-	    <h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
+	    <h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.SITE_EDIT_OPTIONS}</div></h3>
 	    <ul>
-		    <li><a href="">Save a created  user</a></li>
-              <div style="padding-left:20px;padding-bottom:15px;">
-				<input type="hidden" name="id_user" value="{id_user}">
-              <input type="hidden" name="baseauth" value="{baseauth}">
-              <input type="hidden" name="action" value="edit">
-                <!-- BEGIN: notuser -->
-                <input type="submit" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
-                <!-- END: notuser -->
-                <input type="submit" name="submit_save" onClick="return validate_edit_user()" value="  Save  ">
+		    <li><a href="">{SITE_SAVE}</a></li>
+        <div style="padding-left:20px;padding-bottom:15px;">
+			<input type="hidden" name="id_user" value="{id_user}">
+			<input type="hidden" name="baseauth" value="{baseauth}">
+			<input type="hidden" name="action" value="edit">
+			<input type="submit" name="submit_save" value="{LANG.SAVE}">
 		</div>
 
-            <li><a href="">Cancel registration:</a></li>
-			<div style="padding-left:20px;">
-				<input type="submit" class="cancel" name="submit_cancel" value=" Cancel ">
-                <input type="hidden" name="id_user" value="{id_user}">
-				<input type="hidden" name="baseauth" value="{baseauth}">
-				<input type="hidden" name="action" value="edit">
-</div>
+            <li><a href="">{SITE_CANCEL}</a></li>
+		<div style="padding-left:20px;">
+			<input type="submit" class="cancel" name="submit_cancel" value="{LANG.CANCEL}">
+			<input type="hidden" name="id_user" value="{id_user}">
+			<input type="hidden" name="baseauth" value="{baseauth}">
+			<input type="hidden" name="action" value="edit">
+		</div>
+
+                <!-- BEGIN: notuser -->
+            <li><a href="">{SITE_DELETE}</a></li>
+		<div style="padding-left:20px;">
+			<input type="hidden" name="id_user" value="{id_user}">
+            <input type="hidden" name="baseauth" value="{baseauth}">
+            <input type="hidden" name="action" value="edit">
+            <input type="submit" name="submit_delete" onClick="return confirmSubmit()" value="{LANG.DELETE}">
+		</div>
+                <!-- END: notuser -->
 
 	    </ul>
 	  </div>
 
 		<div id="left_side">
-			<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit User</div></h3>
-	    <table width="560" bgcolor="#F6F6F6" >
-			 <td width="118"><label for="username"><strong>Username:</strong></label></td>
+			<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.SITE_EDIT}</div></h3>
+	    <table width="550" bgcolor="#F6F6F6" >
+			 <td width="118"><label for="username"><strong>{SITE_USER}:</strong></label></td>
         <td width="420"><input id="username" class="required" type="text" name="username" size="30" maxlength="30" value="{username}">
         </td>
           <tr>
       <td width="200"></td>
       <td>
         <!-- BEGIN: bad_username -->
-		Username taken, please choose another.
+		{LANG.USER_OTHER}
         <!-- END: bad_username -->
       </td>
     </tr>
       <tr>
-        <td><label for="password0"><strong>Assign Password: </strong></label></td>
+        <td><label for="password0"><strong>{SITE_PASSWD0}: </strong></label></td>
         <td><input id="password0" class="required" type="password" name="password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
         </td>
       </tr>
       <tr>
-        <td><label for="password1"><strong>Repeat Password:</strong></label></td>
+        <td><label for="password1"><strong>{SITE_PASSWD1}:</strong></label></td>
         <td><input id="password1" type="password" name="password1" class="required" equalTo="#password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
         </td>
       </tr>
       <tr>
-        <td><strong>E-mail:</strong></td>
+        <td><strong>{SITE_EMAIL}:</strong></td>
         <td><input type="text" class="email" name="email" size="30" maxlength="50" value="{email}"></td>
       </tr>
       <tr>
-        <td><strong>Account Type:</strong></td>
+        <td><strong>{SITE_ACCOUNTTYPE}:</strong></td>
         <td><select name="account_type">
           <option>{account_type}</option>
           <option>{var_account_type}</option>

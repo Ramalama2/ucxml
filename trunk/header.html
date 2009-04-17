@@ -7,7 +7,7 @@
 	<meta name="keywords" content="{page_keyword}" />
 	<link rel="stylesheet" type="text/css" href="style/style.css" media="screen" />
  	<link rel="stylesheet" type="text/css" href="style/tabs.css" media="screen" />
-	<script src="style/jquery-1.3.js" type="text/javascript"></script> 
+	<script src="style/jquery-1.3.js" type="text/javascript"></script>
 	<script src="style/validate/jquery.validate.js" type="text/javascript"></script>
 
 	<link rel="stylesheet" type="text/css" href="style/facebox/facebox.css" media="screen"/>
@@ -33,11 +33,11 @@
 
 		</div>
         <div id="login">
-		<h2>Logged in as:  {current}</h2>
-	      <a href="index.php?module=my_account&user_id={user_id}">My Account</a> |
-	      <a href="login.php?module=logout">Log out</a><br/>
+		<h2>{LANG.LOGGED}:  {current}</h2>
+	      <a href="index.php?module=my_account&user_id={user_id}">{LANG.MY_ACCOUNT}</a> |
+	      <a href="login.php?module=logout">{LANG.LOGOUT}</a><br/>
 		  <!-- BEGIN: new_memo -->
-		  <a href="index.php?module=view_memos">Messages:</a> [ {memo_count} ]
+		  <a href="index.php?module=view_memos">{LANG.MESSAGES}:</a> [ {memo_count} ]
 		  <!-- END: new_memo -->
 	</div>
 
@@ -45,20 +45,20 @@
 	<img height="40" src="{av}" title="Current Avatar">
 		    </div>
 
-	<h1>Unified Communications solution</h1>
-	<h2>Web portal includes some components from UC</h2>
+	<h1>{LANG.H1}</h1>
+	<h2>{LANG.H2}</h2>
 
 	<div id="submenu" align="center" class="smallgraytext">
-		<a href="index.php">Home</a>
-              | <a href="index.php?module=view_status&status_view={status_view}">Status</a>
+		<a href="index.php">{LANG.HOME}</a>
+              | <a href="index.php?module=view_status&status_view={status_view}">{LANG.STATUS}</a>
               | <a href="index.php?module=view_memos">Memos</a>
               | <a href="../ucxml/chat/">Chat</a>
-              | <a href="index.php?module=view_contacts">Contacts</a>
-              | <a href="index.php?module=view_xcap">XCAP Administration</a>
+              | <a href="index.php?module=view_contacts">{LANG.CONTACTS}</a>
+              | <a href="index.php?module=view_xcap">{LANG.XCAP}</a>
 
         <!-- BEGIN: admin_section -->
-              | <a href="index.php?module=view_phones">Phones Registration</a>
-              | <a href="index.php?module=view_users">Web Users Administration</a>
+              | <a href="index.php?module=view_phones">{LANG.PHONES}</a>
+              | <a href="index.php?module=view_users">{LANG.SITE}</a>
         <!-- END: admin_section -->
 	</div>
 </div>

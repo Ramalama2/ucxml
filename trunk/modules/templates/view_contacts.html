@@ -2,24 +2,6 @@
 
 <script LANGUAGE="JavaScript">
 <!--
-
-function validate_search()
-  {
-	ok=1;
-	errors = "";
-    if(document.forms[0].member_of.value == "error")
-   	{
-		errors += " You have selected a container, please select a category.\n";
-		ok=0;
-	}
-	if(ok == 0)
-	{
-		alert(errors);
-		return false;
-	}
-	else return true;
-  }
-
 function GoTo(sel) {
 var url = sel.options[sel.selectedIndex].value;
 if (url != "#") {
@@ -43,42 +25,34 @@ window.open(url, "_self");
 
 <div class="help">
 	<div style="background: #FFF url(images/logo-contacts-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-        <p>Upon selecting the <strong>CONTACTS'</strong> link you will be presented with the text 'View Contacts in Contact Holder' along side a dropdown menu. This dropdown menu specifies what Contact Holder to show contacts from. Selecting a Contact Holder, then hitting search, will bring up only the contacts within that Contact Holder.</p>
-        <p>There will be 4 columns in the results of your search.</p>
-        <ul>
-          <li><strong>Last, First Name</strong> - The first and last name of the specific contact. This will be the information displayed on the phone to represent this contact.</li>
-          <li><strong>Title</strong> - The title will be displayed along side the Last, First name of the contact in the phone interface.</li>
-          <li><strong>Nickname</strong> - The nickname the contact belongs to. This information will be displayed along side the title, when viewing the contact using the phone interface.</li>
-          <li><strong>Edit/Delete</strong> - Clicking edit will direct you to the contact editing page. Clicking delete will delete this contact from the database.</li>
-        </ul>
-
+        <p>{LANG.CONTACTS_DESCRIPTION}</p>
     </div>
 
 <div id="main">
      <form action="" method="post" id="form1"  style="padding-left:20px">
 	<div id="right_side">
-<h3><div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Contacts Options</div></h3>
+<h3><div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.CONTACTS_OPTIONS}</div></h3>
 	    <ul>
-		<li><a href="">Add new contact</a></li>
+		<li><a href="">{LANG.CONTACTS_ADD}</a></li>
             <div style="padding-left:20px;padding-bottom:15px;">
-                <input type="submit" name="submit_add" value="  Add  ">
+                <input type="submit" name="submit_add" value="{LANG.ADD}">
 	</div>
 
-		<li><a href="">Export contacts</a></li>
+		<li><a href="">{LANG.CONTACTS_EXPORT}</a></li>
             <div style="padding-left:20px;padding-bottom:15px;">
                 <input type="submit" name="submit_export" value="  Export  ">
 	</div>
 
 
-		<li><a href=""> View Contacts in Contact Holder</a></li>
+		<li><a href="">{LANG.CONTACTS_SHOW}</a></li>
             <div style="padding-left:20px;">
               <select name="view_member_of" size="1" onChange="GoTo(this);">
-          <option {sel_all} value="?module=view_contacts&view_member_of=all">- Show All -</option>
-          <option {sel_b512} value="?module=view_contacts&view_member_of=b512">B512</option>
-          <option {sel_b521} value="?module=view_contacts&view_member_of=b521">B521</option>
-          <option {sel_emergency} value="?module=view_contacts&view_member_of=emergency">Emergency</option>
+          <option {sel_all} value="?module=view_contacts&view_member_of=all">- {LANG.SHOWALL} -</option>
+          <option {sel_b512} value="?module=view_contacts&view_member_of=B512">B512</option>
+          <option {sel_b521} value="?module=view_contacts&view_member_of=B521">B521</option>
+          <option {sel_emergency} value="?module=view_contacts&view_member_of=Emergency">Emergency</option>
               </select>
-              <input type="submit" onClick="return validate_search()" name="view" value="Search">
+              <input type="submit" name="view" value="{LANG.SHOW}">
 	</div>
 	    </ul>
 	</div>
@@ -86,15 +60,15 @@ window.open(url, "_self");
 
 <div id="left_side">
 
-	<h3><div style="background: url(images/logo-contacts-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Contacts table</div></h3>
+	<h3><div style="background: url(images/logo-contacts-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.CONTACTS_TABLE}</div></h3>
 
 	 <table width="560" bgcolor="#F6F6F6" >
        <!-- BEGIN: column -->
 	  <tr bgcolor="#DFDFDF" >
-	    <td align="center" width="135"><a href="index.php?module=view_contacts&ob=ob_ln"><strong>Last, First Name</strong></a></td>
-	    <td align="center" width="136"><a href="index.php?module=view_contacts&ob=ob_title"><strong>Title</strong></a></td>
-	    <td align="center" width="122"><a href="index.php?module=view_contacts&ob=ob_nick"><strong>Nickname</strong></a></td>
-	    <td align="center" width="74"><strong>Member Of</strong></td>
+	    <td align="center" width="135"><a href="index.php?module=view_contacts&ob=ob_ln"><strong>{LANG.CONTACTS_LFNAME}</strong></a></td>
+	    <td align="center" width="136"><a href="index.php?module=view_contacts&ob=ob_title"><strong>{LANG.CONTACTS_TITLE}</strong></a></td>
+	    <td align="center" width="122"><a href="index.php?module=view_contacts&ob=ob_nick"><strong>{LANG.SITE_USER}</strong></a></td>
+	    <td align="center" width="74"><strong>{LANG.CONTACTS_MEMBER_OF}</strong></td>
 		<!-- BEGIN: admin_edit_del -->
 	    <td width="69">&nbsp;&nbsp;</td>
 		<!-- END: admin_edit_del -->
@@ -108,8 +82,8 @@ window.open(url, "_self");
 	    <td bgcolor="{bg}">{nick}</td>
 	    <td bgcolor="{bg}">{member_of}</td>
 	<!-- BEGIN: admin_edit_del -->
-	<td bgcolor="{bg}"><a href="index.php?module=edit_contact&id_contact={id_contact}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a>
-        | <a href="index.php?module=edit_contact&id_contact={id_contact}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
+	<td bgcolor="{bg}"><a href="index.php?module=edit_contact&id_contact={id_contact}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.EDIT}</a>
+        | <a href="index.php?module=edit_contact&id_contact={id_contact}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.DELETE}</a></td>
 		<!-- END: admin_edit_del -->
   </tr>
   <!-- END: row -->

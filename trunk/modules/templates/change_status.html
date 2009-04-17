@@ -1,37 +1,37 @@
 <!-- BEGIN: change_status -->
-<form method="post" action="./sendSipMsg.php">
+<form method="post" action="./change_status.php">
 <div>
 
 	<div style="border-bottom: solid #ccc 1px;">
-	<p>Change my Status (<strong>{username}</strong>)</p>
-	<p>to server {Server_Address} on {Server_Port} port</p>
+	<p>{LANG.STATUS_CHANGE} (<strong>{username}</strong>)</p>
+	<p>{LANG.STATUS_TOSERVER} {Server_Address} {LANG.STATUS_ON} {Server_Port} {LANG.STATUS_PORT}</p>
 	</div>
 
 		<table width="400" bgcolor="#F6F6F6" >
 		<tr>
-		  <td width="91">Username:</td>
+		  <td width="91">{LANG.SITE_USER}:</td>
 		  <td><input type="text" name="USER_ID" value="{user_id}"></td>
 		</tr>
 
 		<tr>
-		<td>Status:</td>
+		<td>{LANG.STATUS}:</td>
         <td><select name="status" size="1">
-            <option {available}>Available</option>
-            <option {away}>Away</option>
-	        <option {busy}>Busy</option>
-            <option {unavailable}>Unavailable</option>
+            <option {available}>{LANG.STATUS_AVAILABLE}</option>
+            <option {away}>{LANG.STATUS_AWAY}</option>
+	        <option {busy}>{LANG.STATUS_BUSY}</option>
+            <option {unavailable}>{LANG.STATUS_UNAVAILABLE}</option>
           </select>
         </td>
 		</tr>
 
 		<tr>
-		  <td>Status Message:</td>
+		  <td>{LANG.STATUS_STATUS_MSG}:</td>
 		  <td><input type="text" name="note" value="{my_note}"></td>
 		</tr>
 
 		</table>
 
-	<input type="submit" name="save" value="save">
+	<input type="submit" name="save" value="{LANG.SAVE}">
     <input type="hidden" name="CSeq" value="getCSeg()">
 </div>
 
