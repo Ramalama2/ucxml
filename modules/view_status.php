@@ -31,7 +31,7 @@ if (isset($_POST['save_view']))
 //  FUNCTIONS
 //
 
-function output_view_status ($myID_user)
+function output_view_status ($myID_user, $myUsername)
 {
 	include "language/lang.php";
 	global $db, $xtpl,$xml;
@@ -149,7 +149,7 @@ function output_view_status ($myID_user)
 
 				}
 
-				$theSQL2 = "SELECT username,body FROM presentity WHERE username='$tmp_username'";
+				$theSQL2 = "SELECT username,body FROM presentity WHERE username='$myUsername'";
 				$theRES2 = mysql_query($theSQL2, $db2);
 
             	while($in2=mysql_fetch_object($theSQL2))
@@ -164,9 +164,9 @@ function output_view_status ($myID_user)
 					}
 				}
 
-                     // Output
-                    $xtpl->parse("main");
-                    $xtpl->out("main");
+                // Output
+                $xtpl->parse("main");
+                $xtpl->out("main");
 
 				mysql_close($db2);
 				fclose($sock);
