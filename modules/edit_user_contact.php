@@ -56,15 +56,25 @@ if (isset($_POST['action']))
 				$tmpTitle = $tmp_nick;
 			}
 
+   			if ($tmp_custom_phone != "Create Custom")
+			{
+				//custom_phone changed, save
+				$custom_phone_sql = "custom_phone = '$tmp_custom_phone',";
+			} else {
+				//custom_phone was not changed, dont save
+				$custom_phone_sql = "";
+			}
+
 			$tmpUpdateSQL = "UPDATE contacts SET
 				member_of='$tmp_member_of',
 				display_name= '$tmpTitle',
 				fname='$tmp_fname',
 				lname='$tmp_lname',
+				nick='$tmp_nick',
 				title='$tmp_title',
 				office_phone='$tmp_office_phone',
 				home_phone='$tmp_home_phone',
-				custom_phone='$tmp_custom_phone',
+				$custom_phone_sql
 				custom_number='$tmp_custom_number',
 				cell_phone='$tmp_cell_phone',
 				other_phone='$tmp_other_phone'
