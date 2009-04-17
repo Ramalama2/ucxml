@@ -34,7 +34,7 @@ if (isset($_POST['save_view']))
 function output_view_status ($myID_user)
 {
 	include "language/lang.php";
-	global $db, $xtpl;
+	global $db, $xtpl,$xml;
 	$xtpl=new XTemplate ("modules/templates/view_status.html");
 	$xtpl->assign( 'LANG', $lang );
 
