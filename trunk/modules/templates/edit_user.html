@@ -46,7 +46,7 @@ function clear_textbox()
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.SITE_EDIT_OPTIONS}</div></h3>
 	    <ul>
-		    <li><a href="">{SITE_SAVE}</a></li>
+		    <li><a href="">{LANG.SITE_SAVE}</a></li>
         <div style="padding-left:20px;padding-bottom:15px;">
 			<input type="hidden" name="id_user" value="{id_user}">
 			<input type="hidden" name="baseauth" value="{baseauth}">
@@ -54,7 +54,7 @@ function clear_textbox()
 			<input type="submit" name="submit_save" value="{LANG.SAVE}">
 		</div>
 
-            <li><a href="">{SITE_CANCEL}</a></li>
+            <li><a href="">{LANG.SITE_CANCEL}</a></li>
 		<div style="padding-left:20px;">
 			<input type="submit" class="cancel" name="submit_cancel" value="{LANG.CANCEL}">
 			<input type="hidden" name="id_user" value="{id_user}">
@@ -63,7 +63,7 @@ function clear_textbox()
 		</div>
 
                 <!-- BEGIN: notuser -->
-            <li><a href="">{SITE_DELETE}</a></li>
+            <li><a href="">{LANG.SITE_DELETE}</a></li>
 		<div style="padding-left:20px;">
 			<input type="hidden" name="id_user" value="{id_user}">
             <input type="hidden" name="baseauth" value="{baseauth}">
@@ -78,7 +78,7 @@ function clear_textbox()
 		<div id="left_side">
 			<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.SITE_EDIT}</div></h3>
 	    <table width="550" bgcolor="#F6F6F6" >
-			 <td width="118"><label for="username"><strong>{SITE_USER}:</strong></label></td>
+			 <td width="118"><label for="username"><strong>{LANG.SITE_USER}:</strong></label></td>
         <td width="420"><input id="username" class="required" type="text" name="username" size="30" maxlength="30" value="{username}">
         </td>
           <tr>
@@ -90,21 +90,21 @@ function clear_textbox()
       </td>
     </tr>
       <tr>
-        <td><label for="password0"><strong>{SITE_PASSWD0}: </strong></label></td>
+        <td><label for="password0"><strong>{LANG.SITE_PASSWD0}: </strong></label></td>
         <td><input id="password0" class="required" type="password" name="password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
         </td>
       </tr>
       <tr>
-        <td><label for="password1"><strong>{SITE_PASSWD1}:</strong></label></td>
+        <td><label for="password1"><strong>{LANG.SITE_PASSWD1}:</strong></label></td>
         <td><input id="password1" type="password" name="password1" class="required" equalTo="#password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
         </td>
       </tr>
       <tr>
-        <td><strong>{SITE_EMAIL}:</strong></td>
+        <td><strong>{LANG.SITE_EMAIL}:</strong></td>
         <td><input type="text" class="email" name="email" size="30" maxlength="50" value="{email}"></td>
       </tr>
       <tr>
-        <td><strong>{SITE_ACCOUNTTYPE}:</strong></td>
+        <td><strong>{LANG.SITE_ACCOUNTTYPE}:</strong></td>
         <td><select name="account_type">
           <option>{account_type}</option>
           <option>{var_account_type}</option>
