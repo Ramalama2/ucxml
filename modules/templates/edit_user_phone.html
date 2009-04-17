@@ -5,41 +5,37 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
-        <p>Information collected when editing your account... </p>
-        <blockquote>
-          <ul>
-            <li><strong>Username</strong> - User's login name for this web interface</li>
-            <li><strong>Assign Password</strong> - Desired password for user login</li>
-            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
-            <li><strong>Email</strong> - User's email address</li>
-          </ul>
-        </blockquote>
+        <p>{LANG.PHONES_EDIT_DESCRIPTION_2}</p>
+        <ul>
+            <li><strong>{LANG.PHONES_MAC}</strong> - {LANG.PHONES_DESCRIPTION_MAC}.</li>
+            <li><strong>{LANG.PHONES_NUMBER}</strong> - {LANG.PHONES_DESCRIPTION_NUMBER}.</li>
+            <li><strong>{LANG.PHONES_ACCESS} </strong> - {LANG.PHONES_DESCRIPTION_ACCESS}.</li>
+      </ul>
     </div>
 
 <div id="main">
 	<ul id="menu">
-  <li id="nav-1"><a href="index.php?module=edit_user&id_user={id_user}">User Account</a></li>
-  <li id="nav-2"><a href="index.php?module=edit_user_phone&id_user={id_user}">User Phone Info</a></li>
-  <li id="nav-3"><a href="index.php?module=edit_user_contact&id_user={id_user}">User Contact Info</a></li>
+  <li id="nav-1"><a href="index.php?module=edit_user&id_user={id_user}">{LANG.SITE_TAB_ACCOUNT}</a></li>
+  <li id="nav-2"><a href="index.php?module=edit_user_phone&id_user={id_user}">{LANG.SITE_TAB_PHONE}</a></li>
+  <li id="nav-3"><a href="index.php?module=edit_user_contact&id_user={id_user}">{LANG.SITE_TAB_CONTACT}</a></li>
 </ul>
 
 <div id="contents">
 	<form name="form1" method="post" action="">
 	<div id="right_side">
-	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
+	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.PHONES_EDIT_OPTIONS}</div></h3>
 	    <ul>
-			<li><a href="#">Save a created  phone</a></li>
+			<li><a href="#">{LANG.PHONES_SAVE}</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
 				<input type="hidden" name="id_phone" value="{id_phone}">
 				<input type="hidden" name="baseauth" value="{baseauth}">
 				<input type="hidden" name="action" value="edit">
-				<input type="submit" name="submit_save_phone" value="  Save  ">
+				<input type="submit" name="submit_save_phone" value="{LANG.SAVE}">
 			</div>
 
-			<li><a href="#">Cancel registration:</a></li>
+			<li><a href="#">{LANG.PHONES_CANCEL}</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
-				<input type="submit" class="cancel" name="submit_cancel_phone" value=" Cancel ">
+				<input type="submit" class="cancel" name="submit_cancel_phone" value="{LANG.CANCEL}">
 				<input type="hidden" name="id_phone" value="{id_phone}">
 				<input type="hidden" name="baseauth" value="{baseauth}">
 				<input type="hidden" name="action" value="edit">
@@ -48,27 +44,27 @@
 	</div>
 
 <div id="left_side">
-<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Phone Registration</div></h3>
+<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.PHONES_EDIT}</div></h3>
 	<table width="560" bgcolor="#F6F6F6" >
-	<p>Phone used by:  <strong>{nick}</strong></p>
+	<p>{LANG.PHONES_USED}:  <strong>{nick}</strong></p>
       <tr>
-        <td><label for ="MAC"><strong>MAC address (required): </strong></label></td>
+        <td><label for ="MAC"><strong>{LANG.PHONES_MAC} ({LANG.REQUIRED}): </strong></label></td>
         <td><input id ="MAC" class="required" type="text" name="MAC" size="20" value="{MAC}"></td>
       </tr>
 
 		<tr>
-	        <td><label for ="number"><strong>Phone Number (required): </strong></label></td>
+	        <td><label for ="number"><strong>{LANG.PHONES_NUMBER} ({LANG.REQUIRED}): </strong></label></td>
 	        <td><input id ="number" class="required number" type="text" name="number" size="20" value="{number}"></td>
 		</tr>
 
 		<tr>
-			<td><strong>Access Level:</strong></td>
+			<td><strong>{LANG.PHONES_ACCESS}:</strong></td>
 			<td><select name="access_lvl">
-				<option {selected_restricted}>Restricted</option>
-				<option {selected_unrestricted}>Unrestricted</option>
-				<option {selected_unknown}>Unknown</option>
+				<option {selected_restricted}>{LANG.PHONES_RESTRICTED}</option>
+				<option {selected_unrestricted}>{LANG.PHONES_UNRESTRICTED}</option>
+				<option {selected_unknown}>{LANG.PHONES_UNKNOWN}</option>
 	          </select>
-          * </td>
+          </td>
 		</tr>
 	</table></div>
 </form>

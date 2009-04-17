@@ -3,7 +3,7 @@
 <!--
   function clear_textbox()
 	{
-		if (document.forms[0].custom_phone.value == "Create Custom")
+		if (document.forms[0].custom_phone.value == "{LANG.CONTACTS_CUSTOM}")
 		{
 			document.forms[0].custom_phone.value =  "";
 		}
@@ -14,21 +14,12 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-contacts-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-        <p>Information collected when creating/editing a contact... </p>
+        <p>{LANG.CONTACTS_EDIT_DESCRIPTION_2}</p>
           <ul>
-            <li><strong>Title</strong> - Text you would like to be displayed along side the last, first name of the contact</li>
-            <li><strong>Member Of</strong> - Contact Holder that contact is contained in.</li>
-            <li><strong>First Name</strong> - The first name is the 2nd part of the contact label on the phone </li>
-            <li><strong>Last Name</strong> - The last name is the first part of the contact label on the phone </li>
-            <li><strong>Nickname</strong> - The nickname the contact belongs to. This information will be displayed along side the title, when viewing the contact using the phone interface.</li>
-            <li><strong>Phone Numbers</strong> - Each contact holds 4 phone numbers.
-              <ul>
-                <li><em>Office Phone</em></li>
-                <li><em>Home Phone</em></li>
-                <li><em>Cell Phone</em></li>
-                <li><em>Other Phone</em></li>
-              </ul>
-            </li>
+            <li><strong>{LANG.CONTACTS_MEMBER_OF}</strong> - {LANG.CONTACTS_DESCRIPTION_MEMBEROF}</li>
+            <li><strong>{LANG.CONTACTS_LFNAME}</strong> - {LANG.CONTACTS_DESCRIPTION_LFNAME}</li>
+            <li><strong>{LANG.CONTACTS_TITLE}</strong> - {LANG.CONTACTS_DESCRIPTION_TITLE}</li>
+            <li><strong>{LANG.CONTACTS_PHONES}</strong> - {LANG.CONTACTS_DESCRIPTION_PHONE}</li>
         </ul>
 	</div>
 
@@ -36,29 +27,29 @@
       <form id="Form" method="post" action="">
 	  <div id="right_side">
 	    <h3>
-	      <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Contact options</div></h3>
+	      <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0"></div>{LANG.CONTACTS_EDIT_OPTIONS}</h3>
 	    <ul>
-<!-- BEGIN: admin_owner -->
-		    <li><a href="#">Save a created  contact</a></li>
+			<!-- BEGIN: admin_owner -->
+		    <li><a href="#">{LANG.CONTACTS_SAVE}</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
               <input type="hidden" name="id_contact" value="{id_contact}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
-              <input type="submit" name="submit_save" value="Save">
-		</div>
+              <input type="submit" name="submit_save" value="{LANG.SAVE}">
+			</div>
 
-            <li><a href="#">Delete Contact:</a></li>
+            <li><a href="#">{LANG.CONTACTS_DELETE}</a></li>
                   <div style="padding-left:20px;padding-bottom:15px;">
-				  <input type="submit" class="cancel" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
+			  <input type="submit" class="cancel" name="submit_delete" onClick="return confirmSubmit()" value="{LANG.DELETE}">
                   <input type="hidden" name="id_contact" value="{id_contact}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 				</div>
-<!-- END: admin_owner -->
+			<!-- END: admin_owner -->
 
-			<li><a href="#">Cancel editing:</a></li>
+			<li><a href="#">{LANG.CONTACTS_CANCEL}</a></li>
 				<div style="padding-left:20px">
-                <input type="submit" class="cancel" name="submit_cancel" value=" Cancel ">
+                <input type="submit" class="cancel" name="submit_cancel" value="{LANG.CANCEL}">
                   <input type="hidden" name="id_contact" value="{id_contact}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
@@ -69,12 +60,12 @@
 		<div id="left_side">
 			<h3>
 			  <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Contacts</div></h3>
-			  <p>This contact created by <strong>{owner}</strong> modified at: <strong>{date}</strong></p>
+			  <p>{LANG.CONTACTS_FROM} <strong>{owner}</strong> {LANG.AT}: <strong>{date}</strong></p>
 	    <table width="550" bgcolor="#F6F6F6" >
     	<tr>
-        <td width="144"><label for ="member_of"><strong>Member of (required): </strong></label></td>
+        <td width="144"><label for ="member_of"><strong>{LANG.CONTACTS_MEMBER_OF} ({LANG.REQUIRED}): </strong></label></td>
         <td width="404"><select id = "member_of" title="Please select something!" class="required" name="member_of" size="1">
-            <option value="">Choose</option>
+            <option value="">- {LANG.CHOOSE} -</option>
             <option {sel_b512}>B512</option>
             <option {sel_b521}>B521</option>
             <option {sel_emergency}>Emergency</option>
@@ -88,17 +79,17 @@
       </tr>
 
       <tr>
-        <td><label for ="fname"><strong>First Name (required): </strong></label></td>
+        <td><label for ="fname"><strong>{LANG.CONTACTS_FNAME} ({LANG.REQUIRED}): </strong></label></td>
         <td><input id ="fname" class="required" type="text" name="fname" size="25" minlength="2" maxlength="30" value="{fname}"></td>
       </tr>
 
       <tr>
-        <td><label for ="lname"><strong>Last Name (required): </strong></label></td>
+        <td><label for ="lname"><strong>{LANG.CONTACTS_LNAME} ({LANG.REQUIRED}): </strong></label></td>
         <td><input id ="lname" class="required" type="text" name="lname" size="25" minlength="2" maxlength="30" value="{lname}"></td>
       </tr>
 
       <tr>
-        <td><strong>Title:</strong></td>
+        <td><strong>{LANG.CONTACTS_TITLE}:</strong></td>
         <td><input type="text" name="title" size="25" maxlength="50" value="{title}"></td>
       </tr>
 
@@ -108,27 +99,27 @@
       </tr>
 
       <tr>
-        <td width="25"><strong>Phone Numbers</strong></td>
+        <td width="25"><strong>{LANG.CONTACTS_PHONES}</strong></td>
         <td>&nbsp;</td>
       </tr>
 
       <tr>
-        <td width="25"><strong>Office Phone:</strong></td>
+        <td width="25"><strong>{LANG.CONTACTS_OFFICE}:</strong></td>
         <td><input type="text" name="office_phone" size="20" maxlength="20" value="{office_phone}"> </td>
       </tr>
 
       <tr>
-        <td width="25"><strong>Home Phone:</strong></td>
+        <td width="25"><strong>{LANG.CONTACTS_HOME}:</strong></td>
         <td><input type="text" name="home_phone" size="20" maxlength="20" value="{home_phone}"> </td>
       </tr>
 
       <tr>
-        <td width="25"><strong>Cell Phone:</strong></td>
+        <td width="25"><strong>{LANG.CONTACTS_CELL}:</strong></td>
         <td><input type="text" name="cell_phone" size="20" maxlength="20" value="{cell_phone}"> </td>
       </tr>
 
       <tr>
-        <td width="25"><strong>Other Phone:</strong></td>
+        <td width="25"><strong>{LANG.CONTACTS_OTHER}:</strong></td>
         <td><input type="text" name="other_phone" size="20" maxlength="20" value="{other_phone}"> </td>
       </tr>
 
@@ -146,13 +137,10 @@
 <!-- END: main -->
 
 <!-- BEGIN: view_contact -->
-		<div id="left_side">
-			<h3>
-			  <div style="background: url(images/logo-contacts-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Contacts</div></h3>
-			  <p>This contact created by <strong>{owner}</strong> modified at: <strong>{date}</strong></p>
+	  <p>{LANG.CONTACTS_FROM} <strong>{owner}</strong> {LANG.AT}: <strong>{date}</strong></p>
 	    <table width="560" bgcolor="#F6F6F6" >
     	<tr>
-        <td width="144">Member of: </td>
+        <td width="144">{LANG.CONTACTS_MEMBER_OF}: </td>
         <td width="404"><strong>{member_of}</strong></td>
 		</tr>
 
@@ -162,16 +150,16 @@
       </tr>
 
       <tr>
-        <td>First Name: </td>
+        <td>{LANG.CONTACTS_FNAME}: </td>
         <td><strong>{fname}</strong></td>
       </tr>
       <tr>
-        <td>Last Name: </td>
+        <td>{LANG.CONTACTS_LNAME}: </td>
         <td><strong>{lname}</strong></td>
       </tr>
 
       <tr>
-        <td>Title: </td>
+        <td>{LANG.CONTACTS_TITLE}: </td>
         <td><strong>{title}</strong></td>
       </tr>
 
@@ -181,34 +169,34 @@
       </tr>
 
       <tr>
-        <td width="25"><strong>Phone Numbers</strong></td>
+        <td width="25"><strong>{LANG.CONTACTS_PHONES}</strong></td>
         <td>&nbsp;</td>
       </tr>
 
       <tr>
-        <td width="25">Office Phone:</td>
+        <td width="25">{LANG.CONTACTS_OFFICE}:</td>
         <td><strong>{office_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">Home Phone:</td>
+        <td width="25">{LANG.CONTACTS_HOME}:</td>
         <td><strong>{home_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">Cell Phone:</td>
+        <td width="25">{LANG.CONTACTS_CELL}:</td>
         <td><strong>{cell_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">Other Phone:</td>
+        <td width="25">{LANG.CONTACTS_OTHER}:</td>
         <td><strong>{other_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">Custom Phone:</td>
+        <td width="25">{LANG.CONTACTS_CUSTOM}:</td>
         <td><strong>{custom_phone}</strong></td>
       </tr>
 
-		  </table></div>
+  </table>
 <!-- END: view_contact -->

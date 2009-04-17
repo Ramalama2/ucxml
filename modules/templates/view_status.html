@@ -3,25 +3,14 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-status-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-        <p>This section allows you to select a status and message to display to everyone in the directory.<br>
-You can also view the status of other people.</p>
-        <h4>Show All Users</h4>
-      <blockquote>
-          To view the status of view, select Show All Users. You will then   be shown 3 options.
-        <ol>
-            <li><strong>Show All </strong> - View all users.</li>
-            <li><strong>Available </strong> - View only available users.</li>
-            <li><strong>Unavailable</strong> - View only unavailable users.</li>
-          </ol>
-        <p align="left"></p>
-      </blockquote>
-</div>
+        <p>{LANG.STATUS_DESCRIPTION}</p>
+	</div>
 
 <div id="main">
 
      <form action="" method="post" id="form1"  style="padding-left:20px">
 	<div id="right_side">
-	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Status Options</div></h3>
+	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.STATUS_OPTIONS}</div></h3>
 	    <ul>
 		<li><a href="">Change my status</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
@@ -42,7 +31,7 @@ You can also view the status of other people.</p>
 
 <!-- my status -->
 	<div id="left_side">
-	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">My Status</div></h3>
+	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_MYSTATUS}</div></h3>
 	<table width="560" bgcolor="#F6F6F6" border="1px">
 		<tr>
           <td width="144">My username{my_username}</td>
@@ -56,14 +45,14 @@ You can also view the status of other people.</p>
 <!-- ///my status -->
 
 	<div id="left_side">
-	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Status table</div></h3>
+	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_TABLE}</div></h3>
 
 	 <table width="560" bgcolor="#F6F6F6" >
        <!-- BEGIN: column -->
 	  <tr bgcolor="#DFDFDF" >
-	    <td align="center" width="107"><a href="index.php?module=view_status&ob=ob_n"><strong>Username</strong></a></td>
-	    <td align="center" width="35"><a href="index.php?module=view_status&ob=ob_status"><strong>Status</strong></a></td>
-	    <td align="center" width="224"><strong>Status msg</strong></td>
+	    <td align="center" width="107"><a href="index.php?module=view_status&ob=ob_n"><strong>{LANG.SITE_USER}</strong></a></td>
+	    <td align="center" width="35"><a href="index.php?module=view_status&ob=ob_status"><strong>{LANG.STATUS}</strong></a></td>
+	    <td align="center" width="224"><strong>{LANG.STATUS_STATUS_MSG}</strong></td>
       </tr>
   <!-- END: column -->
 

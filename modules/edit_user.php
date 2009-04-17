@@ -48,7 +48,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			if ($un = mysql_fetch_assoc($other_usernames))
 			{
 				//There is already a user with this name
-				render_HeaderSidebar("UCxml web Portal - User Edit");
+				render_HeaderFooter("UCxml web Portal - User Edit");
 				$user = "bad";
 				output_edit_user($tmp_id_user,$user);
 				render_Footer();
@@ -154,18 +154,20 @@ function output_edit_user ($myID_user,$user)
 		}
 	}
 
-	if ($user == "bad")
-	{
-		$xtpl->parse("main.bad_username");
-		$xtpl->assign("email",defang_input($_POST['email']));
-		$xtpl->assign("username",defang_input($_POST['username']));
-		$xtpl->assign("password",defang_input($_POST['password']));
 		if ($_SESSION['user_id'] == $in['id_user'] || $in['id_user'] == '0')
 		{
 			//dont show delete
 		} else {
 			$xtpl->parse("main.notuser");
 		}
+
+	if ($user == "bad")
+	{
+		$xtpl->parse("main.bad_username");
+		$xtpl->assign("email",defang_input($_POST['email']));
+		$xtpl->assign("username",defang_input($_POST['username']));
+		$xtpl->assign("password",defang_input($_POST['password']));
+
 		if (defang_input($_POST['account_type']) == "Admin")
 		{
 			$xtpl->assign("account_type","Admin");

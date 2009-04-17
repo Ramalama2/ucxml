@@ -5,49 +5,44 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
-        <p>Information collected when editing your phone... </p>
+      <p>{LANG.USER_DESCRIPTION}</p>
+        <p>{LANG.USER_TAB_PHONE_EDIT_DESCRIPTION_2}</p>
         <blockquote>
           <ul>
+              <li><strong>{LANG.PHONES_ACCESS} </strong> - {LANG.PHONES_DESCRIPTION_ACCESS}.</li>
+              <li><strong>{LANG.USER_TAB_PHONE_EDIT_REFRESH}</strong> - {LANG.USER_TAB_PHONE_EDIT_DES_REFRESH}.</li>
+              <li><strong>{LANG.USER_TAB_PHONE_EDIT_SECURITY}</strong> - {LANG.USER_TAB_PHONE_EDIT_DES_SECURITY}.</li>
+              <li><strong>{LANG.USER_TAB_PHONE_EDIT_ORDER}</strong> - {LANG.USER_TAB_PHONE_EDIT_DES_ORDER}.</li>
           </ul>
-          <p># If this option is checked, all phones will need to be registered in order to access the directory.
-Phone security prevents unregistered phones from viewing the directory. If phone
-		security is disabled, all unregistered phones will have access to objects
-		marked 'Public'.</p>
-<p>	Order Memos By - This adjusts the default order of memos when viewing them on the phone interface or on the web interface.
-    * by Date - Memos will be ordered in reverse chronological order. (Newest memos shown first)
-    * by Sender - Memos will be ordered alphabetically based on who posted the memo.
-    * by Title - Memos will be ordered alphabetically based on the title</p>
-
         </blockquote>
     </div>
 
 
 <div id="main">
 	<ul id="menu">
-  <li id="nav-1"><a href="index.php?module=my_account">My Account</a></li>
-  <li id="nav-2"><a href="index.php?module=my_account_lang">Language</a></li>
-  <li id="nav-3"><a href="index.php?module=my_account_avatar">Avatar</a></li>
-  <li id="nav-4"><a href="index.php?module=my_account_contact">Contact Info</a></li>
-  <li id="nav-5"><a href="index.php?module=my_account_phone">Phone Info</a></li>
+  <li id="nav-1"><a href="index.php?module=my_account">{LANG.USER_TAB_ACCOUNT}</a></li>
+  <li id="nav-2"><a href="index.php?module=my_account_lang">{LANG.USER_TAB_LANG}</a></li>
+  <li id="nav-3"><a href="index.php?module=my_account_avatar">{LANG.USER_TAB_AVATAR}</a></li>
+  <li id="nav-4"><a href="index.php?module=my_account_contact">{LANG.USER_TAB_CONTACT}</a></li>
+  <li id="nav-5"><a href="index.php?module=my_account_phone">{LANG.USER_TAB_PHONE}</a></li>
 </ul>
 
 <div id="contents">
 	<form id="form1" method="post" action="">
 	<div id="right_side">
-	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Phones options</div></h3>
+	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.USER_TAB_PHONE_EDIT_OPTIONS}</div></h3>
 	    <ul>
-			<li><a href="#">Save a created  phone</a></li>
+			<li><a href="#">{LANG.USER_SAVE_PHONE}</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
 				<input type="hidden" name="id_phone" value="{id_phone}">
 				<input type="hidden" name="baseauth" value="{baseauth}">
 				<input type="hidden" name="action" value="edit">
-				<input type="submit" name="submit_save_phone" value="  Save  ">
+				<input type="submit" name="submit_save_phone" value="{LANG.SAVE}">
 			</div>
 
-			<li><a href="#">Cancel registration:</a></li>
+			<li><a href="#">{LANG.USER_CANCEL}</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
-				<input type="submit" class="cancel" name="submit_cancel_phone" value=" Cancel ">
+				<input type="submit" class="cancel" name="submit_cancel_phone" value="{LANG.CANCEL}">
 				<input type="hidden" name="id_phone" value="{id_phone}">
 				<input type="hidden" name="baseauth" value="{baseauth}">
 				<input type="hidden" name="action" value="edit">
@@ -56,45 +51,45 @@ Phone security prevents unregistered phones from viewing the directory. If phone
 	</div>
 
 <div id="left_side">
-<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Phone Registration</div></h3>
+<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.USER_TAB_PHONE_EDIT}</div></h3>
 	<table width="350" bgcolor="#F6F6F6" >
 
-		<p>Phone used by:  <strong>{nick}</strong></p>
+		<p>{LANG.PHONES_USED}:  <strong>{nick}</strong></p>
 		<p>&nbsp;</p>
-		<p>MAC Address:  <strong>{MAC}</strong></p>
+		<p>{LANG.PHONES_MAC}:  <strong>{MAC}</strong></p>
 		<p>&nbsp;</p>
-		<p>Phone Number:  <strong>{number}</strong></p>
+		<p>{LANG.PHONES_NUMBER}:  <strong>{number}</strong></p>
 		<p>&nbsp;</p>
 
 	<tr>
-		<td><strong>Access Level:</strong></td>
+		<td><strong>{LANG.PHONES_ACCESS}:</strong></td>
 		<td><select name="access_lvl">
-			<option {selected_unknown}>Unknown</option>
-			<option {selected_restricted}>Restricted</option>
-			<option {selected_unrestricted}>Unrestricted</option>
-	        </select> * </td>
+				<option {selected_restricted}>{LANG.PHONES_RESTRICTED}</option>
+				<option {selected_unrestricted}>{LANG.PHONES_UNRESTRICTED}</option>
+				<option {selected_unknown}>{LANG.PHONES_UNKNOWN}</option>
+	        </select> </td>
 	</tr>
 
 	<tr>
-		<td><strong>Set refresh: </strong></td>
+		<td><strong>{LANG.USER_TAB_PHONE_REFRESH}: </strong></td>
 		<td><select name="refresh" size="1">
 			<option {sel_60} value="60">60</option>
 			<option {sel_120} value="120">120</option>
 			<option {sel_480} value="480">480</option>
-			</select> seconds </td>
+			</select> {LANG.USER_TAB_PHONE_SECONDS} </td>
 	</tr>
 
 	<tr>
-		<td><strong>Enable Phone Security</strong></td>
+		<td><strong>{LANG.USER_TAB_PHONE_SECURITY}</strong></td>
 		<td><input name="ph_sec" type="checkbox" value="ph_sec" {ph_sec_check} ></td>
 	</tr>
 
 	<tr>
-		<td><strong>Order Memos in phone By:</strong></td>
+		<td><strong>{LANG.USER_TAB_PHONE_ORDER}:</strong></td>
 		<td><select name="memo_ob">
-				<option {sel_sender} value="sender">Sender</option>
-				<option {sel_date} value="date">Date</option>
-				<option {sel_title} value="title">Title</option>
+				<option {sel_sender} value="sender">{LANG.USER_TAB_PHONE_SENDER}</option>
+				<option {sel_date} value="date">{LANG.USER_TAB_PHONE_DATE}</option>
+				<option {sel_title} value="title">{LANG.USER_TAB_PHONE_TITLE}</option>
 			</select>
 		</td>
 	</tr>

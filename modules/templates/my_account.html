@@ -18,14 +18,14 @@ function clear_textbox()
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-      <p>The <strong>{LANG.MY_ACCOUNT} </strong>page will show you a your account informations which you have ability to change them.</p>
-        <p>Information collected when editing your account... </p>
+      <p>{LANG.USER_DESCRIPTION}</p>
+        <p>{LANG.USER_EDIT_DESCRIPTION_2}</p>
         <blockquote>
           <ul>
-            <li><strong>Username</strong> - User's login name for this web interface</li>
-            <li><strong>Assign Password</strong> - Desired password for user login</li>
-            <li><strong>Repeat Password</strong> - Repeat the password for assurance that is has been typed correctly </li>
-            <li><strong>Email</strong> - User's email address</li>
+            <li><strong>{LANG.SITE_USER}</strong> - {LANG.SITE_DESCRIPTION_USER}</li>
+            <li><strong>{LANG.SITE_PASSWD0}</strong> - {LANG.SITE_DESCRIPTION_PASSWD0}</li>
+            <li><strong>{LANG.SITE_PASSWD1}</strong> - {LANG.SITE_DESCRIPTION_PASSWD1}</li>
+            <li><strong>{LANG.SITE_EMAIL}</strong> - {LANG.SITE_DESCRIPTION_EMAIL}</li>
           </ul>
         </blockquote>
     </div>
@@ -33,30 +33,30 @@ function clear_textbox()
 
 <div id="main">
 	<ul id="menu">
-  <li id="nav-1"><a href="index.php?module=my_account">My Account</a></li>
-  <li id="nav-2"><a href="index.php?module=my_account_lang">Language</a></li>
-  <li id="nav-3"><a href="index.php?module=my_account_avatar">Avatar</a></li>
-  <li id="nav-4"><a href="index.php?module=my_account_contact">Contact Info</a></li>
-  <li id="nav-5"><a href="index.php?module=my_account_phone">Phone Info</a></li>
+  <li id="nav-1"><a href="index.php?module=my_account">{LANG.USER_TAB_ACCOUNT}</a></li>
+  <li id="nav-2"><a href="index.php?module=my_account_lang">{LANG.USER_TAB_LANG}</a></li>
+  <li id="nav-3"><a href="index.php?module=my_account_avatar">{LANG.USER_TAB_AVATAR}</a></li>
+  <li id="nav-4"><a href="index.php?module=my_account_contact">{LANG.USER_TAB_CONTACT}</a></li>
+  <li id="nav-5"><a href="index.php?module=my_account_phone">{LANG.USER_TAB_PHONE}</a></li>
 </ul>
 
 <div id="contents">
       <form id="Form" method="post" action="">
 	  <div id="right_side">
 	    <h3>
-	      <div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">My Account Options</div></h3>
+	      <div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.USER_EDIT_OPTIONS}</div></h3>
 	    <ul>
-		    <li><a href="#">Save My Account</a></li>
+		    <li><a href="#">{LANG.USER_SAVE}</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
 		<input type="hidden" name="id_user" value="{id_user}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
-              <input type="submit" name="submit_save_account" value="  Save  ">
+              <input type="submit" name="submit_save_account" value="{LANG.SAVE}">
 		</div>
 
-            <li><a href="#">Cancel changes:</a></li>
+            <li><a href="#">{LANG.USER_CANCEL}</a></li>
 			<div style="padding-left:20px;">
-			<input type="submit" class="cancel" name="submit_cancel_account" value=" Cancel ">
+			<input type="submit" class="cancel" name="submit_cancel_account" value="{LANG.CANCEL}">
             <input type="hidden" name="id_user" value="{id_user}">
             <input type="hidden" name="baseauth" value="{baseauth}">
             <input type="hidden" name="action" value="edit">
@@ -67,32 +67,32 @@ function clear_textbox()
 
 		<div id="left_side">
 			<h3>
-			  <div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit My Account</div></h3>
+			  <div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.USER_EDIT}</div></h3>
 	    <table width="550" bgcolor="#F6F6F6" >
-			 <td width="118"><label for="username"><strong>Username:</strong></label></td>
+			 <td width="118"><label for="username"><strong>{LANG.SITE_USER}:</strong></label></td>
         <td width="420"><input id="username" class="required" type="text" name="username" size="30" maxlength="30" value="{username}">
-           </td>
+        </td>
           <tr>
       <td width="200"></td>
       <td>
         <!-- BEGIN: bad_username -->
-		Username taken, please choose another.
+		{LANG.USER_OTHER}
         <!-- END: bad_username -->
       </td>
     </tr>
       <tr>
-        <td><label for="password0"><strong>Assign Password: </strong></label></td>
+        <td><label for="password0"><strong>{LANG.SITE_PASSWD0}: </strong></label></td>
         <td><input id="password0" class="required" type="password" name="password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
         </td>
       </tr>
       <tr>
-        <td><label for="password1"><strong>Repeat Password:</strong></label></td>
+        <td><label for="password1"><strong>{LANG.SITE_PASSWD1}:</strong></label></td>
         <td><input id="password1" type="password" name="password1" class="required" equalTo="#password0" onFocus="clear_textbox();" size="30" minlength="5" maxlength="30" value="{fake_password}">
         </td>
       </tr>
       <tr>
-        <td><strong>E-mail:</strong></td>
-        <td><input type="text" name="email" size="30" maxlength="50" value="{email}"></td>
+        <td><strong>{LANG.SITE_EMAIL}:</strong></td>
+        <td><input type="text" class="email" name="email" size="30" maxlength="50" value="{email}"></td>
       </tr>
 		  </table>
   </div>

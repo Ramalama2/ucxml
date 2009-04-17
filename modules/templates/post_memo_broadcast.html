@@ -3,39 +3,36 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-memos-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-<p>There is a 5 forms collected when creating/editing a memo...</p>
+<p>{LANG.MEMOS_EDIT_DESCRIPTION_2}</p>
     <ul>
-          <li><strong>Title</strong> - Text that will be displayed on the phone to represent the memo in the list of memos</li>
-          <li><strong>Date</strong> - The date, that automatically created.</li>
-          <li><strong>Message</strong> - Text that will be displayed in the body of the memo.</li>
-          <li><strong>Sender</strong> - The username of the person who posted this memo.</li>
-
+          <li><strong>{LANG.MEMOS_TITLE}</strong> - {LANG.MEMOS_DESCRIPTION_TITLE}</li>
+          <li><strong>{LANG.MEMOS_MESSAGE}</strong> - {LANG.MEMOS_DESCRIPTION_MESSAGE}</li>
     </ul>
     </div>
 
       <form id="Form" method="post" action="">
 	  <div id="right_side">
-	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Edit Memos options</div></h3>
+	    <h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.MEMOS_EDIT_OPTIONS}</div></h3>
 	    <ul>
-		    <li><a href="">Save a created  memo</a></li>
+		    <li><a href="">{LANG.MEMOS_POST}</a></li>
               <div style="padding-left:20px;padding-bottom:15px;">
 			  <input type="hidden" name="id_memo" value="{id_memo}">
               <input type="hidden" name="baseauth" value="{baseauth}">
               <input type="hidden" name="action" value="edit">
-              <input type="submit" name="submit_save" value="  Save  ">
+              <input type="submit" name="submit_save" value="{LANG.POST}">
 		</div>
 
-            <li><a href="">Cancel Memos:</a></li>
+            <li><a href="">{LANG.MEMOS_CANCEL}</a></li>
 		<div style="padding-left:20px;padding-bottom:15px;">
-		  <input type="submit" class="cancel" name="submit_cancel" value=" Cancel ">
+		  <input type="submit" class="cancel" name="submit_cancel" value="{LANG.CANCEL}">
                   <input type="hidden" name="id_memo" value="{id_memo}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
 		</div>
 
-            <li><a href="">Delete  Memos:</a></li>
+            <li><a href="">{LANG.MEMOS_DELETE}</a></li>
                   <div style="padding-left:20px;">
-		  <input type="submit" class="cancel" name="submit_delete" onClick="return confirmSubmit()" value=" Delete ">
+		  <input type="submit" class="cancel" name="submit_delete" onClick="return confirmSubmit()" value="{LANG.DELETE}">
                   <input type="hidden" name="id_memo" value="{id_memo}">
                   <input type="hidden" name="baseauth" value="{baseauth}">
                   <input type="hidden" name="action" value="edit">
@@ -45,18 +42,18 @@
 	  </div>
 
 	<div id="left_side">
-	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Edit Memos</div></h3>
+	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.MEMOS_EDIT}</div></h3>
 		<table width="560" bgcolor="#F6F6F6" >
-		<p>This Memo is from <strong>{from}</strong> at: <strong>{date}</strong></p>
-		<p><strong>All fields are required!</strong></p>
+		<p>{LANG.MEMOS_FROM} <strong>{from}</strong> {LANG.AT}: <strong>{date}</strong></p>
+		<p><strong>{LANG.REQUIRED_ALL}</strong></p>
 
 		<tr>
-		  <td width="91"><label for ="title"><strong>Title:</strong></label></td>
+		  <td width="91"><label for ="title"><strong>{LANG.MEMOS_TITLE}:</strong></label></td>
 		  <td><input id="title" class="required" type="text" name="title" size="30" maxlength="30" value="{title}">	</td>
 		</tr>
 
 		<tr>
-		  <td><label for ="msg"><strong>Message:</strong></label></td>
+		  <td><label for ="msg"><strong>{LANG.MEMOS_MESSAGE}:</strong></label></td>
 		  <td><textarea id="msg" class="required" name="msg" value="msg">{msg}</textarea></td>
 		</tr>
 
@@ -70,18 +67,18 @@
 
 <!-- BEGIN: view_memo -->
 <div >
-	  <p>This Memo is from <strong>{from}</strong> posted: <strong>{date}</strong></p>
+	  <p>{LANG.MEMOS_FROM} <strong>{from}</strong> {LANG.MEMOS_POSTED}: <strong>{date}</strong></p>
 	<div id="avatar">
 	<img src="{av}" title="Current Avatar" alt="avatar">
 	</div>
 		<table width="560" bgcolor="#F6F6F6" >
 		<tr>
-		  <td width="91">Title:</td>
+		  <td width="91">{LANG.MEMOS_TITLE}:</td>
 		  <td><strong>{title}</strong></td>
 		</tr>
 
 		<tr>
-		  <td>Message:</td>
+		  <td>{LANG.MEMOS_MESSAGE}:</td>
 		  <td><strong>{msg}</strong></td>
 		</tr>
 

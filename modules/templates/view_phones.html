@@ -3,41 +3,31 @@
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-phone-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-        <p>The <strong>PHONE REGISTRATION</strong> page will show you a list of all of the phones
-		that have been registered. Phones are registered by their MAC address.
-		The  page will also show you the phones that have attempted to enter the directory that are not registered.
-		These phones will be labeled  as 'Unkown'.</p>
-        <p>There is a 4 column table on the Phones screen.</p>
-        <ul>
-          <li><strong>MAC Address</strong> - Mac address (physical address) of the phone.</li>
-          <li><strong>Last, First Name </strong> - The name of the person who uses the phone.</li>
-          <li><strong>Number</strong>- The extension of the phone. </li>
-          <li><strong>Access Level </strong> - The Access level of the phone, either public or private.</li>
-        </ul>
+        <p>{LANG.PHONES_DESCRIPTION}</p>
 	</div>
 
 <div id="main">
      <form action="" method="post" id="form1"  style="padding-left:20px">
 	<div id="right_side">
-<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">Phones Options</div></h3>
+<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.PHONES_OPTIONS}</div></h3>
 	    <ul>
-		<li><a href="">Add new phone</a></li>
+		<li><a href="">{LANG.PHONES_ADD}</a></li>
             <div style="padding-left:20px;padding-bottom:15px;">
-            <input type="submit" name="submit_add" value="  Add  "></div>
+            <input type="submit" name="submit_add" value="{LANG.ADD}"></div>
 		</ul>
 	</div>
      </form>
 
 <div id="left_side">
 
-	<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">Phone Registration table</div></h3>
+	<h3><div style="background: url(images/logo-phone-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.PHONES_TABLE}</div></h3>
 
 	 <table width="560" bgcolor="#F6F6F6" >
 	  <tr bgcolor="#DFDFDF" >
-	    <td align="center" width="135"><a href="index.php?module=view_phones&ob=ob_MAC"><strong>MAC Address</strong></a></td>
-	    <td align="center" width="136"><a href="index.php?module=view_phones&ob=ob_n"><strong>Username</strong></a></td>
-	    <td align="center" width="122"><a href="index.php?module=view_phones&ob=ob_num"><strong>Number</strong></a></td>
-	    <td align="center" width="74"><a href="index.php?module=view_phones&ob=ob_access_lvl"><strong>Access Level</strong></a></td>
+	    <td align="center" width="135"><a href="index.php?module=view_phones&ob=ob_MAC"><strong>{LANG.PHONES_MAC}</strong></a></td>
+	    <td align="center" width="136"><a href="index.php?module=view_phones&ob=ob_n"><strong>{LANG.SITE_USER}</strong></a></td>
+	    <td align="center" width="122"><a href="index.php?module=view_phones&ob=ob_num"><strong>{LANG.PHONES_NUMBER}</strong></a></td>
+	    <td align="center" width="74"><a href="index.php?module=view_phones&ob=ob_access_lvl"><strong>{LANG.PHONES_ACCESS}</strong></a></td>
 	    <td width="69">&nbsp;&nbsp;</td>
         </tr>
 
@@ -47,8 +37,8 @@
 	    <td bgcolor="{bg}">{nick}</td>
 	    <td bgcolor="{bg}">{number}</td>
 	    <td bgcolor="{bg}">{access_lvl}</td>
-		<td bgcolor="{bg}"><a href="index.php?module=edit_phone&id_phone={id_phone}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">edit</a> 
-        | <a href="index.php?module=edit_phone&id_phone={id_phone}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">delete</a></td>
+		<td bgcolor="{bg}"><a href="index.php?module=edit_phone&id_phone={id_phone}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.EDIT}</a>
+        | <a href="index.php?module=edit_phone&id_phone={id_phone}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.DELETE}</a></td>
   </tr>
   <!-- END: row -->
   </table></div>
