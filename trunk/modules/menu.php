@@ -25,8 +25,9 @@ if ($_SESSION['account_type'] == 'Admin')
 $xtpl->parse("main");
 $xtpl->out("main");
 
-render_Footer();
+
 $xtpl=new XTemplate ("footer.html");
+$xtpl->assign( 'LANG', $lang );
 
 if ($_SESSION['account_type'] == 'Admin')
 {

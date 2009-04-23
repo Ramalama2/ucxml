@@ -186,9 +186,7 @@ function render_HeaderFooter ($mytitle)
 			FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
 			WHERE memos.receiver IN ('$tmp_my_nick','')";
 	}
-
 		$checkRES = mysql_query($checkSQL, $db);
-
 		if($in2 = mysql_fetch_assoc($checkRES))
 		{
 	   		$newmemo = $in2['newmemo'];

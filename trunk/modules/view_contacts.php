@@ -59,19 +59,19 @@ function output_view_contacts ()
 			$loc_sql = "";
 			$xtpl->assign("sel_all",'selected');
 
-		} elseif ($view_member_of == 'b512') {
+		} elseif ($view_member_of == 'B512') {
 			//user wants to view people unavailable, status
-			$loc_sql = "WHERE contacts.member_of = 'b512'";
+			$loc_sql = "WHERE contacts.member_of = 'B512'";
 			$xtpl->assign("sel_b512",'selected');
 
-		} elseif ($view_member_of == 'b521') {
+		} elseif ($view_member_of == 'B521') {
 			//user wants to view people unavailable, status
-			$loc_sql = "WHERE contacts.member_of = 'b521'";
+			$loc_sql = "WHERE contacts.member_of = 'B521'";
 			$xtpl->assign("sel_b521",'selected');
 
-		} elseif ($view_member_of == 'emergency') {
+		} elseif ($view_member_of == 'Emergency') {
 			//user wants to view people unavailable, status
-			$loc_sql = "WHERE contacts.member_of = 'emergency'";
+			$loc_sql = "WHERE contacts.member_of = 'Emergency'";
 			$xtpl->assign("sel_emergency",'selected');
 		}
     }
@@ -93,7 +93,7 @@ function output_view_contacts ()
 
 //must query twice because edit_user from edit_user_phone OR edit_user_contact is canceling without new==true
 //not ideal solution
-	$theSQL = "SELECT id_contact,fname,lname,nick,title FROM contacts";
+	$theSQL = "SELECT id_contact,fname,lname,nick,title FROM ucxml.contacts";
 	$theRES = mysql_query($theSQL, $db);
 	while ($in = mysql_fetch_assoc($theRES))
 	{
@@ -114,7 +114,7 @@ function output_view_contacts ()
 		$xtpl->parse("main.column");//show columns
 		//user has submited a search, show the contacts
 
-		$theSQL = "SELECT id_contact,fname,lname,nick,title,member_of FROM contacts ORDER BY $ob";
+		$theSQL = "SELECT id_contact,fname,lname,nick,title,member_of FROM contacts $loc_sql ORDER BY $ob";
 		$theRES = mysql_query($theSQL, $db);
 		$oddRow = true;
 		while ($in = mysql_fetch_assoc($theRES))
