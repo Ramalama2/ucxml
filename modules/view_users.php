@@ -10,18 +10,18 @@
 	Copyright (c) 2005, McFadden Associates.  All rights reserved.
 */
 
-
 if (isset($_POST['submit_add']))
 {
 	// add user
 	$tmp_id_user = create_guid($tmp_id_user);
 	$tmp_owner = $_SESSION['user_id'];
+	$domain = "zt.voip.cnl.tuke.sk";
 
 	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('$tmp_id_user')";
 	mysql_query("INSERT INTO contacts (id_contact,owner) VALUES ('".$tmp_id_user."','".$tmp_owner."')");
 	mysql_query("INSERT INTO phone (id_phone) VALUES ('".$tmp_id_user."')");
-
-	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
+	$tmpInitSQL2 = "INSERT INTO presentity (id) VALUES ('".$tmp_id_user."', '".$domain."')";
+	if ($tmpInitRES = mysql_query($tmpInitSQL, $db) && $tmpInitRES2 = mysql_query($tmpInitSQL, $db2))
 	{
 	// OK, show editor
 		header("Location: index.php?module=edit_user&id_user=$tmp_id_user&new=true");

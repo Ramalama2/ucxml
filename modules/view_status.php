@@ -20,10 +20,16 @@ if (isset($_POST['save_view']))
 
 	header("Location: index.php?module=view_status&status_view=$tmp_status_view");
 
-} else {
+} 
+elseif (isset($_POST['submit_add']))
+{
+	header("Location: index.php?module=change_status");
+}
+
+else {
 	//display contacts
 	render_HeaderFooter("UCxml web Portal - Phone Status");
-	output_view_status($tmp_id_user);
+	output_view_status($tmp_id_user, $tmp_username);
 	render_Footer();
 }
 
@@ -37,7 +43,6 @@ function output_view_status ($myID_user, $myUsername)
 	global $db, $xtpl,$xml;
 	$xtpl=new XTemplate ("modules/templates/view_status.html");
 	$xtpl->assign( 'LANG', $lang );
-
 
   	$checkSQL = "SELECT status_view FROM users WHERE id_user='$myID_user'";
 	$checkRES = mysql_query($checkSQL, $db);
@@ -114,16 +119,14 @@ function output_view_status ($myID_user, $myUsername)
 
 				$xtpl->parse("main.column");//show columns
 
-				if(($sock=fsockopen("xxx.xxx.xxx.xxx",3306,$errorno,$errorstr,60)))
+				if(($sock=fsockopen("5.5.6.12",3306,$errorno,$errorstr,60)))
 				{
-					$db2 = mysql_connect("xxx.xxx.xxx.xxx","watcher","presence");
-					mysql_select_db("opensips",$db2);
-
-				$theSQL = "SELECT username,body FROM presentity $loc_sql";
-				$theRES = mysql_query($theSQL, $db2);
+				$theSQL = "SELECT username,body FROM opensips.presentity WHERE username != '$myUsername'";
+				$theRES = mysql_query($theSQL, $db);
 
 				$oddRow = true;
-            	while($in=mysql_fetch_object($theSQL))
+	
+	            	while($in=mysql_fetch_object($theRES))
 				{
                     if ($oddRow)
                     {
@@ -132,35 +135,31 @@ function output_view_status ($myID_user, $myUsername)
                             $xtpl->assign("bg","#DFDFDF");
                     }
 
-					$time = date("Y/m/d H:i:s");
-                    $xtpl->assign ("time", $time);
-
-					$xml = simplexml_load_string($in['body']);
+				$xml = simplexml_load_string($in->body);
 					if($xml->tuple->status->basic=="open")
 					{
-						$xtpl->assign ("username", $in['username']);
-						$xtpl->assign ("status", $in2['.$xml->tuple->im:im.']);
-						$xtpl->assign ("note", $in['.$xml->tuple->note.']);
+						$xtpl->assign ("username", $in->username);
+						$xtpl->assign ("status", "".$xml->tuple->note."");
+						//$xtpl->assign ("note", $in->body);
 					}
-					$xtpl->assign ("body", $in['body']);
-
+					var_dump($xml);
 					$xtpl->parse("main.row");
 					$oddRow = !$oddRow;
 
 				}
 
-				$theSQL2 = "SELECT username,body FROM presentity WHERE username='$myUsername'";
-				$theRES2 = mysql_query($theSQL2, $db2);
+				$theSQL2 = "SELECT username,body FROM opensips.presentity WHERE username='$myUsername'";
+				$theRES2 = mysql_query($theSQL2, $db);
 
-            	while($in2=mysql_fetch_object($theSQL2))
+
+		            	while($in2=mysql_fetch_object($theRES2))
 				{
-
-					$xml = simplexml_load_string($in2['body']);
+					$xml = simplexml_load_string($in2->body);
 					if($xml->tuple->status->basic=="open")
 					{
-						$xtpl->assign ("my_username", $in2['username']);
-						$xtpl->assign ("my_status", $in2['.$xml->tuple->im:im.']);
-						$xtpl->assign ("my_note", $in2['.$xml->tuple->note.']);
+						$xtpl->assign ("my_username", $in2->username);
+						$xtpl->assign ("my_status", "".$xml->tuple->note."");
+						//$xtpl->assign ("my_note", $in2->$xml->tuple->note);
 					}
 				}
 
@@ -168,12 +167,11 @@ function output_view_status ($myID_user, $myUsername)
                 $xtpl->parse("main");
                 $xtpl->out("main");
 
-				mysql_close($db2);
 				fclose($sock);
 				}
 		else
 		{
-			echo "Servre seems Down";
+			echo "Server seems Down";
 		}
 	}
 }

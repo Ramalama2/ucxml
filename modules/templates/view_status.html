@@ -14,7 +14,7 @@
 	    <ul>
 		<li><a href="">Change my status</a></li>
 			<div style="padding-left:20px;padding-bottom:15px;">
-			<input type="submit" src="facebox" name="submit_add" value="  Save  ">
+			<input type="submit" src="facebox" name="submit_add" value=" Change ">
             		</div>
 		<li><a href=""> View users status</a></li>
 			<div style="padding-left:20px;">
@@ -34,9 +34,9 @@
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_MYSTATUS}</div></h3>
 	<table width="560" bgcolor="#F6F6F6" border="1px">
 		<tr>
-          <td width="144">My username{my_username}</td>
-       	  <td width="144">My status{my_status}</td>
-		  <td width="144">My away msg {my_note}</td>
+          <td width="144">{my_username}</td>
+       	  <td width="144">{my_status}</td>
+		  <td width="144">{my_note}</td>
 		</tr>
 	</table>
 <p></p>
@@ -46,13 +46,13 @@
 
 	<div id="left_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_TABLE}</div></h3>
-
+{body}
 	 <table width="560" bgcolor="#F6F6F6" >
        <!-- BEGIN: column -->
 	  <tr bgcolor="#DFDFDF" >
 	    <td align="center" width="107"><a href="index.php?module=view_status&ob=ob_n"><strong>{LANG.SITE_USER}</strong></a></td>
 	    <td align="center" width="35"><a href="index.php?module=view_status&ob=ob_status"><strong>{LANG.STATUS}</strong></a></td>
-	    <td align="center" width="224"><strong>{LANG.STATUS_STATUS_MSG}</strong></td>
+	    <td align="center" width="224"><strong>{LANG.STATUS_MSG}</strong></td>
       </tr>
   <!-- END: column -->
 
