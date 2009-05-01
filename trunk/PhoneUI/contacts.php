@@ -15,7 +15,7 @@ require_once "../lib/utils.php";
 require_once "../lib/mysql.php";
 
 require_once "lib/urlbase.php";
-require_once "lib/security.php";//grab mac address info, along with global preferences
+//require_once "lib/security.php";//grab mac address info, along with global preferences
 require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
@@ -109,8 +109,9 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 	$xtpl->out("main");
 
 } else {
-
+list_contacts ($in['title'],$MAC);
 }
+
 
 //
 //
@@ -118,7 +119,7 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 //
 
 //
-function list_contacts ($member_cat,$obID,$MAC)
+function list_contacts ($member_cat,$MAC)
 {
 /*
 	This function lists the contacts in specifed category:
@@ -145,8 +146,7 @@ function list_contacts ($member_cat,$obID,$MAC)
 	//Number of contacts to be displayed per page
 	$countQuery = "SELECT
 		COUNT(contacts.id_contact) AS total
-		FROM contacts
-		WHERE contacts.member_of = '$obID'";
+		FROM contacts";
 	$theCountRES = mysql_query($countQuery, $db);
 
 	//Fetch total items
@@ -176,7 +176,6 @@ function list_contacts ($member_cat,$obID,$MAC)
 			contacts.other_phone AS other_phone,
 			contacts.title AS title
 			FROM contacts
-			WHERE contacts.member_of = '$obID'
 			ORDER BY contacts.display_name
 			$limitstart";
 		$theBrowseRES = mysql_query($browseQuery, $db);
@@ -213,7 +212,6 @@ function list_contacts ($member_cat,$obID,$MAC)
 				$xtpl->assign("title","More");
 				$xtpl->assign("url_base",$URLBase);
 				$xtpl->assign("MAC",$MAC);
-				$xtpl->assign("obID",$obID);
 				$xtpl->assign("start",$start);
 				$xtpl->parse("main.contact_more");
 			}

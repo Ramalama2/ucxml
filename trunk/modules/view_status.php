@@ -119,7 +119,7 @@ function output_view_status ($myID_user, $myUsername)
 
 				$xtpl->parse("main.column");//show columns
 
-				if(($sock=fsockopen("5.5.6.12",3306,$errorno,$errorstr,60)))
+				if(($sock=fsockopen("5.5.6.12",5060,$errorno,$errorstr,60)))
 				{
 				$theSQL = "SELECT username,body FROM opensips.presentity WHERE username != '$myUsername'";
 				$theRES = mysql_query($theSQL, $db);

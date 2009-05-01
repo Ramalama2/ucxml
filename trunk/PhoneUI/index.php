@@ -8,6 +8,7 @@ require_once "lib/security.php";//grab mac address info, along with global prefe
 require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
+/*
 if ($ph_sec == 'Yes' && $registered == 'FALSE')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
@@ -24,10 +25,10 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 	{
 		if ($nm['total'] == '0')
 		{
-			/*
-				MAC is not in database or it is not a valid MAC
-				add MAC address to database, but do not give privileges, label as unknown
-			*/
+			
+//				MAC is not in database or it is not a valid MAC
+//				add MAC address to database, but do not give privileges, label as unknown
+			
 			$tmp_id_phone = create_guid($tmp_id_phone);
 			$tmpInitSQL = "INSERT INTO phone (id_phone,MAC,access_lvl) VALUES ('$tmp_id_phone','$MAC','unknown')";
 
@@ -45,6 +46,8 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 	//Display picture menu
 	require_once "templates/img_menu.php";
 }
+*/
+	require_once "templates/img_menu.php";
 
 function newMemo()
 {
@@ -52,7 +55,7 @@ function newMemo()
 	global $URLBase;
 
 	// prehrat zvuk a presmerovat na URL obrazovky SMSiek
-	SetRefresh(1 /* time */, $URLBase."?show=1&readmemo=1" /* DST page */ );
+	SetRefresh(1, $URLBase."?show=1&readmemo=1" );
 	header("Content-Type: audio/basic");
 	readfile("lib/sound.raw");
 //	$this->db->Close();
