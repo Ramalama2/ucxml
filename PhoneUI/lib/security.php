@@ -24,12 +24,12 @@ if (isset($_GET['name']))
 {
 	// Get MAC Address
 	$MAC = defang_input($_GET['name']);
-
+//	$MAC = $HTTP_SERVER_VARS['REMOTE_ADDR'];
 	// SQL to check MAC
 	$macQuery = "SELECT
 	phone.id_phone AS phone_id_phone,
-	phone.access_lvl AS access_lvl,
-	phone.nick AS nick
+	phone.access_lvl AS phone_access_lvl,
+	phone.nick AS nick,
 	phone.refresh AS refresh
 	FROM phone
 	WHERE phone.MAC = '$MAC'
@@ -61,4 +61,5 @@ if (isset($_GET['name']))
 	$registered = 'FALSE';
 	$access_lvl = "Restricted";
 }
+
 ?>

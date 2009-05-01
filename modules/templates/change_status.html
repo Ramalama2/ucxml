@@ -1,18 +1,13 @@
 <!-- BEGIN: change_status -->
-<form method="post" action="./change_status.php">
+<form method="post" action="">
 <div>
 
 	<div style="border-bottom: solid #ccc 1px;">
-	<p>{LANG.STATUS_CHANGE} (<strong>{username}</strong>)</p>
+	<p>{LANG.STATUS_CHANGE} (<strong>{username} {user_id}</strong>)</p>
 	<p>{LANG.STATUS_TOSERVER} {Server_Address} {LANG.STATUS_ON} {Server_Port} {LANG.STATUS_PORT}</p>
 	</div>
 
 		<table width="400" bgcolor="#F6F6F6" >
-		<tr>
-		  <td width="91">{LANG.SITE_USER}:</td>
-		  <td><input type="text" name="USER_ID" value="{user_id}"></td>
-		</tr>
-
 		<tr>
 		<td>{LANG.STATUS}:</td>
         <td><select name="status" size="1">
@@ -32,7 +27,7 @@
 		</table>
 
 	<input type="submit" name="save" value="{LANG.SAVE}">
-    <input type="hidden" name="CSeq" value="getCSeg()">
+    <input name="CSeq" value="{CSeq}">
 </div>
 
 </form>

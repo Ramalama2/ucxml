@@ -46,8 +46,8 @@ hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0;
 	#wrap #pic #slogan { padding: 15px 30px 10px 30px;}
 	#wrap #pic #slogan a {text-decoration: none;}
 
-#wrap #user { float: right; height: auto; width: 500px; margin-right: 70px;overflow: hidden; border: dashed 1px #dadada; padding: 5px 10px 10px 10px; text-align:left;}
-#wrap #admin { float: right; height: auto; width: 500px; overflow: hidden; border: dashed 1px #dadada; margin-right:70px; padding: 5px 10px 10px 10px; text-align:left; margin-bottom: 10px;}
+#wrap #user { float: right; height: auto; width: 480px; margin-right: 70px;overflow: hidden; border: dashed 1px #dadada; padding: 5px 10px 10px 10px; text-align:left;}
+#wrap #admin { float: right; height: auto; width: 480px; overflow: hidden; border: dashed 1px #dadada; margin-right:70px; padding: 5px 10px 10px 10px; text-align:left; margin-bottom: 10px;}
 
 #wrap #menu_user { padding: 0; margin:0; margin-left:30px; margin-bottom: 280px; }
 #wrap #menu_admin { padding: 0; margin:0; margin-left:30px; }

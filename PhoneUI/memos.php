@@ -19,36 +19,30 @@ require_once "lib/security.php";//grab mac address info, along with global prefe
 require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
-if ($ph_sec == 'Yes' && $registered == 'FALSE')
+/*if ($ph_sec == 'Yes' && $registered == 'FALSE')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";
 
-} elseif (!$_GET['mem']) {
-
-	if(checkMemo())	// check if we have new memo
-	{
-	   newMemo();
-	}
-
-} elseif (isset($_GET['mem'])) {
+} else
+*/
+if (isset($_GET['mem'])) {
 	// We are selecting a memo
 	$memID = defang_input($_GET['mem']);
 	$memQuery = "SELECT
 	memos.date AS date,
 	memos.id_memo AS id_memo,
 	memos.title AS title,
-	memos.access AS access,
 	memos.msg AS msg,
 	memos.sender AS sender
-	FROM memos WHERE memos.id_memo='$memID_memo'";
+	FROM memos WHERE memos.id_memo='$memID'";
 	$thememRES = mysql_query($memQuery, $db);
 
 	if ($in = mysql_fetch_assoc($thememRES))
 	{
 		$xtpl=new XTemplate ("templates/memo_detail.xml");
-		if ($in['access'] == 'Public' || $access_lvl == 'Unrestricted')
-		{
+//		if ($access_lvl == 'Restricted')
+//		{
 			$tmp_unixtime = $in['date'];
 			$displaydate = date("n/d, h:ia Y" ,$tmp_unixtime);
 
@@ -57,19 +51,18 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 			$xtpl->assign("sender",$in['sender']);
 			$xtpl->assign("msg",$in['msg']);
 
-		} else {
-			//User did not meet security requirements to view memo
-			$xtpl->assign("msg",'You must be using an Unrestricted phone to view this message');
-		}
+//		} else {
+//			//User did not meet security requirements to view memo
+//			$xtpl->assign("msg",'You must be using an Unrestricted phone to view this message');
+//		}
 		$xtpl->parse("main");
 		$xtpl->out("main");
 	}
 } else {
-	//echo $registered;
-	list_memos ($MAC,$registered);
+	list_memos ($MAC);
 }
 
-function list_memos ($MAC,$registered)
+function list_memos ($MAC)
 {
 	/*
 		Set page count to 28, count how many memos are going to be listed.
@@ -96,19 +89,9 @@ function list_memos ($MAC,$registered)
 			$limitstart = 'LIMIT 0,'.$per_page;
 		}
 
-	if ($access_lvl == 'Restricted')
-	{
-		//User is restricted, apply security settings to show only 'Public' access
-		$securityQuery = "WHERE memos.access = 'Public'";
-	} else {
-		//Security settings are not in place, or is restricted, do not restrict to 'Public' access
-		$securityQuery = "";
-	}
-
 	$countQuery = "SELECT
 		COUNT(memos.id_memo) AS total
-		FROM memos
-		$securityQuery";
+		FROM memos";
 
 	$theCountRES = mysql_query($countQuery, $db);
 	//Fetch total items
@@ -120,31 +103,18 @@ function list_memos ($MAC,$registered)
 	//Calc remaining rows
 	$remainingRows = ($totalCount - $start);
 
-
 	//Get order by preferences
 	if (isset($_GET['ob']))
 	{
-		//user has chosen an option from the phone
-		$memo_ob = defang_input($_GET['ob']);
-		$ob_saved =  "&amp;ob=".$memo_ob; //save for the 'more' object
-		if ($memo_ob == "Date")
-		{
-			//User has selected on phone to make order DESC, to show the oldest first
-			$memo_ob_sql = $memo_ob." DESC";
-		} else {
-			//User has selected on phone to order by sender or title, which default to ASC order
-			$memo_ob_sql = $memo_ob;
-		}
-	} else {
 		//user is using the settings according to the global preferences
 		$ob_saved =  ""; //do not save for 'more' object, user has not selected a custom order
-		if ($memo_ob == "Date")
+		if ($memo_ob == "date")
 		{
 			//global says to order by date, make order DESC, to show the oldest first
-			$memo_ob_sql = $memo_ob." DESC";
+			$memo_ob_sql = "ORDER BY $memo_ob. DESC";
 		} else {
 			//global says to order by sender or title, dont need to order by DESC
-			$memo_ob_sql = $memo_ob;
+			$memo_ob_sql = "ORDER BY $memo_ob";
 		}
 	}
 
@@ -153,13 +123,10 @@ function list_memos ($MAC,$registered)
 		memos.id_memo AS id_memo,
 		memos.title AS title,
 		memos.date AS date,
-		memos.access AS access,
 		memos.sender AS sender
 		FROM memos
-		$securityQuery
-		ORDER BY memos.$memo_ob_sql
+		$memo_ob_sql
 		$limitstart";
-
 
 	if ($remainingRows <= $per_page)
 		{
@@ -174,9 +141,9 @@ function list_memos ($MAC,$registered)
 
 			while ($in2 = mysql_fetch_assoc($theBrowseRES))
 			{
-				if ($in2['access'] == 'Public' || $access_lvl == 'Unrestricted')
-				{
-					//User is registered, or a public Container is listed, or object security is turned off
+//				if ($access_lvl == 'Unrestricted')
+//				{
+					//User is registered
 					$tmp_unixtime = $in2['date'];
 					$displaydate = date("n/d-" ,$tmp_unixtime);
 
@@ -189,9 +156,10 @@ function list_memos ($MAC,$registered)
 					$xtpl->assign("MAC",$MAC);
 					$xtpl->assign("ID_memo",$in2['id_memo']);
 					$xtpl->parse("main.memo_menu");
-				}
+//				}
 			}
 
+	
 		// If there are more entries, show Next
 		if ($remainingRows > $per_page)
 		{
@@ -203,22 +171,7 @@ function list_memos ($MAC,$registered)
 			$xtpl->assign("MAC",$MAC);
 			$xtpl->parse("main.memo_more");
 		}
-
-		// Display objects that can re-order the memos
-		$order_title[0] = 'Sender';
-		$order_title[1] = 'Date';
-		$order_title[2] = 'Title';
-		$number = 3;
-		$x = 0;
-		while ($x < $number) {
-			$xtpl->assign("title",$order_title[$x]);
-			$xtpl->assign("ob",$order_title[$x]);
-			$xtpl->assign("url_base",$URLBase);
-			$xtpl->assign("MAC",$MAC);
-			$xtpl->parse("main.order_opt");
-		++$x;
-		}
-
+		
 		//output
 		$xtpl->parse("main");
 		$xtpl->out("main");
@@ -229,41 +182,6 @@ function list_memos ($MAC,$registered)
 	}
 }
 
-// check if exists new memo in db with my username */
-function checkMemo()
-{
-	global $db;
-	$countQuery2 = "SELECT count(*),
-   					CASE
-					WHEN (memos.receiver = '' AND memos.id_memo = memos_read.id_memo
-						 AND memos_read.receiver = '$my_nick')
-					THEN 0 ELSE 1
-					END AS newmemo
-					FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
-					WHERE memos.receiver IN ('$my_nick','') AND memos.new=1";
 
-	$tmpUpdateSQL = "UPDATE memos SET
-					memos.new ='0'
-					WHERE memos.receiver='$my_nick' AND memos.id_memo ='$tmp_id_memo'";
-
-	$updateQuery = "UPDATE memos_read SET
-					memos_read.receiver = '$my_nick',
-					memos_read.new = '0'
-					WHERE id_memo_read ='$tmp_id_memo_read'";
-
-		$checkRES = mysql_query($countQuery2, $db);
-//	return $browseQuery[0]['newmemo'];
-}
-
-/* Prehraje zvuk a urobi navigaciu na stranku SMSkar_a */
-function newMemo()
-{
-	// prehrat zvuk a presmerovat na URL obrazovky SMSiek
-	SetRefresh(1 /* time */, $URLBase."?show=1&readsms=1" /* DST page */ );
-	header("Content-Type: audio/basic");
-	readfile("sound.raw");
-//	$this->db->Close();
-	exit(0);
-}
 
 ?>

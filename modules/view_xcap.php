@@ -6,12 +6,7 @@
 	Unified Communications solution with Open Source applications - UCxml
 */
 
-
-if (isset($_GET['id_xcap']))
-{
-	$tmp_id_xcap = defang_input($_GET['id_xcap']);
-}
-$tmp_username = defang_input($_SESSION['user_name']);
+	$tmp_username = defang_input($_SESSION['user_name']);
 
 if (isset($_POST['action']))
 {
@@ -22,18 +17,17 @@ if (isset($_POST['action']))
 		if (isset($_POST['submit_save']))
 		{
 			// Saving
-			$tmp_id_xcap = defang_input($_POST['id_xcap']);
 			$tmp_doc = defang_input($_POST['doc']);
 
-			$tmpUpdateSQL = "UPDATE xcap SET
+			$tmpUpdateSQL = "UPDATE opensips.xcap SET
 				doc = '$tmp_doc'
-				WHERE ID = '$tmp_id_xcap'";
+				WHERE username = '$tmp_username'";
 
-			if (mysql_query($tmpUpdateSQL, $db2))
+			if (mysql_query($tmpUpdateSQL, $db))
 			{
-				header("Location: index.php?module=view_memos");
+				header("Location: index.php?module=view_xcap");
 			} else {
-				echo "Unable to save memo.";
+				echo "Unable to save doc.";
 			}
 
 		} else if (isset($_POST['submit_cancel'])) {
@@ -67,14 +61,10 @@ function output_edit_xcap ($myName)
 	$xtpl=new XTemplate ("modules/templates/view_xcap.html");
 	$xtpl->assign( 'LANG', $lang );
 
-	$db2 = mysql_connect("xxx.xxx.xxx.xxx","watcher","presence");
-	mysql_select_db("opensips",$db2);
-
-	$theSQL = "SELECT id, username, doc, source FROM xcap WHERE username = '$myName'";
-	$theRES = mysql_query($theSQL, $db2);
+	$theSQL = "SELECT username, doc, source FROM opensips.xcap WHERE username = '$myName'";
+	$theRES = mysql_query($theSQL, $db);
 	if ($in = mysql_fetch_assoc($theRES))
 	{
-		$xtpl->assign("id_xcap",$in['id_xcap']);
 		$xtpl->assign("doc",$in['doc']);
 		$xtpl->assign("source",$in['source']);       
 		$xtpl->assign("owner",$in['username']);
