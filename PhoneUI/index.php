@@ -8,8 +8,8 @@ require_once "lib/security.php";//grab mac address info, along with global prefe
 require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
-/*
-if ($ph_sec == 'Yes' && $registered == 'FALSE')
+
+if ($ph_sec == 'yes' && $registered == 'FALSE')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";
@@ -46,8 +46,6 @@ if ($ph_sec == 'Yes' && $registered == 'FALSE')
 	//Display picture menu
 	require_once "templates/img_menu.php";
 }
-*/
-	require_once "templates/img_menu.php";
 
 function newMemo()
 {

@@ -1,12 +1,6 @@
 <!-- BEGIN: main -->
 <CiscoIPPhoneMenu>
 <Title>Your Status ({tmpyour})</Title>
-<Prompt>Select message to change.</Prompt>
-
-	<MenuItem>
-		<Name>{msg}</Name>
-		<URL>{url_base}status.php?name={MAC}&amp;my_status="true"</URL>
-	</MenuItem>
 
 	<MenuItem>
 		<Name>Back to Main Menu</Name>
