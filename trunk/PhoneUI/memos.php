@@ -19,13 +19,13 @@ require_once "lib/security.php";//grab mac address info, along with global prefe
 require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
-/*if ($ph_sec == 'Yes' && $registered == 'FALSE')
+if ($ph_sec == 'yes' && $registered == 'FALSE')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";
 
 } else
-*/
+
 if (isset($_GET['mem'])) {
 	// We are selecting a memo
 	$memID = defang_input($_GET['mem']);
@@ -41,7 +41,7 @@ if (isset($_GET['mem'])) {
 	if ($in = mysql_fetch_assoc($thememRES))
 	{
 		$xtpl=new XTemplate ("templates/memo_detail.xml");
-//		if ($access_lvl == 'Restricted')
+//		if ($access_lvl == 'Restricted' || $access_lvl == 'Obmedzene')
 //		{
 			$tmp_unixtime = $in['date'];
 			$displaydate = date("n/d, h:ia Y" ,$tmp_unixtime);

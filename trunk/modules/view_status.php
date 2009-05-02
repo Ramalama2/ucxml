@@ -103,30 +103,22 @@ function output_view_status ($myID_user, $myUsername)
 			elseif ($status_view == 'in')
 			{
                 //user wants to view people in the available, status
-                $loc_sql = "WHERE $xml->tuple->note = 'available'";
+                $loc_sql = "AND extractvalue(body, '//note')='available'";
                 $xtpl->assign("sel_all","");
                 $xtpl->assign("sel_in","selected");
                 $xtpl->assign("sel_out","");
 			}
-			elseif ($status_view == 'out')
-			{
-                //user wants to view people unavailable, status
-                $loc_sql = "WHERE $xml->tuple->note = 'unavailable'";
-                $xtpl->assign("sel_all","");
-                $xtpl->assign("sel_in","");
-				$xtpl->assign("sel_out","selected");
-	        }
-
 				$xtpl->parse("main.column");//show columns
 
-				if(($sock=fsockopen("5.5.6.12",5060,$errorno,$errorstr,60)))
+				if(($sock=fsockopen("5.5.6.12",3306,$errorno,$errorstr,60)))
 				{
-				$theSQL = "SELECT username,body FROM opensips.presentity WHERE username != '$myUsername'";
+				$theSQL = "SELECT username, extractvalue(body, '//note') AS note FROM opensips.presentity WHERE username !='$myUsername' 
+		AND extractvalue(body, '//basic')='open' $loc_sql";
 				$theRES = mysql_query($theSQL, $db);
 
 				$oddRow = true;
 	
-	            	while($in=mysql_fetch_object($theRES))
+	            	while($in=mysql_fetch_assoc($theRES))
 				{
                     if ($oddRow)
                     {
@@ -135,32 +127,22 @@ function output_view_status ($myID_user, $myUsername)
                             $xtpl->assign("bg","#DFDFDF");
                     }
 
-				$xml = simplexml_load_string($in->body);
-					if($xml->tuple->status->basic=="open")
-					{
-						$xtpl->assign ("username", $in->username);
-						$xtpl->assign ("status", "".$xml->tuple->note."");
-						//$xtpl->assign ("note", $in->body);
-					}
-					var_dump($xml);
+					$xtpl->assign ("username", $in['username']);
+					$xtpl->assign ("status", $in['note']);
+
 					$xtpl->parse("main.row");
 					$oddRow = !$oddRow;
 
 				}
 
-				$theSQL2 = "SELECT username,body FROM opensips.presentity WHERE username='$myUsername'";
+			$theSQL2 = "SELECT username, extractvalue(body, '//note') AS note FROM opensips.presentity WHERE username='$myUsername' 
+			AND extractvalue(body, '//basic')='open'";
 				$theRES2 = mysql_query($theSQL2, $db);
 
-
-		            	while($in2=mysql_fetch_object($theRES2))
+		            	if($in2=mysql_fetch_assoc($theRES2))
 				{
-					$xml = simplexml_load_string($in2->body);
-					if($xml->tuple->status->basic=="open")
-					{
-						$xtpl->assign ("my_username", $in2->username);
-						$xtpl->assign ("my_status", "".$xml->tuple->note."");
-						//$xtpl->assign ("my_note", $in2->$xml->tuple->note);
-					}
+					$xtpl->assign ("my_username", $in2['username']);
+					$xtpl->assign ("my_status", $in2['note']);
 				}
 
                 // Output

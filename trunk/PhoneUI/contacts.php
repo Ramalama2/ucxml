@@ -15,11 +15,11 @@ require_once "../lib/utils.php";
 require_once "../lib/mysql.php";
 
 require_once "lib/urlbase.php";
-//require_once "lib/security.php";//grab mac address info, along with global preferences
+require_once "lib/security.php";//grab mac address info, along with global preferences
 require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
-if ($ph_sec == 'Yes' && $registered == 'FALSE')
+if ($ph_sec == 'yes' && $registered == 'FALSE')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	//XML images cannot be templated with XTPL.
