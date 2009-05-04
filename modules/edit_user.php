@@ -15,7 +15,6 @@
 if (isset($_GET['id_user'])) $tmp_id_user = defang_input($_GET['id_user']);
 
 $user = "good"; //defaults user to good before chances of it beging invalid
-$domain = "zt.voip.cnl.tuke.sk";
 
 if (isset($_POST['action']) || isset($_GET['submit_delete']))
 {
@@ -71,17 +70,12 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 						WHERE id_contact ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL2, $db);
 
-                    $tmpUpdateSQL3 = "UPDATE phone SET
+		                    $tmpUpdateSQL3 = "UPDATE phone SET
 						nick = '$tmp_username'
 						WHERE id_phone ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL3, $db);
 
-                    $tmpUpdateSQL4 = "UPDATE phone SET
-						nick = '$tmp_username'
-						WHERE id_phone ='$tmp_id_user'";
-					mysql_query($tmpUpdateSQL3, $db);
-
-					header("Location: index.php?module=edit_user&id_user='$tmp_id_user'");
+					header("Location: index.php?module=edit_user&id_user=$tmp_id_user");
 				}
 			}
 		} else if (isset($_POST['submit_delete']) || $_GET['submit_delete'] == 'yes') {
@@ -134,7 +128,7 @@ function delete_user ($tmp_id_user)
 }
 
 //Create page and fill in known data
-function output_edit_user ($myID_user,$user)
+function output_edit_user ($myID_user, $user)
 {
 	include "language/lang.php";
 	global $db;

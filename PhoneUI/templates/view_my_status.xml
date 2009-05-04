@@ -1,9 +1,9 @@
 <!-- BEGIN: main -->
 <CiscoIPPhoneMenu>
-<Title>Your Status ({tmpyour})</Title>
+<Title>Moj stav ({tmpyour})</Title>
 
 	<MenuItem>
-		<Name>Back to Main Menu</Name>
+		<Name>Spat do hlavneho menu</Name>
 		<URL>{url_base}index.php?name={MAC}</URL>
 	</MenuItem>
 

@@ -82,7 +82,7 @@ if (isset($_POST['action']))
 
 				mysql_query($tmpUpdateSQL, $db);
 
-			header("Location: index.php?module=edit_user_contact&id_user='$tmp_id_contact'");// Saving
+			header("Location: index.php?module=edit_user_contact&id_user=$tmp_id_contact");// Saving
 			}
 	   else if (isset($_POST['submit_cancel_contact'])) {
 			// Cancel

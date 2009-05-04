@@ -41,18 +41,6 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 
 		$others_status = defang_input($_GET['others_status']);
 
-		if ($others_status == 'in')
-		{
-			//user wants to view people in the available, status
-			$loc_sql = "WHERE extractvalue(body, '//note') IN ('available', '') AND phone.access_lvl != 'unknown'";
-//		} elseif ($others_status == 'out') {
-//			//user wants to view people unavailable, status
-//			$loc_sql = "WHERE $xml->tuple->note = 'unavailable' AND phone.access_lvl != 'unknown'";
-		} else {
-			//user wants to view everyones' status
-			$loc_sql = "WHERE phone.access_lvl != 'unknown'";
-		}
-
 		$per_page = 31;//number of phones displayed on each page
 
 		if (isset($_GET['start']))
@@ -80,9 +68,13 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 		//Calc remaining rows
 		$remainingRows = ($totalCount - $start);
 
-		$browseQuery = "SELECT username FROM opensips.presentity
-				LEFT JOIN ucxml.phone ON ucxml.phone.nick=opensips.presentity.username
-				WHERE phone.MAC != '$urMAC'
+		$browseQuery = "SELECT opensips.presentity.username, 
+				ucxml.phone.nick AS nick,
+				ucxml.phone.number AS number, 
+				ucxml.phone.MAC AS urMAC
+				FROM opensips.presentity
+				LEFT JOIN ucxml.phone ON ucxml.phone.nick = opensips.presentity.username
+				WHERE ucxml.phone.MAC !=  '$urMAC'
 				ORDER BY opensips.presentity.username
 				$limitstart";
 		$theBrowseRES = mysql_query($browseQuery, $db);
@@ -111,12 +103,11 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 			$xtpl->assign("ID_phone",$urMAC);
 			$xtpl->parse("main.contact_menu");
 		}
-
+/*
 		if ($remainingRows > $per_page)
 		{
 			// There are more entries, show More
 			$start = $start + $per_page;
-
 
 			$xtpl->assign("start","$start");
 			$xtpl->assign("title","More");
@@ -130,12 +121,12 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 		if ($others_status == 'in')
 		{
 			$xtpl->assign("heading","Available (Currently ".$totalCount.")");
-		} elseif ($others_status == 'out') {
-			$xtpl->assign("heading","Unavailable (Currently ".$totalCount.")");
+//		} elseif ($others_status == 'out') {
+//			$xtpl->assign("heading","Unavailable (Currently ".$totalCount.")");
 		} else {
 			$xtpl->assign("heading","Show All (Currently ".$totalCount.")");
 		}
-
+*/
 		$xtpl->assign("prompt",$prompt);
 		$xtpl->parse("main");
 		$xtpl->out("main");
@@ -205,7 +196,8 @@ function show_status ($MAC,$urMAC)
 
 	$browseQuery = "SELECT presentity.username AS username,
 			extractvalue(body, '//note') AS note,
-			extractvalue(body, '//basic') AS basic
+			extractvalue(body, '//basic') AS basic,
+			ucxml.phone.number AS number
 			FROM opensips.presentity
 			LEFT JOIN ucxml.phone ON ucxml.phone.nick=opensips.presentity.username
 			WHERE phone.MAC ='$urMAC'";
@@ -258,8 +250,8 @@ if (mysql_num_rows($theContactRES) == 0)
 			$xtpl->assign("msg",$in['username']);
 		}
 
-//		$curphone = parse_phone($in['number']);
-//		$number = return_dial($curphone);
+		$curphone = parse_phone($in['number']);
+		$number = return_dial($curphone);
 
 //		$tmp_display = num2txt($in['away_msg']);
 
