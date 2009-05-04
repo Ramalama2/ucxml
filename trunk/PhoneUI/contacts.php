@@ -58,6 +58,7 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 		}
 
 		$xtpl=new XTemplate ("templates/contact_detail.xml");
+
 		$xtpl->assign("tmpTitle",$tmpTitle);
 		$xtpl->assign("nick",$tmpNick);
 

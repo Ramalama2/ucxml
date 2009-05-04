@@ -30,13 +30,13 @@ if (isset($_POST['action']))
 			$tmp_number = defang_input($_POST['number']);
 
                $tmpUpdateSQL = "UPDATE phone SET
-							MAC = '$tmp_MAC',
-							access_lvl = '$tmp_access_lvl',
-							number = '$tmp_number'
-							WHERE id_phone ='$tmp_id_phone'";
+					MAC = '$tmp_MAC',
+					access_lvl = '$tmp_access_lvl',
+					number = '$tmp_number'
+					WHERE id_phone ='$tmp_id_phone'";
 
-					mysql_query($tmpUpdateSQL, $db);
-					header("Location: index.php?module=edit_user_phone&id_user='$tmp_id_phone'");
+		mysql_query($tmpUpdateSQL, $db);
+		header("Location: index.php?module=edit_user_phone&id_user=$tmp_id_phone");
 
 		} else if (isset($_POST['submit_cancel_phone'])) {
 			// Cancel
@@ -67,7 +67,7 @@ function output_edit_user ($myID_user, $myID_phone)
 	$xtpl=new XTemplate ("modules/templates/edit_user_phone.html");
 	$xtpl->assign( 'LANG', $lang );
 
-    $theSQL = "SELECT id_user FROM users WHERE id_user='$myID_user'";
+	$theSQL = "SELECT id_user FROM users WHERE id_user='$myID_user'";
 	$theRES = mysql_query($theSQL, $db);
 	if ($in = mysql_fetch_assoc($theRES))
 	{

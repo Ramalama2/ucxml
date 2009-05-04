@@ -1,5 +1,5 @@
 <?php
-require_once ("../lib/refresh.php")
+//require_once ("../lib/refresh.php")
 
 echo "
 <CiscoIPPhoneGraphicMenu>

@@ -51,7 +51,7 @@ if (isset($_POST['action']))
 				//There is already a user with this name
 				render_HeaderFooter("UCxml web Portal - User Edit");
 				$user = "bad";
-				output_edit_user($tmp_id_user,$tmp_id_contact,$user);
+				output_edit_user($tmp_id_user,$user);
 				render_Footer();
 
 			} else {
@@ -59,11 +59,11 @@ if (isset($_POST['action']))
 				{
 					$tmpUpdateSQL = "UPDATE users SET
 						username = '$tmp_username',
-						$password_sql,
+						$password_sql
 						email = '$tmp_email'
 						WHERE id_user ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL, $db);
-					header("Location: index.php?module=menu");
+					header("Location: index.php?module=my_account");
 				}
 			}
 

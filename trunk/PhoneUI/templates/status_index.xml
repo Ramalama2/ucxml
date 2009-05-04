@@ -1,15 +1,15 @@
 <!-- BEGIN: main -->
 <CiscoIPPhoneMenu>
-<Title>User Status</Title>
+<Title>Stavy Pouzivatelov</Title>
 <Prompt>Select an Option</Prompt>
 
 	<MenuItem>
-		<Name>Show All Users</Name>
+		<Name>Zobraz vsetkych</Name>
 		<URL>{url_base}status.php?status_others_index=true&amp;name={MAC}</URL>
 	</MenuItem>
 
 	<MenuItem>
-		<Name>My Status</Name>
+		<Name>Moj stav</Name>
 		<URL>{url_base}status.php?view_my_status=true&amp;name={MAC}</URL>
 	</MenuItem>
 

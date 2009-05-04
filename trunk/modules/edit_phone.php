@@ -93,13 +93,13 @@ function output_edit_phone ($myID_phone)
 	{
 		$xtpl->assign("id_phone",$in['id_phone']);
 		$xtpl->assign("MAC",$in['MAC']);
-		if ($in['access_lvl'] == "Restricted" || $in['access_lvl'] == "Obmedzene")
+		if ($in['access_lvl'] == "Restricted" || "Obmedzene")
 		{
 			$xtpl->assign("selected_restricted","selected");
 			$xtpl->assign("selected_unrestricted","");
 			$xtpl->assign("selected_unknown","");
 
-		} else if ($in['access_lvl'] == "Unrestricted" || $in['access_lvl'] == "Neobmedzene"){
+		} else if ($in['access_lvl'] == "Unrestricted" || "Neobmedzene"){
 			$xtpl->assign("selected_restricted","");
 			$xtpl->assign("selected_unrestricted","selected");
 			$xtpl->assign("selected_unknown","");

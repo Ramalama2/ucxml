@@ -41,8 +41,8 @@ if (isset($_GET['mem'])) {
 	if ($in = mysql_fetch_assoc($thememRES))
 	{
 		$xtpl=new XTemplate ("templates/memo_detail.xml");
-//		if ($access_lvl == 'Restricted' || $access_lvl == 'Obmedzene')
-//		{
+		if ($access_lvl == 'Restricted' || $access_lvl == 'Obmedzene')
+		{
 			$tmp_unixtime = $in['date'];
 			$displaydate = date("n/d, h:ia Y" ,$tmp_unixtime);
 
@@ -51,10 +51,10 @@ if (isset($_GET['mem'])) {
 			$xtpl->assign("sender",$in['sender']);
 			$xtpl->assign("msg",$in['msg']);
 
-//		} else {
-//			//User did not meet security requirements to view memo
-//			$xtpl->assign("msg",'You must be using an Unrestricted phone to view this message');
-//		}
+		} else {
+			//User did not meet security requirements to view memo
+			$xtpl->assign("msg",'You must be using an Unrestricted phone to view this message');
+		}
 		$xtpl->parse("main");
 		$xtpl->out("main");
 	}
@@ -89,9 +89,14 @@ function list_memos ($MAC)
 			$limitstart = 'LIMIT 0,'.$per_page;
 		}
 
-	$countQuery = "SELECT
-		COUNT(memos.id_memo) AS total
-		FROM memos";
+	$countQuery = "SELECT count(*),
+   			CASE
+			WHEN (memos.receiver = '' AND memos.id_memo = memos_read.id_memo
+			 AND memos_read.receiver = '$my_nick')
+			THEN 0 ELSE 1
+			END AS total
+			FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
+			WHERE memos.receiver IN ('$my_nick','')";
 
 	$theCountRES = mysql_query($countQuery, $db);
 	//Fetch total items
@@ -125,6 +130,7 @@ function list_memos ($MAC)
 		memos.date AS date,
 		memos.sender AS sender
 		FROM memos
+		WHERE receiver IN ('$myNick', '') AND del_receiver = '0'
 		$memo_ob_sql
 		$limitstart";
 
@@ -141,8 +147,8 @@ function list_memos ($MAC)
 
 			while ($in2 = mysql_fetch_assoc($theBrowseRES))
 			{
-//				if ($access_lvl == 'Unrestricted')
-//				{
+				if ($access_lvl == 'Unrestricted' || 'Neobmedzene')
+				{
 					//User is registered
 					$tmp_unixtime = $in2['date'];
 					$displaydate = date("n/d-" ,$tmp_unixtime);
@@ -156,7 +162,7 @@ function list_memos ($MAC)
 					$xtpl->assign("MAC",$MAC);
 					$xtpl->assign("ID_memo",$in2['id_memo']);
 					$xtpl->parse("main.memo_menu");
-//				}
+				}
 			}
 
 	
