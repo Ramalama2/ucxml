@@ -12,13 +12,9 @@
 	<div id="right_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.STATUS_OPTIONS}</div></h3>
 	    <ul>
-		<li><a href="">Change my status</a></li>
-			<div style="padding-left:20px;padding-bottom:15px;">
-			<input type="submit" src="facebox" name="submit_add" value=" Change ">
-            		</div>
 		<li><a href=""> View users status</a></li>
 			<div style="padding-left:20px;">
-			<select name="status_view" size="1" onchange="GoTo(this);">
+			<select name="status_view" size="1">
 		          <option onclick="parent.location='?module=view_status&status_view=all'" {sel_all} value="all">- Show All -</option>
 		          <option onclick="parent.location='?module=view_status&status_view=in'" style="color: #00CC00" {sel_in} value="in">Available</option>
 		          <option onclick="parent.location='?module=view_status&status_view=out'" style="color: #9F9F9F;" {sel_out} value="out">Unavailable</option>
@@ -32,11 +28,10 @@
 <!-- my status -->
 	<div id="left_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_MYSTATUS}</div></h3>
-	<table width="560" bgcolor="#F6F6F6" border="1px">
+	<table width="550" bgcolor="#F6F6F6" border="1px">
 		<tr>
-          <td width="144">{my_username}</td>
-       	  <td width="144">{my_status}</td>
-		  <td width="144">{my_note}</td>
+          <td align="center" width="140">{my_username}</td>
+       	  <td width="310">{my_status}</td>
 		</tr>
 	</table>
 <p></p>
@@ -47,20 +42,18 @@
 	<div id="left_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_TABLE}</div></h3>
 {body}
-	 <table width="560" bgcolor="#F6F6F6" >
+	 <table width="550" bgcolor="#F6F6F6" >
        <!-- BEGIN: column -->
 	  <tr bgcolor="#DFDFDF" >
-	    <td align="center" width="107"><a href="index.php?module=view_status&ob=ob_n"><strong>{LANG.SITE_USER}</strong></a></td>
-	    <td align="center" width="35"><a href="index.php?module=view_status&ob=ob_status"><strong>{LANG.STATUS}</strong></a></td>
-	    <td align="center" width="224"><strong>{LANG.STATUS_MSG}</strong></td>
+	    <td align="center" width="140"><a href="index.php?module=view_status&ob=ob_n"><strong>{LANG.SITE_USER}</strong></a></td>
+	    <td align="center" width="310"><a href="index.php?module=view_status&ob=ob_status"><strong>{LANG.STATUS}</strong></a></td>
       </tr>
   <!-- END: column -->
 
   <!-- BEGIN: row -->
 	  <tr>
-	    <td bgcolor="{bg}">{username}</td>
+	    <td align= "center" bgcolor="{bg}">{username}</td>
 	    <td bgcolor="{bg}">{status}</td>
-	    <td bgcolor="{bg}">{note}</td>
 	  </tr>
   <!-- END: row -->
   </table></div>
