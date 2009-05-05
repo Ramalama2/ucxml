@@ -103,7 +103,7 @@ function output_view_status ($myID_user, $myUsername)
 			elseif ($status_view == 'in')
 			{
                 //user wants to view people in the available, status
-                $loc_sql = "AND extractvalue(body, '//note')='available'";
+                $loc_sql = "AND extractvalue(body, '//note') IN ('available', '')";
                 $xtpl->assign("sel_all","");
                 $xtpl->assign("sel_in","selected");
                 $xtpl->assign("sel_out","");
@@ -142,8 +142,14 @@ function output_view_status ($myID_user, $myUsername)
 		            	if($in2=mysql_fetch_assoc($theRES2))
 				{
 					$xtpl->assign ("my_username", $in2['username']);
-					$xtpl->assign ("my_status", $in2['note']);
-				}
+					if ($in2['note'] == '')
+					{
+					$xtpl->assign ("my_status", "Online");
+					}
+					else
+					{
+					$xtpl->assign ("my_status", $in2['note']);					}
+					}
 
                 // Output
                 $xtpl->parse("main");

@@ -130,7 +130,7 @@ function list_memos ($MAC)
 		memos.date AS date,
 		memos.sender AS sender
 		FROM memos
-		WHERE receiver IN ('$myNick', '') AND del_receiver = '0'
+		WHERE receiver IN ('admin', '') AND del_receiver = '0'
 		$memo_ob_sql
 		$limitstart";
 
@@ -147,7 +147,7 @@ function list_memos ($MAC)
 
 			while ($in2 = mysql_fetch_assoc($theBrowseRES))
 			{
-				if ($access_lvl == 'Unrestricted' || 'Neobmedzene')
+				if ($access_lvl == 'Unrestricted' || $access_lvl == 'Neobmedzene')
 				{
 					//User is registered
 					$tmp_unixtime = $in2['date'];
