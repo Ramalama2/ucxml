@@ -1,5 +1,7 @@
 <!-- BEGIN: main -->
 
+<body class="section-1">
+
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-status-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
@@ -7,19 +9,23 @@
 	</div>
 
 <div id="main">
+	<ul id="menu">
+  <li id="nav-1"><a href="index.php?module=view_status">{LANG.STATUS}</a></li>
+</ul>
 
+<div id="contents">
      <form action="" method="post" id="form1"  style="padding-left:20px">
 	<div id="right_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.STATUS_OPTIONS}</div></h3>
 	    <ul>
-		<li><a href=""> View users status</a></li>
+		<li><a href="">{LANG.STATUS_VIEW_STATUS}</a></li>
 			<div style="padding-left:20px;">
 			<select name="status_view" size="1">
 		          <option onclick="parent.location='?module=view_status&status_view=all'" {sel_all} value="all">- Show All -</option>
 		          <option onclick="parent.location='?module=view_status&status_view=in'" style="color: #00CC00" {sel_in} value="in">Available</option>
 		          <option onclick="parent.location='?module=view_status&status_view=out'" style="color: #9F9F9F;" {sel_out} value="out">Unavailable</option>
 			</select>
-			<input type="submit" name="save_view" value="Save View">
+			<input type="submit" name="save_view" value="{LANG.STATUS_SAVE_VIEW}">
 			</div>
 	    </ul>
 	</div>
@@ -28,7 +34,7 @@
 <!-- my status -->
 	<div id="left_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_MYSTATUS}</div></h3>
-	<table width="550" bgcolor="#F6F6F6" border="1px">
+	<table width="565" bgcolor="#F6F6F6" border="1px">
 		<tr>
           <td align="center" width="140">{my_username}</td>
        	  <td width="310">{my_status}</td>
@@ -42,7 +48,7 @@
 	<div id="left_side">
 	<h3><div style="background: url(images/logo-status-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.STATUS_TABLE}</div></h3>
 {body}
-	 <table width="550" bgcolor="#F6F6F6" >
+	 <table width="565" bgcolor="#F6F6F6" >
        <!-- BEGIN: column -->
 	  <tr bgcolor="#DFDFDF" >
 	    <td align="center" width="140"><a href="index.php?module=view_status&ob=ob_n"><strong>{LANG.SITE_USER}</strong></a></td>
@@ -58,6 +64,7 @@
   <!-- END: row -->
   </table></div>
 
+</div>
 </div>
 </div>
 </div>

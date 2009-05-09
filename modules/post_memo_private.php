@@ -1,9 +1,10 @@
 <?php
 /*
-	UCxml web Portal - Edit memos (IM)
+	UCxml web Portal - Post private memos (IM)
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 */
 
 
@@ -151,6 +152,7 @@ function output_view_memo ($myID_memo)
 	{
 		$tmp_unixtime = $in['date'];
 		$displaydate = date("l, F d, Y h:i" ,$tmp_unixtime);
+		$receiver_av = $in['receiver'];
 
 		$xtpl->assign("id_memo",$in['id_memo']);
 		$xtpl->assign("date",$displaydate);
@@ -159,19 +161,20 @@ function output_view_memo ($myID_memo)
 		$xtpl->assign("to",$in['receiver']);
 	}
 
-	$theSQL2 = "SELECT id_user,av FROM users WHERE username='$sender_av'";
+	$theSQL2 = "SELECT id_user,av FROM users WHERE username='$receiver_av'";
 	$theRES2 = mysql_query($theSQL2, $db);
 	if ($in = mysql_fetch_assoc($theRES2))
 	{
 	     $target="images/avatars/";
 
 		// if the user has a custom avatar, show their avatar, else show default avatar
-		if($in['av'])
+		if ($in['av'])
 		{
-       		$xtpl->assign("av", $target . ($in['av']? $in['id_user'] .'.'. $in['av'] : 'default.png'));
+	       	$av = $in['av'];
 		}
-}
 
+	      		$xtpl->assign("av", $target . ($av? $in['id_user'] .'.'. $av : 'default.png'));
+	}
 	// Output
 	$xtpl->parse ("view_memo");
 	$xtpl->out("view_memo");

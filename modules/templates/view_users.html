@@ -1,12 +1,20 @@
 <!-- BEGIN: main -->
 
+<body class="section-1">
+
 <div id="prec2">
+
 <div class="help">
 	<div style="background: #FFF url(images/logo-admin-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
         <p>{LANG.SITE_DESCRIPTION}</p>
     </div>
 
 <div id="main">
+	<ul id="menu">
+  <li id="nav-1"><a href="index.php?module=view_users">{LANG.SITE}</a></li>
+</ul>
+
+<div id="contents">
      <form action="" method="post" id="form1"  style="padding-left:20px">
 	<div id="right_side">
 	<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.SITE_OPTIONS}</div></h3>
@@ -22,12 +30,12 @@
 
 	<h3><div style="background: url(images/logo-admin-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.SITE_TABLE}</div></h3>
 
-	<table width="560" bgcolor="#F6F6F6" >
+	<table width="565" bgcolor="#F6F6F6" >
 	  <tr bgcolor="#DFDFDF" >
 	    <td align="center" width="135"><a href="index.php?module=view_users&ob=ob_username"><strong>{LANG.SITE_USER}</strong></a></td>
 	    <td align="center" width="136"><a href="index.php?module=view_users&ob=ob_email"><strong>{LANG.SITE_EMAIL}</strong></a></td>
-	    <td align="center" width="122"><a href="index.php?module=view_users&ob=ob_account_type"><strong>{LANG.SITE_ACCOUNTTYPE}</strong></a></td>
-	    <td width="69">&nbsp;&nbsp;</td>
+	    <td align="center" width="102"><a href="index.php?module=view_users&ob=ob_account_type"><strong>{LANG.SITE_ACCOUNTTYPE}</strong></a></td>
+	    <td width="89">&nbsp;&nbsp;</td>
          </tr>
 
 <!-- BEGIN: row -->
@@ -35,12 +43,13 @@
 	    <td bgcolor="{bg}"><a href="index.php?module=edit_user&id_user={id_user}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{username}</a></td>
 	    <td bgcolor="{bg}">{email}</td>
 	    <td bgcolor="{bg}">{account_type}</td>
-	    <td bgcolor="{bg}"><a href="index.php?module=edit_user&id_user={id_user}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.EDIT}</a>
+	    <td align="center" bgcolor="{bg}"><a href="index.php?module=edit_user&id_user={id_user}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.EDIT}</a>
         | <a href="index.php?module=edit_user&id_user={id_user}&submit_delete=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{delete}</a></td>
 	</tr>
 <!-- END: row -->
   </table></div>
 
+</div>
 </div>
 </div>
 </div>

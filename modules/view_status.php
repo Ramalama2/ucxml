@@ -1,9 +1,10 @@
 <?php
 /*
-	UCxml web Portal - View contacts
+	UCxml web Portal - View status
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);

@@ -5,6 +5,7 @@
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 
 	original idea:
 	Joe Hopkins <joe@csma.biz>
@@ -14,6 +15,7 @@
 session_start();
 require_once "lib/utils.php";
 require_once "lib/mysql.php";
+//require_once "lib/mysql2.php";
 require_once "lib/xtpl/xtemplate.class.php";
 
 // Check Login Status
@@ -42,6 +44,9 @@ if (isset($_SESSION['user_id']))
 		} elseif ($ModuleName == "view_status"){
 			require_once "modules/view_status.php";
 
+		} elseif ($ModuleName == "change_status"){
+			require_once "modules/change_status.php";
+
 		} elseif ($ModuleName == "view_memos"){
 			require_once "modules/view_memos.php";
 
@@ -61,19 +66,7 @@ if (isset($_SESSION['user_id']))
 			require_once "modules/post_memo_private.php";
 
 		} elseif ($ModuleName == "view_xcap"){
-			if ($_SESSION['account_type'] == 'Admin')
-			{
 				require_once "modules/view_xcap.php";
-			} else {
-				require_once "modules/not_admin.php";
-			}
-		} elseif ($ModuleName == "edit_xcap"){
-			if ($_SESSION['account_type'] == 'Admin')
-			{
-				require_once "modules/edit_xcap.php";
-			} else {
-				require_once "modules/not_admin.php";
-			}
 
 		} elseif ($ModuleName == "view_phones"){
 			if ($_SESSION['account_type'] == 'Admin')
@@ -171,7 +164,7 @@ function render_HeaderFooter ($mytitle)
 
     if ($_SESSION['account_type'] == 'Admin')
 	{
-        $checkSQL ="SELECT count(*) AS newmemo FROM memos
+        $checkSQL = "SELECT count(*) AS newmemo FROM memos
 		WHERE memos.receiver='$tmp_my_nick' AND memos.read = '0' AND memos.new = '1'";
 	}
 
@@ -186,7 +179,9 @@ function render_HeaderFooter ($mytitle)
 			FROM memos LEFT JOIN memos_read ON memos.id_memo = memos_read.id_memo
 			WHERE memos.receiver IN ('$tmp_my_nick','')";
 	}
+
 		$checkRES = mysql_query($checkSQL, $db);
+
 		if($in2 = mysql_fetch_assoc($checkRES))
 		{
 	   		$newmemo = $in2['newmemo'];

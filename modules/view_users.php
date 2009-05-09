@@ -4,6 +4,7 @@
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 
 	original idea:
 	Joe Hopkins <joe@csma.biz>
@@ -17,10 +18,12 @@ if (isset($_POST['submit_add']))
 	$tmp_owner = $_SESSION['user_id'];
 	$domain = "zt.voip.cnl.tuke.sk";
 
-	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('$tmp_id_user')";
+	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('".$tmp_id_user."')";
 	mysql_query("INSERT INTO contacts (id_contact,owner) VALUES ('".$tmp_id_user."','".$tmp_owner."')");
 	mysql_query("INSERT INTO phone (id_phone) VALUES ('".$tmp_id_user."')");
-	
+   	mysql_query("INSERT INTO opensips.xcap (domain) VALUES ('".$domain."')");
+	//$id = mysql_insert_id();
+
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{
 	// OK, show editor

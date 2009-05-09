@@ -19,10 +19,12 @@
 <script type="text/javascript">
     jQuery(document).ready(function($) {
 	    $('a[rel*=facebox]').facebox()
-		$("#Form").validate();
-});
 
+	$("#Form").validate();
+
+});
 </script>
+
 </head>
 
 <body>
@@ -51,7 +53,7 @@
 	<h2>{LANG.H2}</h2>
 
 	<div id="submenu" align="center" class="smallgraytext">
-		<a href="index.php">{LANG.HOME}</a>
+		<link><a href="index.php">{LANG.HOME}</a></link>
               | <a href="index.php?module=view_status&status_view={status_view}">{LANG.STATUS}</a>
               | <a href="index.php?module=view_memos">{LANG.MEMOS}</a>
               | <a href="../ucxml/chat/">Chat</a>
@@ -64,5 +66,5 @@
         <!-- END: admin_section -->
 	</div>
 </div>
-</div>
+	</div>
 <!-- END: main -->

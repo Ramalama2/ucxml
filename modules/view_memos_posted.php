@@ -1,9 +1,10 @@
 <?php
 /*
-	UCxml web Portal - View memos
+	UCxml web Portal - View private memos
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 */
 
 $tmp_id_user = defang_input($_SESSION['user_id']);
@@ -35,7 +36,7 @@ if (isset($_POST['submit_post_private']))
 } else {
 	//display memo listings
 	render_HeaderFooter("UCxml web Portal - Memo View");
-	output_view_memos($tmp_id_user, $tmp_my_nick);
+	output_view_memos_posted($tmp_id_user, $tmp_my_nick);
 	render_Footer();
 }
 
@@ -43,7 +44,7 @@ if (isset($_POST['submit_post_private']))
 //  FUNCTIONS
 //
 
-function output_view_memos($myID_user, $myNick)
+function output_view_memos_posted($myID_user, $myNick)
 {
 	include "language/lang.php";
 	global $db;

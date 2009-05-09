@@ -63,7 +63,7 @@ hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0;
 /* main area */
 #main { }
 #Form label { width: 250px; }
-#Form label.error { font-size: 9em; color: #FF0000; margin-left: 10px;  }
+#Form label.error { font-size: 0.9em; color: #FF0000; margin-left: 10px;  }
 
 #right_side { float: right; width: 180px; border: 1px solid #DCDCDC; background: #F6F6F6; padding: 5px 10px 5px 10px; margin-bottom: 10px; }
 #right_side ul { padding: 3px 0 8px 0; }
@@ -71,7 +71,7 @@ hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0;
 #right_side a { background: #F6F6F6; text-decoration:  none; }
 #right_side h3 { color: #404040; font:  bold 1.2em Arial, Sans-Serif; }
 
-#left_side { background: #F6F6F6; margin-bottom: 10px; width: 550px; border: 1px solid #DCDCDC;}
+#left_side { background: #F6F6F6; margin-bottom: 10px; width: 565px; border: 1px solid #DCDCDC;}
 #left_side td { font: 1.1em Arial, Helvetica, sans-serif;}
 #left_side a { text-decoration: none; font: 0.9em Arial, Helvetica, sans-serif;}
 #left_side a:hover {text-decoration: underline;text-align: center;font-size: 0.9em;}

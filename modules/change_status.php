@@ -4,6 +4,7 @@
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 */
 
 	$tmp_username = defang_input($_SESSION['user_name']);
