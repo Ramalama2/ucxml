@@ -80,12 +80,18 @@
 <!-- END: main -->
 
 <!-- BEGIN: view_memo -->
-<div >
-	  <p>{LANG.MEMOS_FOR} <strong>{to}</strong> {LANG.MEMOS_POSTED}: <strong>{date}</strong></p>
+<div style="width: 400px">
+	<div style="border-bottom: solid #ccc 1px;">
 	<div id="avatar">
 	<img src="{av}" title="Current Avatar" alt="avatar">
 	</div>
-		<table width="560" bgcolor="#F6F6F6" >
+	{LANG.MEMOS_FOR} <strong>{to}</strong>
+       <div style="float: right;">
+	   {LANG.MEMOS_POSTED}: <strong>{date}</strong>
+	</div>
+
+	</div>
+		<table width="400" bgcolor="#F6F6F6" >
 		<tr>
 		  <td width="91">{LANG.MEMOS_TITLE}:</td>
 		  <td><strong>{title}</strong></td>
@@ -97,5 +103,6 @@
 		</tr>
 
 		</table>
+
 </div>
 <!-- END: view_memo -->

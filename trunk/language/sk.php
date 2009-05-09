@@ -1,4 +1,11 @@
-<?php
+﻿<?php
+/*
+	UCxml web Portal - lang
+
+	Zoli Toth, FEI TUKE
+	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
+*/
 
 $sk = array(
 /* ------------- HEADER + FOOTER ------------- */
@@ -9,7 +16,7 @@ $sk = array(
 'LOGOUT' => 'Odhlásiť',
 'MESSAGES' => 'Správy',
 'HOME' => 'Domov',
-'STATUS' => 'Stav',
+'STATUS' => 'Stavy',
 'MEMOS' => 'Memo',
 'CHAT' => 'Chat',
 'CONTACTS' => 'Kontakty',
@@ -39,7 +46,7 @@ $sk = array(
 'USER_TAB_PHONE' => 'IP telefón',
 'USER_TAB_PHONE_EDIT' => 'Editácia Môjho telefónu',
 'USER_TAB_PHONE_EDIT_OPTIONS' => 'Možnosti pri editovaní Môjho telefónu',
-'USER_TAB_PHONE_EDIT_DESCRIPTION_2' => 'Informácie zoskupené pri zmene môjho webového používateľského konta. Mám možnosť vidieť svoju MAC (fyzickú adresu) telefónu a číslo.
+'USER_TAB_PHONE_EDIT_DESCRIPTION_2' => 'Informácie zoskupené pri zmene môjho webového používateľského konta. Mám možnosť vidieť svoju IP adresu telefónu a číslo.
 Tieto informácie nemôžu byť modifikované; ostatné áno:',
 'USER_TAB_PHONE_EDIT_DES_REFRESH' => 'Nastavenie času obnovenia stránky v telefónnom rozhraní',
 'USER_TAB_PHONE_EDIT_DES_SECURITY' => 'Zabezpečenie telefónu chráni neregistrované telefóny pred nahliadnutím do adresára. Ak telefónne zabezpečenie je vypnuté, všetky neregistrované telefóny budú mať prístup k objektom označeným ako "Verejné".',
@@ -55,8 +62,12 @@ Tieto informácie nemôžu byť modifikované; ostatné áno:',
 'USER_TAB_PHONE_DATE' => 'Dátum',
 'USER_TAB_PHONE_TITLE' => 'Názov',
 'USER_TAB_CONTACT' => 'Kontaktné info',
+'USER_TAB_CONTACT_EDIT' => 'Editácia Mojich kontaktných info',
+'USER_TAB_CONTACT_EDIT_OPTIONS' => 'Možnosti pri editovaní Mojich kontaktných info',
 'USER_TAB_ACCOUNT' => 'Môj účet',
 'USER_TAB_LANG' => 'Jazyk',
+'USER_TAB_LANG_DESCRIPTION' => 'Informácie pri zmene lokalizácie webového portálu:',
+'USER_TAB_LANG_DESCRIPTION2' => 'Zmena lokalizácie webového portálu',
 'USER_TAB_LANG_EDIT' => 'Editovanie Môjho jazyka',
 'USER_TAB_LANG_EDIT_OPTIONS' => 'Editovanie nastavenia Môjho jazyka',
 'USER_TAB_LANG_EN' => 'Angličtina',
@@ -88,7 +99,7 @@ Taktiež máte možnosť vidieť len používateľov s rovnakým stavom.',
 'STATUS_CHANGE' => 'Zmeniť Môj stav',
 'STATUS_TOSERVER' => 'Server',
 'STATUS_ON' => 'V',
-'STATUS_PORT' => 'portv',
+'STATUS_PORT' => 'port',
 'STATUS_AVAILABLE' => 'Dostupný',
 'STATUS_AWAY' => 'Preč',
 'STATUS_BUSY' => 'Zaneprázdnený',
@@ -96,6 +107,9 @@ Taktiež máte možnosť vidieť len používateľov s rovnakým stavom.',
 'STATUS_TABLE' => 'Tabuľka Stavov',
 'STATUS_OPTIONS' => 'Nastavenia stavu',
 'STATUS_MYSTATUS' => 'Môj Stav',
+'STATUS_VIEW_STATUS' => 'Zobraziť stavy',
+'STATUS_SAVE_VIEW' => 'Uložiť zmenu',
+
 
 /* ------------- MEMOS ------------- */
 'MEMOS_DESCRIPTION' => 'MEMO je textová správa, ktorá bude tiež zobrazená pod "MEMOS" sekciou na Cisco XML 79XX telefónoch v adresári.
@@ -120,11 +134,11 @@ Môžete editovať/vymazať memo alebo poslať nové súkromné Memo kliknutím 
 'MEMOS_EDIT_DESCRIPTION_TO' => 'Prijímateľ tohto Memo.',
 'MEMOS_EDIT' => 'Editovanie Memo',
 'MEMOS_EDIT_OPTIONS' => 'Možnosti pri posielaní Memo',
-'MEMOS_FROM' => 'Toto Memo je z',
+'MEMOS_FROM' => 'Toto Memo je od',
 'MEMOS_FOR' => 'Toto Memo je pre',
 'MEMOS_TITLE' => 'Názov',
 'MEMOS_MESSAGE' => 'Správa',
-'MEMOS_TO' => 'Do',
+'MEMOS_TO' => 'Komu',
 'MEMOS_SENDER' => 'Odosielateľ',
 'MEMOS_RECEIVER' => 'Prijímateľ',
 'MEMOS_POSTED' => 'Poslaný',
@@ -182,7 +196,7 @@ Ak kliknete na meno kontaktu, budete schopní vidieť viac informácií o kontak
 
 /* ------------- PHONES ------------- */
 'PHONES_DESCRIPTION' => 'Sekcia telefónnej registrácie vám ukáže zoznam všetkých telefónov, ktoré sú registrované.
-Telefóny sú registrované svojou MAC adresou. Stránka vám tiež ukáže telefóny, ktoré sa pokúšajú vstúpiť do adresára a ktoré nie sú registrované. Tieto telefóny budú označované ako "Neznáme".
+Telefóny sú registrované svojou IP adresou. Stránka vám tiež ukáže telefóny, ktoré sa pokúšajú vstúpiť do adresára a ktoré nie sú registrované. Tieto telefóny budú označované ako "Neznáme".
 Môžete editovať/Vymazať telefóny alebo pridať nové telefóny kliknutím na tlačítko Pridať.',
 'PHONES_DESCRIPTION_TABLES' => 'Sú 4 stĺpce tabuľky na telefónnej obrazovke:',
 'PHONES_DESCRIPTION_MAC' => 'Fyzická adresa telefónu',
@@ -196,12 +210,12 @@ Môžete editovať/Vymazať telefóny alebo pridať nové telefóny kliknutím n
 'PHONES_EDIT' => 'Editovať telefón',
 'PHONES_EDIT_OPTIONS' => 'Editovať Voľby telefónu',
 'PHONES_USED' => 'Telefón užívaný',
-'PHONES_MAC' => 'MAC adresa',
+'PHONES_MAC' => 'IP adresa',
 'PHONES_NUMBER' => 'Číslo telefónu',
 'PHONES_ACCESS' => 'Úroveň prístupu',
 'PHONES_PHONES' => 'Telefónne číslo',
 'PHONES_UNKNOWN' => 'Neznamy',
-'PHONES_RESTRICTED' => 'Obmedzene�',
+'PHONES_RESTRICTED' => 'Obmedzene©',
 'PHONES_UNRESTRICTED' => 'Neobmedzene',
 'PHONES_SAVE' => 'Uložiť a vytvoriť telefón',
 'PHONES_CANCEL' => 'Zrušíť telefón',

@@ -1,4 +1,5 @@
 <!-- BEGIN: main -->
+<body class="section-1">
 
 <div id="prec2">
 <div class="help">
@@ -6,7 +7,12 @@
 <p>{LANG.XCAP_DESCRIPTION}</p>
     </div>
 
-	<div id="main">
+<div id="main">
+	<ul id="menu">
+  <li id="nav-1"><a href="index.php?module=view_xcap">{LANG.XCAP}</a></li>
+</ul>
+
+<div id="contents">
 	 <form id="Form" method="post" action="">
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-xcap-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.XCAP_OPTIONS}</div></h3>
@@ -31,16 +37,17 @@
 
 	<div id="left_side">
 	<h3><div style="background: url(images/logo-xcap-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.XCAP_TABLE}</div></h3>
-		<table width="550" bgcolor="#F6F6F6" >
+		<table width="565" bgcolor="#F6F6F6" >
 		<p>{LANG.XCAP_OWNER} <strong>{owner}</strong></p>
 		<tr>
 		  <td><strong>{LANG.XCAP_DOC}:</strong></td>
-		  <td><textarea id="doc" size="50" name="doc" value="doc">{doc}</textarea></td>
+		  <td><textarea name="doc" cols="50" rows="18" value="doc">{doc}</textarea></td>
 		</tr>
 		</table>
 	</div>
 	</form>
 	</div>
+</div>
 </div>
 </div>
 

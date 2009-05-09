@@ -6,12 +6,12 @@ xmlns:cr="urn:ietf:params:xml:ns:common-policy">
 
 <cr:rule id="pres_whitelist">
 <cr:conditions><cr:identity>
-<cr:one id="sip:alice@ucxml.sk"/>
+<cr:one id="sip:admin@zt.voip.cnl.tuke.sk"/>
 <cr:one id="sip:bob@ucxml.sk"/>
 </cr:identity></cr:conditions>
 
 <cr:actions>
-<sub-handling>allow</sub-handling>
+<sub-handling>block</sub-handling>
 </cr:actions>
 
 <cr:transformations/>

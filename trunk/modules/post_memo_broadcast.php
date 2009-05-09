@@ -69,15 +69,16 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['rea
 			{
 				$theSQL = "SELECT memos_read.receiver FROM memos_read WHERE memos_read.receiver != '' AND memos_read.id_memo = '$tmp_id_memo'";
 				$theRES = mysql_query($theSQL, $db);
-				if ($in = mysql_fetch_assoc($theRES))
+				$in = mysql_fetch_assoc($theRES);
+				$row = mysql_fetch_row($theRES);
+				if ($in['receiver'] == $tmp_receiver)
 				{
-	                if ($in['receiver'] == $tmp_receiver)
+					output_view_memo($tmp_id_memo);
+				}
+					
+				elseif ($row == 0 || $in['receiver'] == '')
 					{
-						output_view_memo($tmp_id_memo);
-					}
-					else
-					{
-	            	$tmp_id_memo_read = create_guid($tmp_id_memo_read);
+			            	$tmp_id_memo_read = create_guid($tmp_id_memo_read);
 					$tmpInitSQL = "INSERT INTO memos_read (id_memo_read, id_memo)
 									VALUES ('$tmp_id_memo_read', '$tmp_id_memo')";
 
@@ -99,7 +100,7 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['rea
 						}
 					}
 	              	}
-                }
+              
 			}
 		} else {
 			// Action, but no valid submit button.
@@ -187,12 +188,14 @@ function output_view_memo ($myID_memo)
 	if ($in = mysql_fetch_assoc($theRES2))
 	{
 	     $target="images/avatars/";
-
+		
 		// if the user has a custom avatar, show their avatar, else show default avatar
-		if($in['av'])
+		if ($in['av'])
 		{
-       		$xtpl->assign("av", $target . ($in['av']? $in['id_user'] .'.'. $in['av'] : 'default.png'));
+	       	$av = $in['av'];
 		}
+
+	      		$xtpl->assign("av", $target . ($av? $in['id_user'] .'.'. $av : 'default.png'));
   }
 	// Output
 	$xtpl->parse ("view_memo");

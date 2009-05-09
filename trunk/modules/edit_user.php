@@ -4,6 +4,7 @@
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 
 	original idea:
 	Joe Hopkins <joe@csma.biz>
@@ -15,6 +16,27 @@
 if (isset($_GET['id_user'])) $tmp_id_user = defang_input($_GET['id_user']);
 
 $user = "good"; //defaults user to good before chances of it beging invalid
+$domain = "zt.voip.cnl.tuke.sk";
+$xcap = '<?xml version="1.0" encoding="UTF-8"?>
+<cr:ruleset
+xmlns="urn:ietf:params:xml:ns:pres-rules"
+xmlns:pr="urn:ietf:params:xml:ns:pres-rules"
+xmlns:cr="urn:ietf:params:xml:ns:common-policy">'.
+'\r\n'.
+'<cr:rule id="pres_whitelist">\r\n'.
+'<cr:conditions><cr:identity>\r\n'.
+'\r\n'.
+'<cr:one id="sip:admin@zt.voip.cnl.tuke.sk"/>\r\n'.
+'\r\n'.
+'</cr:identity></cr:conditions>\r\n'.
+'\r\n'.
+'<cr:actions>\r\n'.
+'<sub-handling>block</sub-handling>\r\n'.
+'</cr:actions>\r\n'.
+'\r\n'.
+'<cr:transformations/>\r\n'.
+'</cr:rule></cr:ruleset>\r\n'.
+"\r\n";
 
 if (isset($_POST['action']) || isset($_GET['submit_delete']))
 {
@@ -30,6 +52,9 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 			$tmp_username = defang_input($_POST['username']);
 			$unique_user_sql = "SELECT username,id_user FROM `users` WHERE username = '$tmp_username' AND id_user != '$tmp_id_user'";
 			$other_usernames = mysql_query($unique_user_sql, $db);
+
+//			$unique_xcap_sql = "SELECT username, domain FROM opensips.xcap WHERE domain = '$domain' AND username = ''";
+//			$xcap_username = mysql_query($unique_xcap_sql, $db);
 
 			$tmp_raw_password = defang_input($_POST['password0']);
 			$tmp_password = md5($tmp_raw_password);
@@ -70,11 +95,17 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']))
 						WHERE id_contact ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL2, $db);
 
-		                    $tmpUpdateSQL3 = "UPDATE phone SET
+                   			$tmpUpdateSQL3 = "UPDATE phone SET
 						nick = '$tmp_username'
 						WHERE id_phone ='$tmp_id_user'";
 					mysql_query($tmpUpdateSQL3, $db);
 
+					$tmpUpdateSQL4 = "UPDATE opensips.xcap SET
+								username = '$tmp_username',
+								doc = '$xcap',
+								doc_type = 1
+								WHERE domain = '$domain' AND username =''";
+					mysql_query($tmpUpdateSQL4, $db);
 					header("Location: index.php?module=edit_user&id_user=$tmp_id_user");
 				}
 			}
@@ -125,6 +156,9 @@ function delete_user ($tmp_id_user)
 
 	$sql3 = "DELETE FROM contacts WHERE id_contact='$tmp_id_user'";
 	$result3 = mysql_query($sql3);
+
+	$sql4 = "DELETE FROM opensips.xcap WHERE id=''";
+	$result4 = mysql_query($sql4);
 }
 
 //Create page and fill in known data

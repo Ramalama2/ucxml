@@ -1,4 +1,11 @@
 <?php
+/*
+	UCxml web Portal - lang
+
+	Zoli Toth, FEI TUKE
+	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
+*/
 
 $en = array(
 /* ------------- HEADER + FOOTER ------------- */
@@ -39,7 +46,7 @@ $en = array(
 'USER_TAB_PHONE' => 'Phone Info',
 'USER_TAB_PHONE_EDIT' => 'Edit My Phone',
 'USER_TAB_PHONE_EDIT_OPTIONS' => 'Edit My Phone Options',
-'USER_TAB_PHONE_EDIT_DESCRIPTION_2' => 'Information collected when editing my web user account. You can see your phone MAC (physical address) and number.
+'USER_TAB_PHONE_EDIT_DESCRIPTION_2' => 'Information collected when editing my web user account. You can see your phone IP address and number.
 These informations you can not modify. Others are:',
 'USER_TAB_PHONE_EDIT_DES_REFRESH' => 'Set refresh time in phone interface',
 'USER_TAB_PHONE_EDIT_DES_SECURITY' => 'Phone security prevents unregistered phones from viewing the directory. If phone
@@ -57,7 +64,11 @@ You may chronological order by Date or alphabetically order by Sender or Title.'
 'USER_TAB_PHONE_DATE' => 'Date',
 'USER_TAB_PHONE_TITLE' => 'Title',
 'USER_TAB_CONTACT' => 'Contact Info',
+'USER_TAB_CONTACT_EDIT' => 'Edit My Contact info',
+'USER_TAB_CONTACT_EDIT_OPTIONS' => 'Edit My contact info options',
 'USER_TAB_ACCOUNT' => 'My Account',
+'USER_TAB_LANG_DESCRIPTION' => 'Information collected when changing web portal localization',
+'USER_TAB_LANG_DESCRIPTION2' => 'Change Web portal localization',
 'USER_TAB_LANG' => 'Language',
 'USER_TAB_LANG_EDIT' => 'Edit My Language',
 'USER_TAB_LANG_EDIT_OPTIONS' => 'Edit My Language Options',
@@ -100,6 +111,9 @@ Also you can view only users which have same status.',
 'STATUS_TABLE' => 'Status Table',
 'STATUS_OPTIONS' => 'Status Options',
 'STATUS_MYSTATUS' => 'My Status',
+'STATUS_VIEW_STATUS' => 'View users status',
+'STATUS_SAVE_VIEW' => 'Save view',
+
 
 /* ------------- MEMOS ------------- */
 'MEMOS_DESCRIPTION' => 'A MEMO is a text message that will be displayed under the "MEMOS" section on the Cisco XML 79XX phones in the directory.
@@ -177,7 +191,7 @@ If you click on the Name of contact, you may able to view more information about
 
 /* ------------- XCAP ------------- */
 'XCAP_DESCRIPTION' => 'The PHONE REGISTRATION page will show you a list of all of the phones that have been registered.
-Phones are registered by their MAC address. The page will also show you the phones that have attempted to enter the directory that are not registered.
+Phones are registered by their IP address. The page will also show you the phones that have attempted to enter the directory that are not registered.
 These phones will be labeled as "Unkown".
 You can Edit/Delete phones or Add new phones by clicking Add button that will direct you to the phone creating page.',
 'XCAP_DESCRIPTION_TABLES' => 'There is a 4 column table on the Phones screen:',
@@ -190,7 +204,7 @@ You can Edit/Delete phones or Add new phones by clicking Add button that will di
 
 /* ------------- PHONES ------------- */
 'PHONES_DESCRIPTION' => 'The PHONE REGISTRATION page will show you a list of all of the phones that have been registered.
-Phones are registered by their MAC address. The page will also show you the phones that have attempted to enter the directory that are not registered.
+Phones are registered by their IP address. The page will also show you the phones that have attempted to enter the directory that are not registered.
 These phones will be labeled as "Unkown".
 You can Edit/Delete phones or Add new phones by clicking Add button that will direct you to the phone creating page.',
 'PHONES_DESCRIPTION_TABLES' => 'There is a 4 column table on the Phones screen:',
@@ -205,7 +219,7 @@ You can Edit/Delete phones or Add new phones by clicking Add button that will di
 'PHONES_EDIT' => 'Edit Phone',
 'PHONES_EDIT_OPTIONS' => 'Edit Phone Options',
 'PHONES_USED' => 'Phone used by',
-'PHONES_MAC' => 'MAC address',
+'PHONES_MAC' => 'IP address',
 'PHONES_NUMBER' => 'Phone Number',
 'PHONES_ACCESS' => 'Access Level',
 'PHONES_PHONES' => 'Phone Numbers',

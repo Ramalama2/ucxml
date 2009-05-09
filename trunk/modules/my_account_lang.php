@@ -1,9 +1,10 @@
 <?php
 /*
-	UCxml web Portal - My Account
+	UCxml web Portal - My Account lang
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 */
 
 //Checks if id is known, stores in variable
