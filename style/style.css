@@ -20,7 +20,7 @@ ul { margin: 0; padding : 0; list-style: none; }
 img { border: 0; }
 hr { height: 1px; border-style: none; color: #d0d0d0; background-color: #C0C0C0; margin: 10px 0; }
 
-.content { margin: 0px auto; width: 800px; }
+.header { margin: 0px auto; width: 800px; }
 .help { margin: 0px auto; width: 800px; padding-top: 10px;}
 
 /* Top part */

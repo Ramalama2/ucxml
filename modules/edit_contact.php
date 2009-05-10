@@ -153,6 +153,7 @@ function output_edit_contact ($myID_contact)
 		$xtpl->assign("member_of",$in['member_of']);
 		$xtpl->assign("lname",$in['lname']);
 		$xtpl->assign("fname",$in['fname']);
+		$xtpl->assign("nick",$in['nick']);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("office_phone",$in['office_phone']);
 		$xtpl->assign("home_phone",$in['home_phone']);
@@ -241,6 +242,7 @@ function output_view_contact ($myID_contact)
 		$xtpl->assign("member_of",$in['member_of']);
 		$xtpl->assign("lname",$in['lname']);
 		$xtpl->assign("fname",$in['fname']);
+		$xtpl->assign("nick",$in['nick']);
 		$xtpl->assign("title",$in['title']);
 		$xtpl->assign("office_phone",$in['office_phone']);
 		$xtpl->assign("home_phone",$in['home_phone']);
