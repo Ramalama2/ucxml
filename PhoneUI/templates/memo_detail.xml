@@ -3,5 +3,17 @@
 	<Title>{title}</Title>
 	<Prompt>By: {sender} - {date}</Prompt>
 	<Text>{msg}</Text>
+	<SoftKeyItem>
+		<Position>1</Position>
+ 		<Name>Zmazat</Name>
+		<URL>{url_base}memos.php?mem_del={ID_memo}&amp;name={MAC}</URL>
+	</SoftKeyItem>
+
+	<SoftKeyItem>
+		<Position>3</Position>
+ 		<Name>Exit</Name>
+		<URL>SoftKey:Exit</URL>
+	</SoftKeyItem>
 </CiscoIPPhoneText>
+
 <!-- END: main -->

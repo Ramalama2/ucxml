@@ -1,9 +1,10 @@
 <?php
 /*
-	UCxml PhoneUI - memos
+	UCxml PhoneUI - browse memos
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 
 	original idea:
 	Joe Hopkins <joe@csma.biz>
@@ -29,6 +30,7 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 if (isset($_GET['mem'])) {
 	// We are selecting a memo
 	$memID = defang_input($_GET['mem']);
+
 	$memQuery = "SELECT
 	memos.date AS date,
 	memos.id_memo AS id_memo,
@@ -36,12 +38,17 @@ if (isset($_GET['mem'])) {
 	memos.msg AS msg,
 	memos.sender AS sender
 	FROM memos WHERE memos.id_memo='$memID'";
+
 	$thememRES = mysql_query($memQuery, $db);
 
 	if ($in = mysql_fetch_assoc($thememRES))
 	{
+
+		$tmpUpdateSQL = "UPDATE memos SET memos.read ='1' WHERE memos.receiver='$my_nick' AND memos.id_memo ='$memID'";
+            		mysql_query($tmpUpdateSQL, $db);
+
 		$xtpl=new XTemplate ("templates/memo_detail.xml");
-		if ($access_lvl == 'Restricted' || $access_lvl == 'Obmedzene')
+		if ($access_lvl == 'Unrestricted')
 		{
 			$tmp_unixtime = $in['date'];
 			$displaydate = date("n/d, h:ia Y" ,$tmp_unixtime);
@@ -55,9 +62,19 @@ if (isset($_GET['mem'])) {
 			//User did not meet security requirements to view memo
 			$xtpl->assign("msg",'You must be using an Unrestricted phone to view this message');
 		}
+
 		$xtpl->parse("main");
 		$xtpl->out("main");
+
 	}
+elseif (isset($_GET['mem_del'])) {
+	$tmpUpdateSQL = "UPDATE memos SET memos.del_receiver ='1' WHERE memos.receiver='$my_nick' AND memos.id_memo ='$memID'";
+            if (mysql_query($tmpUpdateSQL, $db))
+		{
+			list_memos ($MAC);
+		}
+}
+
 } else {
 	list_memos ($MAC);
 }
@@ -116,7 +133,7 @@ function list_memos ($MAC)
 		if ($memo_ob == "date")
 		{
 			//global says to order by date, make order DESC, to show the oldest first
-			$memo_ob_sql = "ORDER BY $memo_ob. DESC";
+			$memo_ob_sql = "ORDER BY $memo_ob. ASC";
 		} else {
 			//global says to order by sender or title, dont need to order by DESC
 			$memo_ob_sql = "ORDER BY $memo_ob";
@@ -130,7 +147,7 @@ function list_memos ($MAC)
 		memos.date AS date,
 		memos.sender AS sender
 		FROM memos
-		WHERE receiver IN ('$myNick', '') AND del_receiver = '0'
+		WHERE receiver IN ('$my_nick', '') AND del_receiver = '0'
 		$memo_ob_sql
 		$limitstart";
 
@@ -147,7 +164,7 @@ function list_memos ($MAC)
 
 			while ($in2 = mysql_fetch_assoc($theBrowseRES))
 			{
-				if ($access_lvl == 'Unrestricted' || 'Neobmedzene')
+				if ($access_lvl == 'Unrestricted' || $access_lvl == 'Neobmedzene')
 				{
 					//User is registered
 					$tmp_unixtime = $in2['date'];
@@ -187,7 +204,4 @@ function list_memos ($MAC)
 		require_once "templates/img_empty_cont.php";
 	}
 }
-
-
-
 ?>
