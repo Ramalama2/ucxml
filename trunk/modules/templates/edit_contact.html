@@ -23,7 +23,6 @@
         </ul>
 	</div>
 
-	<div id="main">
       <form id="Form" method="post" action="">
 	  <div id="right_side">
 	    <h3><div style="background: url(images/logo-contacts-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0"></div>{LANG.CONTACTS_EDIT_OPTIONS}</h3>
@@ -88,6 +87,11 @@
       </tr>
 
       <tr>
+        <td><label for ="nick"><strong>{LANG.SITE_USER} ({LANG.REQUIRED}): </strong></label></td>
+        <td><input id ="nick" class="required" type="text" name="lname" size="25" minlength="2" maxlength="30" value="{nick}"></td>
+      </tr>
+
+      <tr>
         <td><strong>{LANG.CONTACTS_TITLE}:</strong></td>
         <td><input type="text" name="title" size="25" maxlength="50" value="{title}"></td>
       </tr>
@@ -131,15 +135,22 @@
 	</div>
 
 </div>
-</div>
 <!-- END: main -->
 
 <!-- BEGIN: view_contact -->
-	  <p>{LANG.CONTACTS_FROM} <strong>{owner}</strong> {LANG.AT}: <strong>{date}</strong></p>
-	    <table width="560" bgcolor="#F6F6F6" >
+<div style="width: 400px">
+	<div style="border-bottom: solid #ccc 1px;">
+	{LANG.CONTACTS_FROM} <strong>{owner}</strong>
+       <div style="float: right;">
+	   {LANG.AT}: <strong>{date}</strong>
+	</div>
+
+	</div>
+	  
+    <table width="400" bgcolor="#F6F6F6" >
     	<tr>
-        <td width="144">{LANG.CONTACTS_MEMBER_OF}: </td>
-        <td width="404"><strong>{member_of}</strong></td>
+        <td width="100">{LANG.CONTACTS_MEMBER_OF}: </td>
+        <td width="300"><strong>{member_of}</strong></td>
 		</tr>
 
       <tr>
@@ -155,6 +166,10 @@
         <td>{LANG.CONTACTS_LNAME}: </td>
         <td><strong>{lname}</strong></td>
       </tr>
+      <tr>
+        <td>{LANG.SITE_USER}: </td>
+        <td><strong>{nick}</strong></td>
+      </tr>
 
       <tr>
         <td>{LANG.CONTACTS_TITLE}: </td>
@@ -167,34 +182,35 @@
       </tr>
 
       <tr>
-        <td width="25"><strong>{LANG.CONTACTS_PHONES}</strong></td>
+        <td width="20"><strong>{LANG.CONTACTS_PHONES}</strong></td>
         <td>&nbsp;</td>
       </tr>
 
       <tr>
-        <td width="25">{LANG.CONTACTS_OFFICE}:</td>
+        <td width="20">{LANG.CONTACTS_OFFICE}:</td>
         <td><strong>{office_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">{LANG.CONTACTS_HOME}:</td>
+        <td width="20">{LANG.CONTACTS_HOME}:</td>
         <td><strong>{home_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">{LANG.CONTACTS_CELL}:</td>
+        <td width="20">{LANG.CONTACTS_CELL}:</td>
         <td><strong>{cell_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">{LANG.CONTACTS_OTHER}:</td>
+        <td width="20">{LANG.CONTACTS_OTHER}:</td>
         <td><strong>{other_phone}</strong></td>
       </tr>
 
       <tr>
-        <td width="25">{custom_phone}:</td>
+        <td width="20">{custom_phone}:</td>
         <td><strong>{custom_number}</strong></td>
       </tr>
 
   </table>
+</div>
 <!-- END: view_contact -->

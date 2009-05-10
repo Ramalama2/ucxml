@@ -13,30 +13,28 @@ window.location.reload()
 <div id="prec2">
 <div class="help">
 	<div style="background: #FFF url(images/logo-memos-96x96.png) no-repeat left; padding-left: 100px; min-height: 100px; margin-bottom: 15px;">
-        <p>{LANG.MEMOS_DESCRIPTION}</p>
+	<p>{LANG.MEMOS_DESCRIPTION}</p>
 </div>
 
 
-<div id="main">
-	<ul id="menu">
-  <li id="nav-1"><a href="index.php?module=view_memos">{LANG.MEMOS_TAB_RECEIVED}</a></li>
-  <li id="nav-2"><a href="index.php?module=view_memos_posted">{LANG.MEMOS_TAB_POSTED}</a></li>
-  <li id="nav-3"><a href="index.php?module=view_memos_broadcast">{LANG.MEMOS_TAB_BROADCAST}</a></li>
+<ul id="menu">
+	<li id="nav-1"><a href="index.php?module=view_memos">{LANG.MEMOS_TAB_RECEIVED}</a></li>
+	<li id="nav-2"><a href="index.php?module=view_memos_posted">{LANG.MEMOS_TAB_POSTED}</a></li>
+	<li id="nav-3"><a href="index.php?module=view_memos_broadcast">{LANG.MEMOS_TAB_BROADCAST}</a></li>
 </ul>
 
 <div id="contents">
-
-     <form action="" method="post" id="form1"  style="padding-left:20px">
-	<div id="right_side">
+<div id="right_side">
+     <form action="" method="post" id="form1">
 	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.MEMOS_OPTIONS}</div></h3>
 		<ul>
 			<li><a href="">{LANG.MEMOS_WRITE_PRIVATE}</a></li>
-           	<div style="padding-left:20px;padding-bottom:15px;">
-			<input type="submit" name="submit_post_private" value="{LANG.WRITE}" />
+		           	<div style="padding-left:20px;">
+				<input type="submit" name="submit_post_private" value="{LANG.WRITE}" />
 			</div>
 		</ul>
-	</div>
     </form>
+</div>
 
 <div id="left_side">
     <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.MEMOS_RECEIVER_TABLE}</div></h3>
@@ -63,7 +61,8 @@ window.location.reload()
 
 </div>
 
-</div>
+
+<div id="patka" style = "clear:both;"></div>
 </div>
 </div>
 </div>

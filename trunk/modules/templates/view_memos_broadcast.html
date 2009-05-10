@@ -17,8 +17,7 @@ window.location.reload()
 	</div>
 
 
-<div id="main">
-	<ul id="menu">
+<ul id="menu">
   <li id="nav-1"><a href="index.php?module=view_memos">{LANG.MEMOS_TAB_RECEIVED}</a></li>
   <li id="nav-2"><a href="index.php?module=view_memos_posted">{LANG.MEMOS_TAB_POSTED}</a></li>
   <li id="nav-3"><a href="index.php?module=view_memos_broadcast">{LANG.MEMOS_TAB_BROADCAST}</a></li>
@@ -26,19 +25,19 @@ window.location.reload()
 
 <div id="contents">
 
-     <form action="" method="post" id="form1"  style="padding-left:20px">
+<!-- BEGIN: admin_broadcast -->
+     <form action="" method="post" id="form1">
 	<div id="right_side">
 	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.MEMOS_OPTIONS}</div></h3>
 		<ul>
-			<!-- BEGIN: admin_broadcast -->
 			<li><a href="">{LANG.MEMOS_WRITE_BROADCAST}</a></li>
-           	<div style="padding-left:20px;padding-bottom:15px;">
+		           	<div style="padding-left:20px;">
 			<input type="submit" name="submit_post" value="{LANG.WRITE}" />
             </div>
-			<!-- END: admin_broadcast -->
 		</ul>
 	</div>
     </form>
+<!-- END: admin_broadcast -->
 
 <div id="left_side">
     <h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; margin-left: 10px; margin-bottom: 10px; padding-left: 25px; margin-top: 5px; line-height: 22px;">{LANG.MEMOS_BROADCAST_TABLE}</div></h3>
@@ -47,10 +46,10 @@ window.location.reload()
 	<tr bgcolor="#DFDFDF" >
 		<td align="center" width="115"><strong>{LANG.MEMOS_TITLE}</strong></td>
 		<td align="center" width="106"><a href="index.php?module=view_memos&amp;ob=ob_sender"><strong>{LANG.MEMOS_SENDER}</strong></a></td>
-		<td align="center" width="122"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>{LANG.MEMOS_DATE}</strong></a></td>
+		<td align="center" width="102"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>{LANG.MEMOS_DATE}</strong></a></td>
 		<td align="center" width="132"><strong>{LANG.MEMOS_MESSAGE}</strong></td>
 		<!-- BEGIN: admin_edit_del -->
-	    <td width="75">&nbsp;&nbsp;</td>
+	    <td align="center" width="95">&nbsp;&nbsp;</td>
 		<!-- END: admin_edit_del -->
 	</tr>
 
@@ -69,8 +68,8 @@ window.location.reload()
   </table>
 
 </div>
+<div id="both" style = "clear:both;"></div>
 
-</div>
 </div>
 </div>
 </div>

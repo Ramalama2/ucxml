@@ -8,7 +8,6 @@
         <p>{LANG.MEMOS_DESCRIPTION}</p>
 	</div>
 
-<div id="main">
 	<ul id="menu">
   <li id="nav-1"><a href="index.php?module=view_memos">{LANG.MEMOS_TAB_RECEIVED}</a></li>
   <li id="nav-2"><a href="index.php?module=view_memos_posted">{LANG.MEMOS_TAB_POSTED}</a></li>
@@ -17,12 +16,12 @@
 
 <div id="contents">
 
-     <form action="" method="post" id="form1"  style="padding-left:20px">
+     <form action="" method="post" id="form1">
 	<div id="right_side">
 	<h3><div style="background: url(images/logo-memos-16x16.png) no-repeat left; padding: 1px 10px 0 23px; line-height: 22px; margin: 0">{LANG.MEMOS_OPTIONS}</div></h3>
 		<ul>
 			<li><a href="">{LANG.MEMOS_WRITE_PRIVATE}</a></li>
-	            	<div style="padding-left:20px;padding-bottom:15px;">
+	            	<div style="padding-left:20px;">
 			<input type="submit" name="submit_post_private" value="{LANG.WRITE}" />
     	        	</div>
 		</ul>
@@ -36,9 +35,9 @@
 	<tr bgcolor="#DFDFDF" >
 		<td align="center" width="115"><strong>{LANG.MEMOS_TITLE}</strong></td>
 		<td align="center" width="106"><a href="index.php?module=view_memos&amp;ob=ob_receiver"><strong>{LANG.MEMOS_RECEIVER}</strong></a></td>
-		<td align="center" width="122"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>{LANG.MEMOS_DATE}</strong></a></td>
+		<td align="center" width="102"><a href="index.php?module=view_memos&amp;ob=ob_date"><strong>{LANG.MEMOS_DATE}</strong></a></td>
 		<td align="center" width="132"><strong>{LANG.MEMOS_MESSAGE}</strong></td>
-		<td width="75">&nbsp;&nbsp;</td>
+		<td width="95">&nbsp;&nbsp;</td>
 	</tr>
 
   <!-- BEGIN: row_send -->
@@ -47,14 +46,14 @@
 		<td bgcolor="{bg}">{receiver}</td>
 		<td bgcolor="{bg}">{date}</td>
 		<td bgcolor="{bg}">{msg}</td>
-		<td bgcolor="{bg}"><a href="index.php?module=post_memo_private&id_memo={id_memo}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.EDIT}</a>
-        |<a href="index.php?module=post_memo_private&amp;id_memo={id_memo}&amp;delete_memo_sender=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.DELETE}</a></td>
+		<td align="center" bgcolor="{bg}"><a href="index.php?module=post_memo_private&id_memo={id_memo}" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.EDIT}</a>
+        | <a href="index.php?module=post_memo_private&amp;id_memo={id_memo}&amp;delete_memo_sender=yes" onClick="return confirmSubmit();" style="text-decoration: none;" onMouseOver="this.style.textDecoration='underline';" onMouseOut="this.style.textDecoration='none';">{LANG.DELETE}</a></td>
 	</tr>
   <!-- END: row_send -->
   </table>
 </div>
+<div id="both" style = "clear:both;"></div>
 
-</div>
 </div>
 </div>
 </div>
