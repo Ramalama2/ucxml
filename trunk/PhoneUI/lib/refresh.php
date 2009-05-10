@@ -1,10 +1,11 @@
 <?php
 
 /*
-	UCxml PhoneUI - refresh url pages
+	UCxml PhoneUI - phone refresh
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 */
 
 require_once "urlbase.php";

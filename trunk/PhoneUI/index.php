@@ -21,7 +21,7 @@ require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
 
-if ($account_type == 'Admin')
+if ($ph_sec == 'yes' && $registered == 'FALSE')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";

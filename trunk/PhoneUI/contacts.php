@@ -1,9 +1,10 @@
 <?php
 /*
-	UCxml PhoneUI - browse menu items
+	UCxml PhoneUI - browse contacts
 
 	Zoli Toth, FEI TUKE
 	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
 
 	original idea:
 	Joe Hopkins <joe@csma.biz>
