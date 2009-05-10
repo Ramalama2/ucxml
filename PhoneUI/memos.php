@@ -48,7 +48,7 @@ if (isset($_GET['mem'])) {
             		mysql_query($tmpUpdateSQL, $db);
 
 		$xtpl=new XTemplate ("templates/memo_detail.xml");
-		if ($access_lvl == 'Unrestricted')
+		if ($access_lvl == 'Unrestricted' || $access_lvl == 'Neobmedzene')
 		{
 			$tmp_unixtime = $in['date'];
 			$displaydate = date("n/d, h:ia Y" ,$tmp_unixtime);

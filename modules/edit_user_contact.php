@@ -71,7 +71,6 @@ if (isset($_POST['action']))
 				display_name= '$tmpTitle',
 				fname='$tmp_fname',
 				lname='$tmp_lname',
-				nick='$tmp_nick',
 				title='$tmp_title',
 				office_phone='$tmp_office_phone',
 				home_phone='$tmp_home_phone',
@@ -81,10 +80,9 @@ if (isset($_POST['action']))
 				other_phone='$tmp_other_phone'
 				WHERE id_contact='$tmp_id_contact'";
 
-				mysql_query($tmpUpdateSQL, $db);
-
-			header("Location: index.php?module=edit_user_contact&id_user=$tmp_id_contact");// Saving
-			}
+				if (mysql_query($tmpUpdateSQL, $db))
+				header("Location: index.php?module=edit_user_contact&id_user=$tmp_id_contact"); // Saving
+	}
 	   else if (isset($_POST['submit_cancel_contact'])) {
 			// Cancel
 			header("Location: index.php?module=view_users");
@@ -111,9 +109,10 @@ if (isset($_POST['action']))
 function output_edit_user ($myID_user, $myID_contact)
 {
 	include "language/lang.php";
-	global $db, $xtpl;
+	global $db, $xtp;
 	$xtpl=new XTemplate ("modules/templates/edit_user_contact.html");
 	$xtpl->assign( 'LANG', $lang );
+
 
 	$theSQL = "SELECT id_user FROM users WHERE id_user='$myID_user'";
 	$theRES = mysql_query($theSQL, $db);

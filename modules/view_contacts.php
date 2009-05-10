@@ -16,7 +16,7 @@ if (isset($_POST['submit_add']))
 {
 	// add contact
 	$tmp_id_contact = create_guid($tmp_id_contact);
-    $tmp_owner = $_SESSION['user_id'];
+	$tmp_owner = $_SESSION['user_id'];
 	$tmpInitSQL = "INSERT INTO contacts (id_contact, owner) VALUES ('$tmp_id_contact','$tmp_owner')";
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
 	{

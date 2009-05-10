@@ -39,7 +39,6 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['vie
 			$tmp_custom_number = defang_input($_POST['custom_number']);
 			$tmp_cell_phone = defang_input($_POST['cell_phone']);
 			$tmp_other_phone = defang_input($_POST['other_phone']);
-			$tmp_owner = defang_input($_POST['owner']);
 
 			//Create clean name for display_name column in contacts table.
 			//This is the name used to order and display the contacts on the phone UI
@@ -84,7 +83,6 @@ if (isset($_POST['action']) || isset($_GET['submit_delete']) || isset($_GET['vie
 				$custom_phone_sql
 				custom_number='$tmp_custom_number',
 				cell_phone='$tmp_cell_phone',
-				owner='$tmp_owner',
 				other_phone='$tmp_other_phone'
 				WHERE id_contact='$tmp_id_contact'";
 

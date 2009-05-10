@@ -16,12 +16,32 @@ if (isset($_POST['submit_add']))
 	// add user
 	$tmp_id_user = create_guid($tmp_id_user);
 	$tmp_owner = $_SESSION['user_id'];
-	$domain = "zt.voip.cnl.tuke.sk";
+$domain = "zt.voip.cnl.tuke.sk";
+$xcap = '<?xml version="1.0" encoding="UTF-8"?>
+<cr:ruleset
+xmlns="urn:ietf:params:xml:ns:pres-rules"
+xmlns:pr="urn:ietf:params:xml:ns:pres-rules"
+xmlns:cr="urn:ietf:params:xml:ns:common-policy">'.
+'\r\n'.
+'<cr:rule id="pres_whitelist">\r\n'.
+'<cr:conditions><cr:identity>\r\n'.
+'\r\n'.
+'<cr:one id="sip:admin@zt.voip.cnl.tuke.sk"/>\r\n'.
+'\r\n'.
+'</cr:identity></cr:conditions>\r\n'.
+'\r\n'.
+'<cr:actions>\r\n'.
+'<sub-handling>block</sub-handling>\r\n'.
+'</cr:actions>\r\n'.
+'\r\n'.
+'<cr:transformations/>\r\n'.
+'</cr:rule></cr:ruleset>\r\n'.
+"\r\n";
 
 	$tmpInitSQL = "INSERT INTO users (id_user) VALUES ('".$tmp_id_user."')";
 	mysql_query("INSERT INTO contacts (id_contact,owner) VALUES ('".$tmp_id_user."','".$tmp_owner."')");
 	mysql_query("INSERT INTO phone (id_phone) VALUES ('".$tmp_id_user."')");
-   	mysql_query("INSERT INTO opensips.xcap (domain) VALUES ('".$domain."')");
+   	mysql_query("INSERT INTO opensips.xcap (domain, doc) VALUES ('".$domain."', '$xcap')");
 	//$id = mysql_insert_id();
 
 	if ($tmpInitRES = mysql_query($tmpInitSQL, $db))
