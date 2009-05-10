@@ -1,4 +1,16 @@
 <?php
+/*
+	UCxml PhoneUI - index
+
+	Zoli Toth, FEI TUKE
+	Unified Communications solution with Open Source applications - UCxml
+	source code: http://ucxml.googlecode.com
+
+	original idea:
+	Joe Hopkins <joe@csma.biz>
+	Copyright (c) 2005, McFadden Associates.  All rights reserved.
+*/
+
 require_once "../lib/xtpl/xtemplate.class.php";
 require_once "../lib/utils.php";
 require_once "../lib/mysql.php";
@@ -9,7 +21,7 @@ require_once "lib/headers.php";
 require_once "lib/refresh.php";
 
 
-if ($ph_sec == 'yes' && $registered == 'FALSE')
+if ($account_type == 'Admin')
 {
 	//Security to stop unregistered users from going any further if 'Phone Security' is on.
 	require_once "templates/img_sec_breach.php";
@@ -26,8 +38,8 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 		if ($nm['total'] == '0')
 		{
 			
-//				MAC is not in database or it is not a valid MAC
-//				add MAC address to database, but do not give privileges, label as unknown
+//			MAC is not in database or it is not a valid MAC
+//			add MAC address to database, but do not give privileges, label as unknown
 			
 			$tmp_id_phone = create_guid($tmp_id_phone);
 			$tmpInitSQL = "INSERT INTO phone (id_phone,MAC,access_lvl) VALUES ('$tmp_id_phone','$MAC','unknown')";
@@ -49,7 +61,7 @@ if ($ph_sec == 'yes' && $registered == 'FALSE')
 
 function newMemo()
 {
-    global $refresh;
+	global $refresh;
 	global $URLBase;
 
 	// prehrat zvuk a presmerovat na URL obrazovky SMSiek
