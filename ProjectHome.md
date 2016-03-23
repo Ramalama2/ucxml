@@ -1,0 +1,1 @@
+This project is my master thesis. Include some elements from Unified Communications written in php and other scripting language (html, css, sql, ajax, jQuery).
